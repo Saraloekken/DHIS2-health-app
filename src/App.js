@@ -18,7 +18,7 @@ const MyApp = () => (
                 return (
                     <>
                         <h1>
-                            {i18n.t('Hi {{name}}', { name: data.me.name })}
+                            {i18n.t('Hei {{name}}', { name: data.me.name })}
                         </h1>
                         <h3>{i18n.t('Welcome to DHIS2!')}</h3>
                     </>
