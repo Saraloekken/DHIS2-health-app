@@ -2,10 +2,16 @@ import React from 'react'
 import { DataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import classes from './App.module.css'
+import { Menu, MenuItem } from '@dhis2/ui'
 
 const query = {
-    me: {
-        resource: 'me',
+    trackedEntityInstances: {
+        resource: 'trackedEntityInstances',
+            params: {
+                ou: 'EwEP9IhOwuw', 
+                paging: false,
+                fields: ['trackedEntityInstance', 'attributes']
+            }
     },
 }
 
@@ -17,11 +23,16 @@ const MyApp = () => (
                 if (loading) return <span>...</span>
                 return (
                     <>
-                        <h1>
-                            {i18n.t('Hello {{name}}', { name: data.me.name })}
-                        </h1>
-                        <h3>{i18n.t('Velkommen to DHIS2!')}</h3>
-<p>Thanks!</p>
+                        
+                    <div className="white"></div>
+                    
+                        <Menu>
+                            {data.trackedEntityInstances.trackedEntityInstances.map(({ trackedEntityInstance, attributes }) => (
+                                <MenuItem key={trackedEntityInstance} label={trackedEntityInstance} />
+                            ))}
+                        </Menu>                    
+                    
+                    
                     </>
                 )
             }}
