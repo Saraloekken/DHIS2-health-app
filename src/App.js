@@ -2,15 +2,15 @@ import React from 'react'
 import { DataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import classes from './App.module.css'
-import { Menu, MenuItem } from '@dhis2/ui'
+import { Menu, MenuItem, MenuSectionHeader} from '@dhis2/ui'
+import styles from "./App.module.css";
 
 const query = {
     trackedEntityInstances: {
         resource: 'trackedEntityInstances',
             params: {
                 ou: 'EwEP9IhOwuw', 
-                paging: false,
-                fields: ['trackedEntityInstance', 'attributes']
+                fields: ['trackedEntityInstance', 'attributes', 'created']
             }
     },
 }
@@ -23,21 +23,21 @@ const MyApp = () => (
                 if (loading) return <span>...</span>
                 return (
                     <>
-                        
+                    <MenuSectionHeader label={i18n.t("Index Cases")} />
+                    <Menu>
                     <div className="white"></div>
-                    
-                        <Menu>
-                            {data.trackedEntityInstances.trackedEntityInstances.map(({ trackedEntityInstance, attributes }) => (
-                                <MenuItem key={trackedEntityInstance} label={trackedEntityInstance} />
-                            ))}
-                        </Menu>                    
-                    
-                    
+                            {data.trackedEntityInstances.trackedEntityInstances.map(({ trackedEntityInstance, attributes, created}) => (
+                                <MenuItem 
+                                key={trackedEntityInstance} 
+                                label={attributes[1].value + "\n" + attributes[0].value + "\n" + created} 
+                                />
+                            ))}             
+                    </Menu>
                     </>
-                )
+                );
             }}
         </DataQuery>
     </div>
 )
 
-export default MyApp
+export default MyApp;
