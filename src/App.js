@@ -5,6 +5,7 @@ import classes from './App.module.css'
 import { Menu, MenuItem, MenuSectionHeader} from '@dhis2/ui'
 import styles from "./App.module.css";
 import { Nav } from "./components/Nav.js";
+import { IndexCases } from "./pages/IndexCases.js";
 
 const query = {
     trackedEntityInstances: {
@@ -26,7 +27,7 @@ const MyApp = () => (
                     <>
                 
                     <Nav/>
-                    
+                    <IndexCases/>
                     
                     
                  
