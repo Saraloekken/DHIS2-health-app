@@ -1,26 +1,27 @@
 import React, { Component } from 'react'
-import { useDataQuery } from '@dhis2/app-runtime'
-import { Menu, MenuItem } from '@dhis2/ui'
-import { Table, TableHead, TableRowHead, TableCellHead, TableBody, TableRow, TableCell } from '@dhis2/ui'
+import { Api } from "../data/Api.js";
 
+const query = {
+    trackedEntityInstances: {
+        resource: 'trackedEntityInstances',
+            params: {
+                ou: 'EwEP9IhOwuw', 
+                fields: ['trackedEntityInstance', 'attributes', 'created']
+            }
+    },
+}
 
 class IndexCases extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     render(){
-    
-        
-        
-        
-        return (
-        
-            
+        return ( 
+            <>
             <h2>Index Cases</h2>
-        
-        
-        
+            <Api/>
+            </>
         )   
     }
 }
