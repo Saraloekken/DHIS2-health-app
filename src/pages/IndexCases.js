@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import { useDataQuery } from '@dhis2/app-runtime'
-import { Menu, MenuItem } from '@dhis2/ui'
-import { Table, TableHead, TableRowHead, TableCellHead, TableBody, TableRow, TableCell } from '@dhis2/ui'
 
 
 class IndexCases extends React.Component {
