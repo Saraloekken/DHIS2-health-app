@@ -1,42 +1,39 @@
 import React from 'react'
-import { DataQuery } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
-import classes from './App.module.css'
-import { Menu, MenuItem, MenuSectionHeader} from '@dhis2/ui'
+import { useDataQuery } from '@dhis2/app-runtime'
 
 const query = {
     trackedEntityInstances: {
         resource: 'trackedEntityInstances',
             params: {
                 ou: 'EwEP9IhOwuw', 
-                fields: ['trackedEntityInstance', 'attributes', 'created']
-            }
+                program: 'uYjxkTbwRNf',
+                fields: ['trackedEntityInstance', 'attributes', 'lastUpdated']
+            },
     },
 }
 
-const Api = () => (
-    <div className={classes.container}>
-        <DataQuery query={query}>
-            {({ error, loading, data }) => {
-                if (error) return <span>ERROR</span>
-                if (loading) return <span>...</span>
-                return (
-                    <>
-                    <MenuSectionHeader label={i18n.t("Index Cases")} />
-                    <Menu>
-                    <div className="white"></div>
-                            {data.trackedEntityInstances.trackedEntityInstances.map(({ trackedEntityInstance, attributes, created}) => (
-                                <MenuItem 
-                                key={trackedEntityInstance} 
-                                label={attributes[1].value + "\n" + attributes[0].value + "\n" + created} 
-                                />
-                            ))}             
-                    </Menu>
-                    </>
-                );
-            }}
-        </DataQuery>
-    </div>
-);
+function findValue (attributes, valueCode) {    
+    return (attributes.find((item) => item.code === valueCode) ? attributes.find((item) => item.code === valueCode).value:'')
+}
 
-export { Api };
+const IndexCasesApi = () => {
+    const { loading, error, data } = useDataQuery(query)
+    
+    return (
+      <div>
+        {loading && <span>...</span>}
+        {error && <span>{`ERROR: ${error.message}`}</span>}
+        {data && (
+          <pre>
+              {data.trackedEntityInstances.trackedEntityInstances.map(({ trackedEntityInstance, attributes, lastUpdated}) => (
+                <ul key={trackedEntityInstance}>
+                    {findValue(attributes, "first_name") + ' ' + findValue(attributes, "surname") + ' ' + findValue(attributes, "patinfo_ageonset") + ' ' + lastUpdated.substring(0,10)} 
+                </ul>
+            ))}  
+          </pre>
+        )}
+      </div>
+    )
+  };
+
+export { IndexCasesApi };
