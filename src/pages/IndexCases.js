@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 
 
 class IndexCases extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
     render(){
     
         

@@ -3,10 +3,6 @@ import React, { Component } from 'react'
 
 
 class Contacts extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
     render(){
     
         
