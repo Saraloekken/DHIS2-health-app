@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 
-class Contacts extends React.Component {
+class Test extends React.Component {
     render(){
     
         
@@ -11,13 +11,13 @@ class Contacts extends React.Component {
         return (
         
             
-            <h2>Contacts</h2>
+            <h2>Test</h2>
         
         
         
         )   
     }
 }
-export { Contacts }
+export { Test }
 
 

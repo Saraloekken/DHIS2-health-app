@@ -1,12 +1,12 @@
-import React, { useState}from 'react'
-import { DataQuery } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
-import classes from './App.module.css'
-import { Menu, MenuItem, MenuSectionHeader, Chip} from '@dhis2/ui'
+import React, { useState}from 'react';
+import { DataQuery } from '@dhis2/app-runtime';
+import i18n from '@dhis2/d2-i18n';
+import { Chip} from '@dhis2/ui';
 import styles from "./App.module.css";
 import { IndexCases } from "./pages/IndexCases.js";
 import { Contacts } from "./pages/Contacts.js";
 import { Tracker } from "./pages/Tracker.js";
+
 
 
 
@@ -26,7 +26,7 @@ function tracker(){
     setPage(<Tracker />)
 }
 
-             
+
 
         
     return (
@@ -42,6 +42,8 @@ function tracker(){
             <Chip dataTest="dhis2-uicore-chip" onClick={contacts}>Contacts</Chip>
 
             <Chip dataTest="dhis2-uicore-chip" onClick={tracker}>Tracker</Chip>
+
+
        
 
             </div>
