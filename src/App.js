@@ -13,18 +13,18 @@ import { Tracker } from "./pages/Tracker.js";
 
 const MyApp = () => {
 
-const [count, setCount] = useState(<IndexCases/>)
+const [page, setPage] = useState(<IndexCases/>)
     
 function indexcases(){
-    setCount(<IndexCases />)
+    setPage(<IndexCases />)
     }
 
 function contacts(){
-    setCount(<Contacts />)
+    setPage(<Contacts />)
 }
 
 function tracker(){
-    setCount(<Tracker />)
+    setPage(<Tracker />)
 }
 
              
@@ -53,7 +53,7 @@ function tracker(){
                 
             
     
-            {count}
+            {page}
             
 
             </main>
