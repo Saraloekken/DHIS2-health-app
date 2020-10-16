@@ -37,7 +37,7 @@ function tracker(){
              
             <div className={styles.navigation}>
             
-            <Chip dataTest="dhis2-uicore-chip" onClick={indexcases}>Index Cases</Chip>
+            <Chip dataTest="dhis2-uicore-chip" onClick={indexcases} selected>Index Cases</Chip>
 
             <Chip dataTest="dhis2-uicore-chip" onClick={contacts}>Contacts</Chip>
 
