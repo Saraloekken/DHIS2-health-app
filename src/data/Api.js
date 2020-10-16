@@ -1,5 +1,6 @@
-import React from 'react'
-import { useDataQuery } from '@dhis2/app-runtime'
+import React from 'react';
+import { useDataQuery } from '@dhis2/app-runtime';
+import { CircularLoader } from '@dhis2/ui';
 
 const query = {
     IndexCases: {
@@ -29,7 +30,7 @@ const IndexCasesApi = (props) => {
     
     return (
       <div>
-        {loading && <span>...</span>}
+        {loading && <CircularLoader dataTest="dhis2-uicore-circularloader" />}
         {error && <span>{`ERROR: ${error.message}`}</span>}
         {data && (
           <pre>
@@ -49,7 +50,7 @@ const IndexCasesApi = (props) => {
     
     return (
       <div>
-        {loading && <span>...</span>}
+        {loading && <CircularLoader dataTest="dhis2-uicore-circularloader" />}
         {error && <span>{`ERROR: ${error.message}`}</span>}
         {data && (
           <pre>
