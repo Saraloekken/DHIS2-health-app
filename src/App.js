@@ -3,9 +3,9 @@ import { DataQuery } from '@dhis2/app-runtime';
 import i18n from '@dhis2/d2-i18n';
 import { Chip} from '@dhis2/ui';
 import styles from "./App.module.css";
-import { IndexCases } from "./pages/IndexCases.js";
-import { Contacts } from "./pages/Contacts.js";
-import { Tracker } from "./pages/Tracker.js";
+import { IndexCases } from "./pages/IndexCases.jsx";
+import { Contacts } from "./pages/Contacts.jsx";
+import { Relations } from "./pages/Relations.jsx";
 
 
 
@@ -22,8 +22,8 @@ function contacts(){
     setPage(<Contacts />)
 }
 
-function tracker(){
-    setPage(<Tracker />)
+function relations(){
+    setPage(<Relations />)
 }
 
 
@@ -41,7 +41,7 @@ function tracker(){
 
             <Chip dataTest="dhis2-uicore-chip" onClick={contacts}>Contacts</Chip>
 
-            <Chip dataTest="dhis2-uicore-chip" onClick={tracker}>Tracker</Chip>
+            <Chip dataTest="dhis2-uicore-chip" onClick={relations}>Relations</Chip>
 
 
        

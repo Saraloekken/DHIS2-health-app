@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { ContactsApi, IndexCasesApi } from '../data/Api';
 
-class Tracker extends React.Component {
+class Relations extends React.Component {
     render(){
         return (
             <>
-            <h2>Tracker</h2>
+            <h2>Relations</h2>
             <IndexCasesApi/>
             <ContactsApi/>
             </>
         )   
     }
 }
-export { Tracker }
+export { Relations }
 
