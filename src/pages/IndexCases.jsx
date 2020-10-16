@@ -20,6 +20,7 @@ class IndexCases extends React.Component {
             
             <div className={styles.right}>
             <IndexCasesApi/>
+           
             </div>
             </>
         )   
