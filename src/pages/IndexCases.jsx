@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { IndexCasesApi } from "../data/Api.js";
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import styles from '../App.module.css'
+import { EntityDataTable} from "../components/EntityDataTable.jsx";
 
 
 class IndexCases extends React.Component {
@@ -20,6 +21,7 @@ class IndexCases extends React.Component {
             
             <div className={styles.right}>
             <IndexCasesApi/>
+            <EntityDataTable/>
            
             </div>
             </>

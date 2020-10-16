@@ -1,8 +1,9 @@
 import React, { } from 'react'
-import { Table, TableHead, TableRowHead, TableCellHead, TableBody, TableRow, TableCell} from '@dhis2/ui'
+import { Table, TableHead, TableRowHead, TableCellHead, TableBody, TableRow, TableCell, Button } from '@dhis2/ui'
 
+class EntityDataTable extends React.Component {
 
-function EntityDataTable(props) {
+    render(){
     return (
         <Table>
             <TableHead>
@@ -60,12 +61,25 @@ function EntityDataTable(props) {
                         dataTest="dhis2-uicore-tablecell"
                         dense
                     >
-                    <TableButton />
+                    
+                        
+                        
+<Button
+  dataTest="dhis2-uicore-button"
+  name="Primary button"
+  onClick={function logger(_ref){var name=_ref.name,value=_ref.value;return console.info("".concat(name,": ").concat(value))}}
+  primary
+  type="button"
+  value="default">Tracker</Button>
+
+                        
+                        
                     </TableCell>
                 </TableRow>
             </TableBody>
         </Table>  
     )
+}
 }
 
 export { EntityDataTable }
