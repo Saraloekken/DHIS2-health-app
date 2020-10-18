@@ -17,44 +17,48 @@ import { useDataQuery } from "@dhis2/app-runtime";
 // Formater dato
 
 const generateRows = ({ trackedEntityInstances }) => {
-    return trackedEntityInstances.map((item) => (
-            <TableRow>
-              <TableCell>{findValue(item.attributes, "first_name")}</TableCell>
-              <TableCell>{findValue(item.attributes, "surname")}</TableCell>
-              <TableCell>{item.enrollments[0].incidentDate}</TableCell>
-              <TableCell>{item.lastUpdated}</TableCell>
-              <TableCell>{findValue(item.attributes, "patinfo_ageonset")}</TableCell>
-              <TableCell>{findValue(item.attributes, "phone_local")}</TableCell>
-              <TableCell>{item.enrollments[0].status}</TableCell>
-              <TableCell dataTest="dhis2-uicore-tablecell" dense>
-                <Button
-                  dataTest="dhis2-uicore-button"
-                  name="Primary button"
-                  onClick={function logger(_ref) {
-                    var name = _ref.name,
-                      value = _ref.value;
-                    return console.info("".concat(name, ": ").concat(value));
-                  }}
-                  primary
-                  type="button"
-                  value="default"
-                >
-                  Tracker Capture
-                </Button>
-              </TableCell>
-            </TableRow>
-        ))}
-    
+  return trackedEntityInstances.map((item) => (
+    <TableRow>
+      <TableCell>{findValue(item.attributes, "first_name")}</TableCell>
+      <TableCell>{findValue(item.attributes, "surname")}</TableCell>
+      <TableCell>{item.enrollments[0].incidentDate}</TableCell>
+      <TableCell>{item.lastUpdated}</TableCell>
+      <TableCell>{findValue(item.attributes, "patinfo_ageonset")}</TableCell>
+      <TableCell>{findValue(item.attributes, "phone_local")}</TableCell>
+      <TableCell>{item.enrollments[0].status}</TableCell>
+      <TableCell dataTest="dhis2-uicore-tablecell" dense>
+        <Button
+          dataTest="dhis2-uicore-button"
+          name="Primary button"
+          onClick={function logger(_ref) {
+            var name = _ref.name,
+              value = _ref.value;
+            return console.info("".concat(name, ": ").concat(value));
+          }}
+          primary
+          type="button"
+          value="default"
+        >
+          Tracker Capture
+        </Button>
+      </TableCell>
+    </TableRow>
+  ));
+};
 
 export const EntityDataTable = () => {
-
   const query = {
     IndexCases: {
       resource: "trackedEntityInstances",
       params: {
         ou: "EwEP9IhOwuw",
         program: "uYjxkTbwRNf",
-        fields: ["trackedEntityInstance", "attributes", "lastUpdated", "enrollments"],
+        fields: [
+          "trackedEntityInstance",
+          "attributes",
+          "lastUpdated",
+          "enrollments",
+        ],
       },
     },
     Contacts: {
@@ -62,7 +66,12 @@ export const EntityDataTable = () => {
       params: {
         ou: "EwEP9IhOwuw",
         program: "DM9n1bUw8W8",
-        fields: ["trackedEntityInstance", "attributes", "lastUpdated", "enrollments"],
+        fields: [
+          "trackedEntityInstance",
+          "attributes",
+          "lastUpdated",
+          "enrollments",
+        ],
       },
     },
   };
