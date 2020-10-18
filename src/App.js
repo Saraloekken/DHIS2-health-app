@@ -8,8 +8,6 @@ import { Contacts } from "./pages/Contacts.jsx";
 import { Relations } from "./pages/Relations.jsx";
 
 
-
-
 const MyApp = () => {
 
 const [page, setPage] = useState(<IndexCases/>)
@@ -28,13 +26,11 @@ function relations(){
 
 
 
-        
+        // Navigation header into own comonent
     return (
         
         <div className={styles.container}>
-          
-             
-             
+            
             <div className={styles.navigation}>
             
             <Chip dataTest="dhis2-uicore-chip" onClick={indexcases} selected>Index Cases</Chip>

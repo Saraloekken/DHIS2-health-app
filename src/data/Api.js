@@ -28,9 +28,9 @@ const query = {
   }
 }
 
-function findValue (attributes, valueCode) {    
-  return (attributes.find((item) => item.code === valueCode) ? attributes.find((item) => item.code === valueCode).value : '')
 
+export function findValue (attributes, valueCode) {    
+    return (attributes.find((item) => item.code === valueCode) ? attributes.find((item) => item.code === valueCode).value:'')
 }
 
 const IndexCasesApi = () => {
@@ -117,4 +117,5 @@ const IndexCasesApi = () => {
   };
 
 
+export default findValue;
 export { IndexCasesApi, ContactsApi, RelationsApi };
