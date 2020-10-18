@@ -20,7 +20,7 @@ const query = {
   }
 }
 
-function findValue (attributes, valueCode) {    
+export function findValue (attributes, valueCode) {    
     return (attributes.find((item) => item.code === valueCode) ? attributes.find((item) => item.code === valueCode).value:'')
 }
 
@@ -64,5 +64,5 @@ const IndexCasesApi = (props) => {
     )
   };
 
-
+export default findValue;
 export { IndexCasesApi, ContactsApi };
