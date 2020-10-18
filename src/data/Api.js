@@ -41,7 +41,7 @@ const IndexCasesApi = () => {
     return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
   }
   if (loading) {
-    return <p>{loading && <CircularLoader dataTest="dhis2-uicore-circularloader" />}</p>;
+    return <p>{loading && <CircularLoader/>}</p>;
   }
 
   return (
@@ -72,7 +72,7 @@ const IndexCasesApi = () => {
       return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
     }
     if (loading) {
-      return <p>{loading && <CircularLoader dataTest="dhis2-uicore-circularloader" />}</p>;
+      return <p>{loading && <CircularLoader/>}</p>;
     }
     
     return (
@@ -98,7 +98,7 @@ const IndexCasesApi = () => {
       return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
     }
     if (loading) {
-      return <p>{loading && <CircularLoader dataTest="dhis2-uicore-circularloader" />}</p>;
+      return <p>{loading && <CircularLoader/>}</p>;
     }
     
     return (
