@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDataQuery } from '@dhis2/app-runtime';
-import { CircularLoader } from '@dhis2/ui';
+import { TableCell, TableRow, Button, CircularLoader} from '@dhis2/ui';
 
 const query = {
   IndexCases: {
@@ -8,7 +8,7 @@ const query = {
       params: {
         ou: 'EwEP9IhOwuw',
         program: 'uYjxkTbwRNf',
-        fields: ["trackedEntityInstance", "attributes", "lastUpdated"],
+        fields: ["trackedEntityInstance", "attributes", "lastUpdated", 'enrollments'],
       }
   },
   Contacts: {
@@ -16,14 +16,14 @@ const query = {
     params: {
       ou: 'EwEP9IhOwuw',
       program: 'DM9n1bUw8W8',
-      fields: ["trackedEntityInstance", "attributes", "lastUpdated"],
+      fields: ["trackedEntityInstance", "attributes", "lastUpdated", 'enrollments'],
     }
   },
   Relations: {
     resource: "trackedEntityInstances",
     params: {
       ou: 'EwEP9IhOwuw',
-      fields: ["trackedEntityInstance", "attributes", "lastUpdated"],
+      fields: ["trackedEntityInstance", "attributes", "lastUpdated", 'enrollments'],
     }
   }
 }
@@ -35,7 +35,6 @@ export function findValue (attributes, valueCode) {
 
 const IndexCasesApi = () => {
   const { loading, error, data } = useDataQuery(query) 
-  let indexCases = [];
 
   if (error) {
     return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
@@ -44,24 +43,33 @@ const IndexCasesApi = () => {
     return <p>{loading && <CircularLoader/>}</p>;
   }
 
-  return (
-      <div>
-        {data && (
-          <pre>
-              {data.IndexCases.trackedEntityInstances.map(({ trackedEntityInstance, attributes, lastUpdated}) => (
-                 <div>
-                  {indexCases.push({
-                    key: trackedEntityInstance,
-                    id: trackedEntityInstance, 
-                    first_name: findValue(attributes, "first_name"),
-                    surname: findValue(attributes, "surname"),
-                    age: findValue(attributes, "patinfo_ageonset"),
-                    lastUpdated: lastUpdated.substring(0,10)})}
-             </div>
-            ))}
-          </pre>
-        )}
-      </div>
+  return (data.IndexCases.trackedEntityInstances.map(({ attributes, lastUpdated, enrollments}) => (
+                <TableRow>
+                <TableCell>{findValue(attributes, "first_name")}</TableCell>
+                <TableCell>{findValue(attributes, "surname")}</TableCell>
+                <TableCell>{enrollments[0].incidentDate.substring(0,10)}</TableCell>
+                <TableCell>{lastUpdated.substring(0,10)}</TableCell>
+                <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
+                <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+                <TableCell>{enrollments[0].status}</TableCell>
+                <TableCell dataTest="dhis2-uicore-tablecell" dense>
+                  <Button
+                    dataTest="dhis2-uicore-button"
+                    name="Primary button"
+                    onClick={function logger(_ref) {
+                      var name = _ref.name,
+                        value = _ref.value;
+                      return console.info("".concat(name, ": ").concat(value));
+                    }}
+                    primary
+                    type="button"
+                    value="default"
+                  >
+                    Tracker Capture
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
     )
   };
 
@@ -75,19 +83,34 @@ const IndexCasesApi = () => {
       return <p>{loading && <CircularLoader/>}</p>;
     }
     
-    return (
-      <div>
-        {data && (
-          <pre>
-              {data.Contacts.trackedEntityInstances.map(({ trackedEntityInstance, attributes, lastUpdated}) => (
-                <ul key={trackedEntityInstance}>
-                    {findValue(attributes, "first_name") + ' ' + findValue(attributes, "surname") + ' ' + findValue(attributes, "patinfo_ageonset") + ' ' + lastUpdated.substring(0,10)} 
-                </ul>
-            ))}  
-          </pre>
-        )}
-      </div>
-    )
+    return (data.Contacts.trackedEntityInstances.map(({ attributes, lastUpdated, enrollments}) => (
+      <TableRow>
+      <TableCell>{findValue(attributes, "first_name")}</TableCell>
+      <TableCell>{findValue(attributes, "surname")}</TableCell>
+      <TableCell>{enrollments[0].incidentDate.substring(0,10)}</TableCell>
+      <TableCell>{lastUpdated.substring(0,10)}</TableCell>
+      <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
+      <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+      <TableCell>{enrollments[0].status}</TableCell>
+      <TableCell dataTest="dhis2-uicore-tablecell" dense>
+        <Button
+          dataTest="dhis2-uicore-button"
+          name="Primary button"
+          onClick={function logger(_ref) {
+            var name = _ref.name,
+              value = _ref.value;
+            return console.info("".concat(name, ": ").concat(value));
+          }}
+          primary
+          type="button"
+          value="default"
+        >
+          Tracker Capture
+        </Button>
+      </TableCell>
+    </TableRow>
+  ))
+)
   };
 
 
@@ -101,19 +124,34 @@ const IndexCasesApi = () => {
       return <p>{loading && <CircularLoader/>}</p>;
     }
     
-    return (
-      <div>
-        {data && (
-          <pre>
-              {data.Relations.trackedEntityInstances.map(({ trackedEntityInstance, attributes, lastUpdated}) => (
-                <ul key={trackedEntityInstance}>
-                    {findValue(attributes, "first_name") + ' ' + findValue(attributes, "surname") + ' ' + findValue(attributes, "patinfo_ageonset") + ' ' + lastUpdated.substring(0,10)} 
-                </ul>
-            ))}  
-          </pre>
-        )}
-      </div>
-    )
+    return (data.Relations.trackedEntityInstances.map(({ attributes, lastUpdated, enrollments}) => (
+      <TableRow>
+      <TableCell>{findValue(attributes, "first_name")}</TableCell>
+      <TableCell>{findValue(attributes, "surname")}</TableCell>
+      <TableCell>Undefined</TableCell>
+      <TableCell>{lastUpdated.substring(0,10)}</TableCell>
+      <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
+      <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+      <TableCell>Undefined</TableCell>
+      <TableCell dataTest="dhis2-uicore-tablecell" dense>
+        <Button
+          dataTest="dhis2-uicore-button"
+          name="Primary button"
+          onClick={function logger(_ref) {
+            var name = _ref.name,
+              value = _ref.value;
+            return console.info("".concat(name, ": ").concat(value));
+          }}
+          primary
+          type="button"
+          value="default"
+        >
+          Tracker Capture
+        </Button>
+      </TableCell>
+    </TableRow>
+  ))
+)
   };
 
 

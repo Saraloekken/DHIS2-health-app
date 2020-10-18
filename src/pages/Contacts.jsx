@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { ContactsApi } from '../data/Api';
-
-
+import { ContactsTable } from "../components/EntityDataTable.jsx";
 
 class Contacts extends React.Component {
     render(){
@@ -10,7 +8,7 @@ class Contacts extends React.Component {
         
             <>
             <h2>Contacts</h2>
-            <ContactsApi/>
+            <ContactsTable/>
             </>
         
         
