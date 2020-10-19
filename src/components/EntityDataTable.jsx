@@ -20,6 +20,7 @@ import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
             <TableCellHead>Age</TableCellHead>
             <TableCellHead>Phone</TableCellHead>
             <TableCellHead>Status</TableCellHead>
+            <TableCellHead>Capture</TableCellHead>
           </TableRowHead>
         </TableHead>
         <TableBody>
@@ -43,6 +44,7 @@ import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
           <TableCellHead>Age</TableCellHead>
           <TableCellHead>Phone</TableCellHead>
           <TableCellHead>Status</TableCellHead>
+            <TableCellHead>Capture</TableCellHead>
         </TableRowHead>
       </TableHead>
       <TableBody>
@@ -66,6 +68,7 @@ import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
               <TableCellHead>Age</TableCellHead>
               <TableCellHead>Phone</TableCellHead>
               <TableCellHead>Status</TableCellHead>
+                <TableCellHead>Capture</TableCellHead>
             </TableRowHead>
           </TableHead>
           <TableBody>
