@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { IndexCasesApi } from "../data/Api.js";
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import styles from '../App.module.css'
-import { EntityDataTable} from "../components/EntityDataTable.jsx";
+import { IndexCasesTable } from "../components/EntityDataTable.jsx";
 
 
 class IndexCases extends React.Component {
@@ -20,14 +19,13 @@ class IndexCases extends React.Component {
             </div>
             
             <div className={styles.right}>
-            <IndexCasesApi/>
-            <EntityDataTable/>
+            <IndexCasesTable/>
            
             </div>
             </>
         )   
     }
 }
-export { IndexCases }
+export { IndexCases };
 
 
