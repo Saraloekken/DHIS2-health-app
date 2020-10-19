@@ -54,6 +54,7 @@ import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
     )
     };
 
+    // Endres til collapseTable?
     function RelationsTable () {
         return (
           <Table>
