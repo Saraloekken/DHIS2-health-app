@@ -52,6 +52,7 @@ function findValue(attributes, valueCode) {
 
 function filterTable(itemEnrollments) {
   return itemEnrollments; // eksempel: return itemEnrollments.[0].incidentDate.substring(0, 10) == "2020-10-06";
+  // filter for i dag: eventStatus: ACTIVE or OVERDUE + eventStartDate=2018-01-24&eventEndDate=2020-10-20 (i dag)
 }
 
 const IndexCasesApi = () => {
