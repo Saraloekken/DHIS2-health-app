@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { ContactsTable } from "../components/EntityDataTable.jsx";
+import { CaseTable } from "../components/EntityDataTable.jsx";
+import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
 
 class Contacts extends React.Component {
     render(){
-
-        return (
-        
-            <>
-            <h2>Contacts</h2>
-            <ContactsTable/>
-            </>
-        
-        
+        return ( 
+            <div>
+                <h2>Contacts</h2>
+                <CaseTable api={<ContactsApi />} />
+            </div>
+             
         )   
     }
 }

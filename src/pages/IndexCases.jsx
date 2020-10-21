@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import styles from '../App.module.css';
-import { IndexCasesTable } from "../components/EntityDataTable.jsx";
+import { CaseTable } from "../components/EntityDataTable.jsx";
 import { Filters } from '../components/Filters.jsx';
+import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
 
 
 class IndexCases extends React.Component {
@@ -18,7 +19,7 @@ class IndexCases extends React.Component {
                     
                     <div className={styles.right}>
                         <Filters />
-                        <IndexCasesTable />
+                        <CaseTable api={<IndexCasesApi />} />
                     </div>
                 </div>
             </div>
