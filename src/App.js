@@ -10,6 +10,9 @@ import { Relations } from "./pages/Relations.jsx";
 
 const MyApp = () => {
 
+//To statevariabler som oppdateres sammen, kunne vært slått sammen til èn som oppdatererer begge?
+//Refresher innholdet to ganger fordi den tror staten endrer seg to ganger, mens den bare endrer seg en?
+
 const [page, setPage] = useState(<IndexCases/>)
 const [active, setActive] = useState('indexcases')
     
@@ -62,3 +65,5 @@ function relations(){
 }
 
 export default MyApp
+
+

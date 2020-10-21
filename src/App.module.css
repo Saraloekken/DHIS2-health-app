@@ -61,3 +61,7 @@
 .datelabel {
     margin-bottom: 7px;
 }
+
+.disabled {
+    opacity:0.3;
+}
