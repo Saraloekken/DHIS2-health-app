@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CaseTable } from "../components/EntityDataTable.jsx";
+import { DataTable } from "../components/EntityDataTable.jsx";
 import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
 
 class Contacts extends React.Component {
@@ -7,7 +7,7 @@ class Contacts extends React.Component {
         return ( 
             <div>
                 <h2>Contacts</h2>
-                <CaseTable api={<ContactsApi />} />
+                <DataTable api={<ContactsApi />} />
             </div>
              
         )   

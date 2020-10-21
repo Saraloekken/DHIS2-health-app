@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import styles from '../App.module.css';
-import { CaseTable } from "../components/EntityDataTable.jsx";
+import { DataTable } from "../components/EntityDataTable.jsx";
 import { Filters } from '../components/Filters.jsx';
 import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
 
@@ -19,7 +19,7 @@ class IndexCases extends React.Component {
                     
                     <div className={styles.right}>
                         <Filters />
-                        <CaseTable api={<IndexCasesApi />} />
+                        <DataTable api={<IndexCasesApi />} />
                     </div>
                 </div>
             </div>

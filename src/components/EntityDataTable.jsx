@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, TableHead, TableRowHead, TableCellHead, TableBody } from "@dhis2/ui";
 
-const CaseTable = (props) => {
+const DataTable = (props) => {
   return (
     <Table>
       <TableHead>
@@ -24,4 +24,4 @@ const CaseTable = (props) => {
 };
 
 
-export { CaseTable };
+export { DataTable };
