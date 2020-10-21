@@ -12,7 +12,7 @@ const query = {
         "trackedEntityInstance",
         "attributes",
         "lastUpdated",
-        "enrollments",
+        "enrollments[*]",
       ],
     },
   },
@@ -25,7 +25,7 @@ const query = {
         "trackedEntityInstance",
         "attributes",
         "lastUpdated",
-        "enrollments",
+        "enrollments[*]",
       ],
     },
   },
@@ -38,34 +38,53 @@ const query = {
         "trackedEntityInstance",
         "attributes",
         "lastUpdated",
-        "enrollments",
+        "enrollments[*]",
       ],
     },
   },
 };
 
+function getDaysForwardDate(days) {
+  const today = new Date();
+  const daysForward = new Date(today);
+  daysForward.setDate(daysForward.getDate() + days);
+  var dd = String(daysForward.getDate()).padStart(2, "0");
+  var mm = String(daysForward.getMonth() + 1).padStart(2, "0");
+  var yyyy = daysForward.getFullYear();
+
+  return yyyy + "-" + mm + "-" + dd;
+}
+
 function findValue(attributes, valueCode) {
   return attributes.find((item) => item.code === valueCode)
     ? attributes.find((item) => item.code === valueCode).value
-    : "undefined";
+    : "not defined";
 }
 
-function filterTable(itemEnrollments) {
-  return itemEnrollments; // eksempel: return itemEnrollments.[0].incidentDate.substring(0, 10) == "2020-10-06";
+function filterTable(item) {
+  var filteredEvents = item.events.filter(
+    (event) =>
+      event.status != "COMPLETED" &&
+      event.dueDate.slice(0, 10) <= getDaysForwardDate(0) // today as default
+    // getDaysForwardDate(1) > tomorrow
+    // getDaysForwardDate(7) > a week
+  );
+
+  if (filteredEvents[0] && item.status == "ACTIVE") return item;
 }
 
 const IndexCasesApi = () => {
   const { loading, error, data } = useDataQuery(query);
 
   if (error) {
-    return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
+    return <p>{`ERROR: ${error.message}`}</p>;
   }
   if (loading) {
-    return <p>{loading && <CircularLoader />}</p>;
+    return <CircularLoader />;
   }
 
   return data.IndexCases.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments))
+    .filter((item) => filterTable(item.enrollments[0]))
     .map(({ attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -73,13 +92,13 @@ const IndexCasesApi = () => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "undefined"}
+            : "not defined"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "undefined"}
+          {enrollments[0] ? enrollments[0].status : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -105,14 +124,14 @@ const ContactsApi = () => {
   const { loading, error, data } = useDataQuery(query);
 
   if (error) {
-    return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
+    return <p>{`ERROR: ${error.message}`}</p>;
   }
   if (loading) {
-    return <p>{loading && <CircularLoader />}</p>;
+    return <CircularLoader />;
   }
 
   return data.Contacts.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments))
+    .filter((item) => filterTable(item.enrollments[0]))
     .map(({ attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -120,13 +139,13 @@ const ContactsApi = () => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "undefined"}
+            : "not defined"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "undefined"}
+          {enrollments[0] ? enrollments[0].status : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -152,14 +171,14 @@ const RelationsApi = () => {
   const { loading, error, data } = useDataQuery(query);
 
   if (error) {
-    return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
+    return <p>{`ERROR: ${error.message}`}</p>;
   }
   if (loading) {
-    return <p>{loading && <CircularLoader />}</p>;
+    return <CircularLoader />;
   }
 
   return data.Relations.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments))
+    .filter((item) => filterTable(item.enrollments[0]))
     .map(({ attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -167,13 +186,13 @@ const RelationsApi = () => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "undefined"}
+            : "not defined"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "undefined"}
+          {enrollments[0] ? enrollments[0].status : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
