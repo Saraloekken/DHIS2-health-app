@@ -47,12 +47,11 @@ const query = {
 function findValue(attributes, valueCode) {
   return attributes.find((item) => item.code === valueCode)
     ? attributes.find((item) => item.code === valueCode).value
-    : "undefined";
+    : "not defined";
 }
 
-function filterTable(itemEnrollments) {
-  return itemEnrollments; // eksempel: return itemEnrollments.[0].incidentDate.substring(0, 10) == "2020-10-06";
-  // filter for i dag: eventStatus: ACTIVE or OVERDUE + eventStartDate=2018-01-24&eventEndDate=2020-10-20 (i dag)
+function filterTable(item) {
+  return (item.enrollments[0].status = "ACTIVE"); //&& console.log(item.enrollments[0]) //.slice(0, 10) >= "2020-10-21"
 }
 
 const IndexCasesApi = () => {
@@ -66,7 +65,7 @@ const IndexCasesApi = () => {
   }
 
   return data.IndexCases.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments))
+    .filter((item) => filterTable(item))
     .map(({ attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -74,13 +73,13 @@ const IndexCasesApi = () => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "undefined"}
+            : "not defined"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "undefined"}
+          {enrollments[0] ? enrollments[0].status : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -121,13 +120,13 @@ const ContactsApi = () => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "undefined"}
+            : "not defined"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "undefined"}
+          {enrollments[0] ? enrollments[0].status : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -168,13 +167,13 @@ const RelationsApi = () => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "undefined"}
+            : "not defined"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "undefined"}
+          {enrollments[0] ? enrollments[0].status : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
