@@ -20,7 +20,8 @@ const DataTable = (props) => {
         {props.api}
       </TableBody>
     </Table>
-};
+  )
+}
 
 
 export { DataTable };
