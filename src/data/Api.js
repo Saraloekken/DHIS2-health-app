@@ -73,12 +73,6 @@ function filterTable(item) {
   if (filteredEvents[0] && item.status == "ACTIVE") return item;
 }
 
-function trackerCaptureRedirect(tei) {
-  const { baseUrl } = useConfig();
-
-  window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${tei}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`;
-}
-
 const IndexCasesApi = () => {
   const { loading, error, data } = useDataQuery(query);
   const { baseUrl } = useConfig();
@@ -111,7 +105,9 @@ const IndexCasesApi = () => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={trackerCaptureRedirect(trackedEntityInstance)}
+            onClick={() =>
+              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+            }
             primary
             type="button"
             value="default"
@@ -155,7 +151,9 @@ const ContactsApi = () => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={trackerCaptureRedirect(trackedEntityInstance)}
+            onClick={() =>
+              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=DM9n1bUw8W8&ou=EwEP9IhOwuw`)
+            }
             primary
             type="button"
             value="default"
@@ -199,7 +197,9 @@ const RelationsApi = () => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={trackerCaptureRedirect(trackedEntityInstance)}
+            onClick={() =>
+              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+            }
             primary
             type="button"
             value="default"
