@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
-import { ContactsTable } from "../components/EntityDataTable.jsx";
-import { WelcomeBox } from "../components/WelcomeBox.jsx";
-import styles from '../App.module.css';
-import { Filters } from '../components/Filters.jsx';
-
+import { DataTable } from "../components/EntityDataTable.jsx";
+import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
 
 class Contacts extends React.Component {
-
     render(){
         return ( 
-            <div className={styles.container}>
+            <div>
                 <h2>Contacts</h2>
-                <div className={styles.grid}>
-                    <div className={styles.left}>
-                        <WelcomeBox />
-                    </div>
-                    
-                    <div className={styles.right}>
-                        <Filters />
-                        <ContactsTable />
-                    </div>
-                </div>
+                <DataTable api={<ContactsApi />} />
             </div>
         )   
     }
