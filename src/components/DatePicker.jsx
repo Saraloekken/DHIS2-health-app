@@ -4,7 +4,6 @@ import styles from "../App.module.css";
 
 
 const DatePicker = (props) =>  {
-
     return (
         <div className={styles.datepicker}>
             <label for="birthday" className={styles.datelabel}>{props.label}</label>
