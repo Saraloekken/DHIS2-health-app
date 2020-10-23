@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { DataTable } from "../components/EntityDataTable.jsx";
 import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';

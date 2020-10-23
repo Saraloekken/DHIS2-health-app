@@ -10,21 +10,26 @@ import { Relations } from "./pages/Relations.jsx";
 
 const MyApp = () => {
 
+//To statevariabler som oppdateres sammen, kunne vært slått sammen til èn som oppdatererer begge?
+//Refresher innholdet to ganger fordi den tror staten endrer seg to ganger, mens den bare endrer seg en?
+
 const [page, setPage] = useState(<IndexCases/>)
+const [active, setActive] = useState('indexcases')
     
 function indexcases(){
     setPage(<IndexCases />)
-    }
+    setActive('indexcases')
+}
 
 function contacts(){
     setPage(<Contacts />)
+    setActive('contacts')
 }
 
 function relations(){
     setPage(<Relations />)
-}
-
-
+    setActive('relations')
+}         
 
         // Navigation header into own comonent
     return (
@@ -33,11 +38,11 @@ function relations(){
             
             <div className={styles.navigation}>
             
-            <Chip dataTest="dhis2-uicore-chip" onClick={indexcases} selected>Index Cases</Chip>
+            <Chip dataTest="dhis2-uicore-chip" onClick={indexcases} selected={active=='indexcases'}>Index Cases</Chip>
 
-            <Chip dataTest="dhis2-uicore-chip" onClick={contacts}>Contacts</Chip>
+            <Chip dataTest="dhis2-uicore-chip" onClick={contacts} selected={active=='contacts'}>Contacts</Chip>
 
-            <Chip dataTest="dhis2-uicore-chip" onClick={relations}>Relations</Chip>
+            <Chip dataTest="dhis2-uicore-chip" onClick={relations} selected={active=='relations'}>Relations</Chip>
 
 
        
@@ -60,3 +65,5 @@ function relations(){
 }
 
 export default MyApp
+
+

@@ -1,159 +1,217 @@
-import React from 'react';
-import { useDataQuery } from '@dhis2/app-runtime';
-import { TableCell, TableRow, Button, CircularLoader} from '@dhis2/ui';
+import React from "react";
+import { useDataQuery } from "@dhis2/app-runtime";
+import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
 
 const query = {
   IndexCases: {
-      resource: "trackedEntityInstances",
-      params: {
-        ou: 'EwEP9IhOwuw',
-        program: 'uYjxkTbwRNf',
-        fields: ["trackedEntityInstance", "attributes", "lastUpdated", 'enrollments'],
-      }
+    resource: "trackedEntityInstances",
+    params: {
+      ou: "EwEP9IhOwuw",
+      program: "uYjxkTbwRNf",
+      fields: [
+        "trackedEntityInstance",
+        "attributes",
+        "lastUpdated",
+        "enrollments[*]",
+      ],
+    },
   },
   Contacts: {
     resource: "trackedEntityInstances",
     params: {
-      ou: 'EwEP9IhOwuw',
-      program: 'DM9n1bUw8W8',
-      fields: ["trackedEntityInstance", "attributes", "lastUpdated", 'enrollments'],
-    }
+      ou: "EwEP9IhOwuw",
+      program: "DM9n1bUw8W8",
+      fields: [
+        "trackedEntityInstance",
+        "attributes",
+        "lastUpdated",
+        "enrollments[*]",
+      ],
+    },
   },
   Relations: {
     resource: "trackedEntityInstances",
     params: {
-      ou: 'EwEP9IhOwuw',
-      fields: ["trackedEntityInstance", "attributes", "lastUpdated", 'enrollments'],
-    }
-  }
+      ou: "EwEP9IhOwuw",
+      program: "uYjxkTbwRNf",
+      fields: [
+        "trackedEntityInstance",
+        "attributes",
+        "lastUpdated",
+        "enrollments[*]",
+      ],
+    },
+  },
+};
+
+function getDaysForwardDate(days) {
+  const today = new Date();
+  const daysForward = new Date(today);
+  daysForward.setDate(daysForward.getDate() + days);
+  var dd = String(daysForward.getDate()).padStart(2, "0");
+  var mm = String(daysForward.getMonth() + 1).padStart(2, "0");
+  var yyyy = daysForward.getFullYear();
+
+  return yyyy + "-" + mm + "-" + dd;
 }
 
+function findValue(attributes, valueCode) {
+  return attributes.find((item) => item.code === valueCode)
+    ? attributes.find((item) => item.code === valueCode).value
+    : "not defined";
+}
 
-export function findValue (attributes, valueCode) {    
-    return (attributes.find((item) => item.code === valueCode) ? attributes.find((item) => item.code === valueCode).value:'')
+function filterTable(item) {
+  var filteredEvents = item.events.filter(
+    (event) =>
+      event.status != "COMPLETED" &&
+      event.dueDate.slice(0, 10) <= getDaysForwardDate(0) // today as default
+    // getDaysForwardDate(1) > tomorrow
+    // getDaysForwardDate(7) > a week
+  );
+
+  if (filteredEvents[0] && item.status == "ACTIVE") return item;
 }
 
 const IndexCasesApi = () => {
-  const { loading, error, data } = useDataQuery(query) 
+  const { loading, error, data } = useDataQuery(query);
 
   if (error) {
-    return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
+    return <p>{`ERROR: ${error.message}`}</p>;
   }
   if (loading) {
-    return <p>{loading && <CircularLoader/>}</p>;
+    return <CircularLoader />;
   }
 
-  return (data.IndexCases.trackedEntityInstances.map(({ attributes, lastUpdated, enrollments}) => (
-                <TableRow>
-                <TableCell>{findValue(attributes, "first_name")}</TableCell>
-                <TableCell>{findValue(attributes, "surname")}</TableCell>
-                <TableCell>{enrollments[0].incidentDate.substring(0,10)}</TableCell>
-                <TableCell>{lastUpdated.substring(0,10)}</TableCell>
-                <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
-                <TableCell>{findValue(attributes, "phone_local")}</TableCell>
-                <TableCell>{enrollments[0].status}</TableCell>
-                <TableCell dataTest="dhis2-uicore-tablecell" dense>
-                  <Button
-                    dataTest="dhis2-uicore-button"
-                    name="Primary button"
-                    onClick={function logger(_ref) {
-                      var name = _ref.name,
-                        value = _ref.value;
-                      return console.info("".concat(name, ": ").concat(value));
-                    }}
-                    primary
-                    type="button"
-                    value="default"
-                  >
-                    Tracker Capture
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))
-    )
-  };
-
-  const ContactsApi = () => {
-    const { loading, error, data } = useDataQuery(query) 
-
-    if (error) {
-      return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
-    }
-    if (loading) {
-      return <p>{loading && <CircularLoader/>}</p>;
-    }
-    
-    return (data.Contacts.trackedEntityInstances.map(({ attributes, lastUpdated, enrollments}) => (
+  return data.IndexCases.trackedEntityInstances
+    .filter((item) => filterTable(item.enrollments[0]))
+    .map(({ attributes, lastUpdated, enrollments }) => (
       <TableRow>
-      <TableCell>{findValue(attributes, "first_name")}</TableCell>
-      <TableCell>{findValue(attributes, "surname")}</TableCell>
-      <TableCell>{enrollments[0].incidentDate.substring(0,10)}</TableCell>
-      <TableCell>{lastUpdated.substring(0,10)}</TableCell>
-      <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
-      <TableCell>{findValue(attributes, "phone_local")}</TableCell>
-      <TableCell>{enrollments[0].status}</TableCell>
-      <TableCell dataTest="dhis2-uicore-tablecell" dense>
-        <Button
-          dataTest="dhis2-uicore-button"
-          name="Primary button"
-          onClick={function logger(_ref) {
-            var name = _ref.name,
-              value = _ref.value;
-            return console.info("".concat(name, ": ").concat(value));
-          }}
-          primary
-          type="button"
-          value="default"
-        >
-          Tracker Capture
-        </Button>
-      </TableCell>
-    </TableRow>
-  ))
-)
-  };
+        <TableCell>{findValue(attributes, "first_name")}</TableCell>
+        <TableCell>{findValue(attributes, "surname")}</TableCell>
+        <TableCell>
+          {enrollments[0]
+            ? enrollments[0].incidentDate.substring(0, 10)
+            : "not defined"}
+        </TableCell>
+        <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
+        <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
+        <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+        <TableCell>
+          {enrollments[0] ? enrollments[0].status : "not defined"}
+        </TableCell>
+        <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <Button
+            dataTest="dhis2-uicore-button"
+            name="Primary button"
+            onClick={function logger(_ref) {
+              var name = _ref.name,
+                value = _ref.value;
+              return console.info("".concat(name, ": ").concat(value));
+            }}
+            primary
+            type="button"
+            value="default"
+          >
+            Tracker Capture
+          </Button>
+        </TableCell>
+      </TableRow>
+    ));
+};
 
+const ContactsApi = () => {
+  const { loading, error, data } = useDataQuery(query);
 
-  const RelationsApi = () => {
-    const { loading, error, data } = useDataQuery(query); 
+  if (error) {
+    return <p>{`ERROR: ${error.message}`}</p>;
+  }
+  if (loading) {
+    return <CircularLoader />;
+  }
 
-    if (error) {
-      return <p>{error && <span>{`ERROR: ${error.message}`}</span>}</p>;
-    }
-    if (loading) {
-      return <p>{loading && <CircularLoader/>}</p>;
-    }
-    
-    return (data.Relations.trackedEntityInstances.map(({ attributes, lastUpdated, enrollments}) => (
+  return data.Contacts.trackedEntityInstances
+    .filter((item) => filterTable(item.enrollments[0]))
+    .map(({ attributes, lastUpdated, enrollments }) => (
       <TableRow>
-      <TableCell>{findValue(attributes, "first_name")}</TableCell>
-      <TableCell>{findValue(attributes, "surname")}</TableCell>
-      <TableCell>Undefined</TableCell>
-      <TableCell>{lastUpdated.substring(0,10)}</TableCell>
-      <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
-      <TableCell>{findValue(attributes, "phone_local")}</TableCell>
-      <TableCell>Undefined</TableCell>
-      <TableCell dataTest="dhis2-uicore-tablecell" dense>
-        <Button
-          dataTest="dhis2-uicore-button"
-          name="Primary button"
-          onClick={function logger(_ref) {
-            var name = _ref.name,
-              value = _ref.value;
-            return console.info("".concat(name, ": ").concat(value));
-          }}
-          primary
-          type="button"
-          value="default"
-        >
-          Tracker Capture
-        </Button>
-      </TableCell>
-    </TableRow>
-  ))
-)
-  };
+        <TableCell>{findValue(attributes, "first_name")}</TableCell>
+        <TableCell>{findValue(attributes, "surname")}</TableCell>
+        <TableCell>
+          {enrollments[0]
+            ? enrollments[0].incidentDate.substring(0, 10)
+            : "not defined"}
+        </TableCell>
+        <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
+        <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
+        <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+        <TableCell>
+          {enrollments[0] ? enrollments[0].status : "not defined"}
+        </TableCell>
+        <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <Button
+            dataTest="dhis2-uicore-button"
+            name="Primary button"
+            onClick={function logger(_ref) {
+              var name = _ref.name,
+                value = _ref.value;
+              return console.info("".concat(name, ": ").concat(value));
+            }}
+            primary
+            type="button"
+            value="default"
+          >
+            Tracker Capture
+          </Button>
+        </TableCell>
+      </TableRow>
+    ));
+};
 
+const RelationsApi = () => {
+  const { loading, error, data } = useDataQuery(query);
 
-export default findValue;
+  if (error) {
+    return <p>{`ERROR: ${error.message}`}</p>;
+  }
+  if (loading) {
+    return <CircularLoader />;
+  }
+
+  return data.Relations.trackedEntityInstances
+    .filter((item) => filterTable(item.enrollments[0]))
+    .map(({ attributes, lastUpdated, enrollments }) => (
+      <TableRow>
+        <TableCell>{findValue(attributes, "first_name")}</TableCell>
+        <TableCell>{findValue(attributes, "surname")}</TableCell>
+        <TableCell>
+          {enrollments[0]
+            ? enrollments[0].incidentDate.substring(0, 10)
+            : "not defined"}
+        </TableCell>
+        <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
+        <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
+        <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+        <TableCell>
+          {enrollments[0] ? enrollments[0].status : "not defined"}
+        </TableCell>
+        <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <Button
+            dataTest="dhis2-uicore-button"
+            name="Primary button"
+            onClick={function logger(_ref) {
+              var name = _ref.name,
+                value = _ref.value;
+              return console.info("".concat(name, ": ").concat(value));
+            }}
+            primary
+            type="button"
+            value="default"
+          >
+            Tracker Capture
+          </Button>
+        </TableCell>
+      </TableRow>
+    ));
+};
+
 export { IndexCasesApi, ContactsApi, RelationsApi };

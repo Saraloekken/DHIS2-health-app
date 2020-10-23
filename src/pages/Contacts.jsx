@@ -9,10 +9,8 @@ class Contacts extends React.Component {
                 <h2>Contacts</h2>
                 <DataTable api={<ContactsApi />} />
             </div>
-             
         )   
     }
 }
+
 export { Contacts }
-
-
