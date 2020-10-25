@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { SingleSelectField, SingleSelectOption } from '@dhis2/ui';
+import { SingleSelectField, SingleSelectOption, Button } from '@dhis2/ui';
 import styles from "../App.module.css";
 import { DatePicker } from "../components/DatePicker.jsx";
 
@@ -65,10 +65,18 @@ const Filters = () => {
                 
                 <DatePicker label="From" disabled={enabled==false}/> 
                 <DatePicker label="To" disabled={enabled==false}/>
-                
-                
-            </div>
 
+                <Button
+                dataTest="dhis2-uicore-button"
+                name="Secondary button"
+                onClick={function logger(_ref){let name=_ref.name,value=_ref.value;return console.info("".concat(name,": ").concat(value))}}
+                secondary
+                type="button"
+                value="default"
+                >
+                    Search
+                </Button>  
+            </div>
         )
     }
 
