@@ -57,7 +57,7 @@ function getDaysForwardDate(days) {
 
 function findValue(attributes, valueCode) {
   return attributes.find((item) => item.code === valueCode)
-    ? attributes.find((item) => item.code === valueCode).value  
+    ? attributes.find((item) => item.code === valueCode).value
     : "not defined";
 }
 
@@ -83,9 +83,11 @@ const IndexCasesApi = () => {
     return <CircularLoader />;
   }
 
+
   return data.IndexCases.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0]))
     .map(({ attributes, lastUpdated, enrollments }) => (
+
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -98,7 +100,9 @@ const IndexCasesApi = () => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].events[0].dueDate : "not defined"}
+          {new Intl.DateTimeFormat("en-GB", {
+            year: "numeric", month: "2-digit", day: "2-digit"
+          }).format(new Date(enrollments[0].events[0].dueDate))}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -120,6 +124,8 @@ const IndexCasesApi = () => {
     ));
 };
 
+
+
 const ContactsApi = () => {
   const { loading, error, data } = useDataQuery(query);
 
@@ -133,6 +139,7 @@ const ContactsApi = () => {
   return data.Contacts.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0]))
     .map(({ attributes, lastUpdated, enrollments }) => (
+
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -145,7 +152,9 @@ const ContactsApi = () => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].events[0].dueDate : "not defined"}
+          {new Intl.DateTimeFormat("en-GB", {
+            year: "numeric", month: "2-digit", day: "2-digit"
+          }).format(new Date(enrollments[0].events[0].dueDate))}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -192,7 +201,9 @@ const RelationsApi = () => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "not defined"}
+          {new Intl.DateTimeFormat("en-GB", {
+            year: "numeric", month: "2-digit", day: "2-digit"
+          }).format(new Date(enrollments[0].events[0].dueDate))}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
