@@ -57,7 +57,7 @@ function getDaysForwardDate(days) {
 
 function findValue(attributes, valueCode) {
   return attributes.find((item) => item.code === valueCode)
-    ? attributes.find((item) => item.code === valueCode).value
+    ? attributes.find((item) => item.code === valueCode).value  
     : "not defined";
 }
 
@@ -98,7 +98,7 @@ const IndexCasesApi = () => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "not defined"}
+          {enrollments[0] ? enrollments[0].events[0].dueDate : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -145,7 +145,7 @@ const ContactsApi = () => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          {enrollments[0] ? enrollments[0].status : "not defined"}
+          {enrollments[0] ? enrollments[0].events[0].dueDate : "not defined"}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button

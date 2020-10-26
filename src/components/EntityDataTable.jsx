@@ -12,7 +12,7 @@ const DataTable = (props) => {
           <TableCellHead>Last updated</TableCellHead>
           <TableCellHead>Age</TableCellHead>
           <TableCellHead>Phone</TableCellHead>
-          <TableCellHead>Status</TableCellHead>
+          <TableCellHead>Due date</TableCellHead>
           <TableCellHead>Capture</TableCellHead>
         </TableRowHead>
       </TableHead>
