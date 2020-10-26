@@ -22,20 +22,6 @@ const Filters = () => {
         return (
 
             <div className={styles.filters}>
-                <SingleSelectField inputWidth="200px" label="Status" selected="1">
-                    <SingleSelectOption
-                        label="All"
-                        value="1"
-                    />
-                    <SingleSelectOption
-                        label="Follow-up"
-                        value="2"
-                    />
-                    <SingleSelectOption
-                        label="Health status"
-                        value="3"
-                    />
-                </SingleSelectField>
 
                 <SingleSelectField inputWidth="200px" label="Time interval" selected={interval} onChange={intervalChange}>
                     <SingleSelectOption
