@@ -1,5 +1,5 @@
 import React from "react";
-import { useDataQuery } from "@dhis2/app-runtime";
+import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
 
 const query = {
@@ -75,6 +75,7 @@ function filterTable(item) {
 
 const IndexCasesApi = () => {
   const { loading, error, data } = useDataQuery(query);
+  const { baseUrl } = useConfig();
 
   if (error) {
     return <p>{`ERROR: ${error.message}`}</p>;
@@ -86,8 +87,7 @@ const IndexCasesApi = () => {
 
   return data.IndexCases.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0]))
-    .map(({ attributes, lastUpdated, enrollments }) => (
-
+    .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -108,11 +108,9 @@ const IndexCasesApi = () => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={function logger(_ref) {
-              var name = _ref.name,
-                value = _ref.value;
-              return console.info("".concat(name, ": ").concat(value));
-            }}
+            onClick={() =>
+              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+            }
             primary
             type="button"
             value="default"
@@ -128,6 +126,7 @@ const IndexCasesApi = () => {
 
 const ContactsApi = () => {
   const { loading, error, data } = useDataQuery(query);
+  const { baseUrl } = useConfig();
 
   if (error) {
     return <p>{`ERROR: ${error.message}`}</p>;
@@ -138,8 +137,7 @@ const ContactsApi = () => {
 
   return data.Contacts.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0]))
-    .map(({ attributes, lastUpdated, enrollments }) => (
-
+    .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -160,11 +158,9 @@ const ContactsApi = () => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={function logger(_ref) {
-              var name = _ref.name,
-                value = _ref.value;
-              return console.info("".concat(name, ": ").concat(value));
-            }}
+            onClick={() =>
+              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=DM9n1bUw8W8&ou=EwEP9IhOwuw`)
+            }
             primary
             type="button"
             value="default"
@@ -178,6 +174,7 @@ const ContactsApi = () => {
 
 const RelationsApi = () => {
   const { loading, error, data } = useDataQuery(query);
+  const { baseUrl } = useConfig();
 
   if (error) {
     return <p>{`ERROR: ${error.message}`}</p>;
@@ -188,7 +185,7 @@ const RelationsApi = () => {
 
   return data.Relations.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0]))
-    .map(({ attributes, lastUpdated, enrollments }) => (
+    .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -209,11 +206,9 @@ const RelationsApi = () => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={function logger(_ref) {
-              var name = _ref.name,
-                value = _ref.value;
-              return console.info("".concat(name, ": ").concat(value));
-            }}
+            onClick={() =>
+              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+            }
             primary
             type="button"
             value="default"
