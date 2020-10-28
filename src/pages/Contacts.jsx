@@ -7,7 +7,10 @@ class Contacts extends React.Component {
         return (
             <div>
                 <h2>Contacts</h2>
-                <DataTable api={<ContactsApi />} />
+                <DataTable
+                    headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Captured"]}
+                    api={<ContactsApi />}
+                />
             </div>
         )
     }
