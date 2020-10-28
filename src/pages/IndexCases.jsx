@@ -8,34 +8,34 @@ import { IndexCasesApi } from '../data/Api';
 const IndexCases = () => {
     const [days, setDays] = useState(0);
 
-    return ( 
+    return (
         <div className={styles.container}>
             <h2>Index cases</h2>
-            <div className={styles.grid}>
-                <div className={styles.left}>
-                    <WelcomeBox />
-                </div>
-                
+            <div>
                 <div className={styles.right}>
-                    <Filters setDays={setDays}/>
-                     <DataTable
+                    <div className={styles.topbar}>
+                        <Filters setDays={setDays} />
+                        <WelcomeBox />
+                    </div>
+
+                    <DataTable
                         headlines={[
-                          "First name",
-                          "Surname",
-                          "Incident date",
-                          "Last updated",
-                          "Age",
-                          "Phone",
-                          "Status",
-                          "Due date",
-                          "Captured",
+                            "First name",
+                            "Surname",
+                            "Incident date",
+                            "Last updated",
+                            "Age",
+                            "Phone",
+                            "Status",
+                            "Due date",
+                            "Captured",
                         ]}
-                        api={<IndexCasesApi days={days}/>}
+                        api={<IndexCasesApi days={days} />}
                     />
                 </div>
             </div>
         </div>
-    )   
+    )
 }
 
 

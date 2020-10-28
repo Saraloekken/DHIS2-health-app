@@ -29,4 +29,3 @@ class DataTable extends React.Component {
 
 
 export { DataTable };
-
