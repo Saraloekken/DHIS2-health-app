@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import styles from '../App.module.css';
 import { DataTable } from "../components/EntityDataTable.jsx";
 import { Filters } from '../components/Filters.jsx';
-import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
+import { IndexCasesApi } from '../data/Api';
 
 
-class IndexCases extends React.Component {
+const IndexCases = () => {
+    const [days, setDays] = useState(0);
 
-    render() {
-        return (
-            <div className={styles.container}>
-                <h2>Index cases</h2>
+    return ( 
+        <div className={styles.container}>
+            <h2>Index cases</h2>
+            <div className={styles.grid}>
+                <div className={styles.left}>
+                    <WelcomeBox />
+                </div>
+                
                 <div className={styles.right}>
-                    <div className={styles.topbar}>
-                        <Filters />
-                        <WelcomeBox />
-                    </div>
-                    <DataTable
+                    <Filters setDays={setDays}/>
+                     <DataTable
                         headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Captured"]}
-                        api={<IndexCasesApi />}
+                        api={<IndexCasesApi days={days}/>}
                     />
                 </div>
             </div>
-        )
-    }
+        </div>
+    )   
 }
+
 
 export { IndexCases }

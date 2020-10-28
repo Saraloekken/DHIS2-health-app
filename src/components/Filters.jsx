@@ -1,17 +1,31 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { SingleSelectField, SingleSelectOption, Button } from '@dhis2/ui';
 import styles from "../App.module.css";
 import { DatePicker } from "../components/DatePicker.jsx";
 
-
-const Filters = () => { 
+const Filters = (props) => { 
 
     const [enabled, setEnabled] = useState(false)
     const [interval, setInterval] = useState('1')
 
+    function updateTable() {
+        if (interval==1) {
+            props.setDays(0)
+        }
+        if (interval==2) {
+            props.setDays(1)
+        }
+        if (interval==3) {
+            props.setDays(7)
+        }
+        if (interval==4) {
+            props.setDays(30)
+        }
+    }
+
         function intervalChange (select){
             setInterval(select.selected)
-                
+            
             if(select.selected==5){
                 setEnabled(true)    
             } else {
@@ -33,11 +47,11 @@ const Filters = () => {
                         value="2"
                     />
                     <SingleSelectOption
-                        label="This week"
+                        label="Week"
                         value="3"
                     />
                     <SingleSelectOption
-                        label="This month"
+                        label="Month"
                         value="4"
                     />
 
@@ -55,7 +69,7 @@ const Filters = () => {
                 <Button
                 dataTest="dhis2-uicore-button"
                 name="Secondary button"
-                onClick={function logger(_ref){let name=_ref.name,value=_ref.value;return console.info("".concat(name,": ").concat(value))}}
+                onClick={() => updateTable()}
                 secondary
                 type="button"
                 value="default"

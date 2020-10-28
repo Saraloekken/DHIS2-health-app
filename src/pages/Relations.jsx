@@ -1,20 +1,23 @@
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { WelcomeBox } from "../components/WelcomeBox.jsx"; // skulle endres?
 import { DataTable } from "../components/EntityDataTable.jsx";
-import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
+import { Filters } from '../components/Filters.jsx';
+import { RelationsApi } from '../data/Api';
 
-class Relations extends React.Component {
-    render() {
+const Relations  = () => {
+    const [days, setDays] = useState(0);
+
         return (
             <div>
                 <h2>Relations</h2>
+                <Filters setDays={setDays}/>
                 <DataTable
                     headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Contacts", "Captured"]}
-                    api={<RelationsApi />}
+                    api={<RelationsApi days={days}/>}
                 />
             </div>
         )
     }
-}
 export { Relations }
 
