@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { WelcomeBox } from "../components/WelcomeBox.jsx"; // skulle endres?
 import { DataTable } from "../components/EntityDataTable.jsx";
@@ -13,12 +12,21 @@ const Contacts  = () => {
                 <h2>Contacts</h2>
                 <Filters setDays={setDays}/>
                 <DataTable
-                    headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Captured"]}
+                     headlines={[
+                        "First name",
+                        "Surname",
+                        "Incident date",
+                        "Last updated",
+                        "Age",
+                        "Phone",
+                        "Status",
+                        "Due date",
+                        "Captured",
+                      ]}
                     api={<ContactsApi days={days}/>}
                 />
             </div>
-        )
-    }
+     )
+}
 
-
-export { Contacts }
+export { Contacts };
