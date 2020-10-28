@@ -1,6 +1,6 @@
 import React from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
-import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
+import { TableCell, TableRow, Button, CircularLoader, Chip } from "@dhis2/ui";
 
 const query = {
   IndexCases: {
@@ -89,6 +89,24 @@ function findDueDate(item) {
   return earliestDueDate ? earliestDueDate.substring(0, 10) : "not defined";
 }
 
+function findStatus(item) {
+  let earliestDueDate;
+  let checkStatus;
+
+  for (let i = 0, len = item.events.length; i < len; i++) {
+    let event = item.events[i];
+
+    if (
+      event.status != "COMPLETED" &&
+      (event.dueDate < earliestDueDate || typeof earliestDueDate == "undefined")
+    ) {
+      earliestDueDate = event.dueDate;
+      checkStatus = event.status;
+    }
+  }
+  return checkStatus ? checkStatus.substring(0, 10) : "not defined";
+}
+
 // evt lage en funksjon som formaterer om datoene til dd/mm/yyyy
 //new Intl.DateTimeFormat("en-GB", {
 //  year: "numeric",
@@ -121,6 +139,14 @@ const IndexCasesApi = () => {
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+        <TableCell>
+          <Chip 
+            dataTest="dhis2-uicore-chip"
+            dense
+            >
+              {findStatus(enrollments[0])}
+          </Chip>
+        </TableCell>
         <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -165,7 +191,14 @@ const ContactsApi = () => {
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
-        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        <TableCell>
+          <Chip 
+            dataTest="dhis2-uicore-chip"
+            dense
+            >
+              {findStatus(enrollments[0])}
+          </Chip>
+        </TableCell>        <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
@@ -209,7 +242,26 @@ const RelationsApi = () => {
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
-        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        <TableCell>
+          <Chip 
+            dataTest="dhis2-uicore-chip"
+            dense
+            >
+              {findStatus(enrollments[0])}
+          </Chip>
+        </TableCell>        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <Button
+            dataTest="dhis2-uicore-button"
+            name="Secondary button"
+            onClick={function logger(_ref){var name=_ref.name,value=_ref.value;return console.info("".concat(name,": ").concat(value))}}
+            secondary
+            type="button"
+            value="default"
+          >
+            View contacts
+          </Button>
+        </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
