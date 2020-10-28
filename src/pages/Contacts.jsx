@@ -12,9 +12,12 @@ const Contacts  = () => {
             <div>
                 <h2>Contacts</h2>
                 <Filters setDays={setDays}/>
-                <DataTable api={<ContactsApi days={days}/>} />
+                <DataTable
+                    headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Captured"]}
+                    api={<ContactsApi days={days}/>}
+                />
             </div>
-        )   
+        )
     }
 
 

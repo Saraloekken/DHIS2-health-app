@@ -19,7 +19,10 @@ const IndexCases = () => {
                 
                 <div className={styles.right}>
                     <Filters setDays={setDays}/>
-                    <DataTable api={<IndexCasesApi days={days}/>} />
+                     <DataTable
+                        headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Captured"]}
+                        api={<IndexCasesApi days={days}/>}
+                    />
                 </div>
             </div>
         </div>

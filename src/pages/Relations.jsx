@@ -12,7 +12,10 @@ const Relations  = () => {
             <div>
                 <h2>Relations</h2>
                 <Filters setDays={setDays}/>
-                <DataTable api={<RelationsApi days={days}/>} />
+                <DataTable
+                    headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Contacts", "Captured"]}
+                    api={<RelationsApi days={days}/>}
+                />
             </div>
         )
     }
