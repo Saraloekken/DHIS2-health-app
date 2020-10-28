@@ -1,27 +1,31 @@
 import React from "react";
 import { Table, TableHead, TableRowHead, TableCellHead, TableBody } from "@dhis2/ui";
 
-const DataTable = (props) => {
-  return (
-    <Table>
-      <TableHead>
-        <TableRowHead>
-          <TableCellHead>First name</TableCellHead>
-          <TableCellHead>Surname</TableCellHead>
-          <TableCellHead>Incident date</TableCellHead>
-          <TableCellHead>Last updated</TableCellHead>
-          <TableCellHead>Age</TableCellHead>
-          <TableCellHead>Phone</TableCellHead>
-          <TableCellHead>Status</TableCellHead>
-          <TableCellHead>Capture</TableCellHead>
-        </TableRowHead>
-      </TableHead>
-      <TableBody>
-        {props.api}
-      </TableBody>
-    </Table>
-  )
-}
+
+class DataTable extends React.Component {
+
+  createTableCellHead = () => {
+    const array = this.props.headlines;
+    return array.map((headline) => {
+      return <TableCellHead>{headline}</TableCellHead>
+    })
+  };
+
+  render() {
+    return (
+      <Table>
+        <TableHead>
+          <TableRowHead>
+            {this.createTableCellHead()}
+          </TableRowHead>
+        </TableHead>
+        <TableBody>
+          {this.props.api}
+        </TableBody>
+      </Table>
+    )
+  }
+};
 
 
 export { DataTable };

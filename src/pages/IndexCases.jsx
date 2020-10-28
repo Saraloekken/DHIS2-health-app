@@ -8,22 +8,22 @@ import { ContactsApi, IndexCasesApi, RelationsApi } from '../data/Api';
 
 class IndexCases extends React.Component {
 
-    render(){
-        return ( 
+    render() {
+        return (
             <div className={styles.container}>
                 <h2>Index cases</h2>
-                <div className={styles.grid}>
-                    <div className={styles.left}>
+                <div className={styles.right}>
+                    <div className={styles.topbar}>
+                        <Filters />
                         <WelcomeBox />
                     </div>
-                    
-                    <div className={styles.right}>
-                        <Filters />
-                        <DataTable api={<IndexCasesApi />} />
-                    </div>
+                    <DataTable
+                        headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Captured"]}
+                        api={<IndexCasesApi />}
+                    />
                 </div>
             </div>
-        )   
+        )
     }
 }
 
