@@ -8,7 +8,10 @@ class Relations extends React.Component {
         return (
             <div>
                 <h2>Relations</h2>
-                <DataTable api={<RelationsApi />} />
+                <DataTable
+                    headlines={["First name", "Surname", "Incident date", "Last updated", "Age", "Phone", "Due date", "Contacts", "Captured"]}
+                    api={<RelationsApi />}
+                />
             </div>
         )
     }
