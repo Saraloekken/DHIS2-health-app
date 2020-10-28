@@ -61,13 +61,11 @@ function findValue(attributes, valueCode) {
     : "not defined";
 }
 
-function filterTable(item) {
+function filterTable(item, days) {
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
-      event.dueDate.slice(0, 10) <= getDaysForwardDate(0) // today as default
-    // getDaysForwardDate(1) > tomorrow
-    // getDaysForwardDate(7) > a week
+      event.dueDate.slice(0, 10) <= getDaysForwardDate(days)
   );
 
   if (filteredEvents[0] && item.status == "ACTIVE") return item;
@@ -96,9 +94,10 @@ function findDueDate(item) {
 //  day: "2-digit",
 //}).format(new Date(enrollments[0].events[0].dueDate))
 
-const IndexCasesApi = () => {
+const IndexCasesApi = (props) => {
   const { loading, error, data } = useDataQuery(query);
   const { baseUrl } = useConfig();
+  console.log(props.days);
 
   if (error) {
     return <p>{`ERROR: ${error.message}`}</p>;
@@ -108,7 +107,7 @@ const IndexCasesApi = () => {
   }
 
   return data.IndexCases.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0]))
+    .filter((item) => filterTable(item.enrollments[0], props.days))
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -140,7 +139,7 @@ const IndexCasesApi = () => {
     ));
 };
 
-const ContactsApi = () => {
+const ContactsApi = (props) => {
   const { loading, error, data } = useDataQuery(query);
   const { baseUrl } = useConfig();
 
@@ -152,7 +151,7 @@ const ContactsApi = () => {
   }
 
   return data.Contacts.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0]))
+    .filter((item) => filterTable(item.enrollments[0], props.days))
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -184,7 +183,7 @@ const ContactsApi = () => {
     ));
 };
 
-const RelationsApi = () => {
+const RelationsApi = (props) => {
   const { loading, error, data } = useDataQuery(query);
   const { baseUrl } = useConfig();
 
@@ -196,7 +195,7 @@ const RelationsApi = () => {
   }
 
   return data.Relations.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0]))
+    .filter((item) => filterTable(item.enrollments[0], props.days))
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
