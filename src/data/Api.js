@@ -73,14 +73,13 @@ function findValue(attributes, valueCode) {
     : "None";
 }
 
-function filterTable(item, days) {
+function filterTable(item, toDay) {
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
-      event.dueDate.slice(0, 10) <= getDaysForwardDate(days)
+      event.dueDate.slice(0, 10) <= getDaysForwardDate(toDay)
   );
-
-  if (filteredEvents[0] && item.status == "ACTIVE") return item;
+  if (filteredEvents[0] && item.status != "COMPLETED") return item;
 }
 
 function findDueDate(item) {
@@ -209,7 +208,8 @@ const ContactsApi = (props) => {
             >
               {findStatus(enrollments[0])}
           </Tag>
-        </TableCell>        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        </TableCell>        
+        <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
