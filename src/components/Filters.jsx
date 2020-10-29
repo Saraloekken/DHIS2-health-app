@@ -21,6 +21,11 @@ const Filters = (props) => {
         if (interval==4) {
             props.setDays(30)
         }
+        if (interval==5) {
+            // etter å ha valgt en dato frem i tid, eksempel en uke, vil den ikke filtrere riktig tilbake, eksempel i morgen. (får fortsatt)
+            // en uke
+            props.setDays(document.querySelector('input[type="date"]').value)
+        }
     }
 
         function intervalChange (select){
@@ -62,8 +67,6 @@ const Filters = (props) => {
                     
                 </SingleSelectField>
                 
-                
-                <DatePicker label="From" disabled={enabled==false}/> 
                 <DatePicker label="To" disabled={enabled==false}/>
 
                 <Button
