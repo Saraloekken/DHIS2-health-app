@@ -61,14 +61,13 @@ function findValue(attributes, valueCode) {
     : "not defined";
 }
 
-function filterTable(item, days) {
+function filterTable(item, toDay) {
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
-      event.dueDate.slice(0, 10) <= getDaysForwardDate(days)
+      event.dueDate.slice(0, 10) <= getDaysForwardDate(toDay)
   );
-
-  if (filteredEvents[0] && item.status == "ACTIVE") return item;
+  if (filteredEvents[0] && item.status != "COMPLETED") return item;
 }
 
 function findDueDate(item) {
@@ -139,11 +138,8 @@ const IndexCasesApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Chip 
-            dataTest="dhis2-uicore-chip"
-            dense
-            >
-              {findStatus(enrollments[0])}
+          <Chip dataTest="dhis2-uicore-chip" dense>
+            {findStatus(enrollments[0])}
           </Chip>
         </TableCell>
         <TableCell>{findDueDate(enrollments[0])}</TableCell>
@@ -191,13 +187,11 @@ const ContactsApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Chip 
-            dataTest="dhis2-uicore-chip"
-            dense
-            >
-              {findStatus(enrollments[0])}
+          <Chip dataTest="dhis2-uicore-chip" dense>
+            {findStatus(enrollments[0])}
           </Chip>
-        </TableCell>        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        </TableCell>{" "}
+        <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
@@ -242,18 +236,20 @@ const RelationsApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Chip 
-            dataTest="dhis2-uicore-chip"
-            dense
-            >
-              {findStatus(enrollments[0])}
+          <Chip dataTest="dhis2-uicore-chip" dense>
+            {findStatus(enrollments[0])}
           </Chip>
-        </TableCell>        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        </TableCell>{" "}
+        <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
             name="Secondary button"
-            onClick={function logger(_ref){var name=_ref.name,value=_ref.value;return console.info("".concat(name,": ").concat(value))}}
+            onClick={function logger(_ref) {
+              var name = _ref.name,
+                value = _ref.value;
+              return console.info("".concat(name, ": ").concat(value));
+            }}
             secondary
             type="button"
             value="default"
