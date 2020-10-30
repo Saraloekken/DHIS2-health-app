@@ -3,28 +3,47 @@ import { SingleSelectField, SingleSelectOption, Button } from '@dhis2/ui';
 import styles from "../App.module.css";
 import { DatePicker } from "../components/DatePicker.jsx";
 
+export function getDaysForwardDate(days) {
+    const today = new Date();
+    const daysForward = new Date(today);
+    daysForward.setDate(daysForward.getDate() + days);
+    let dd = String(daysForward.getDate()).padStart(2, "0");
+    let mm = String(daysForward.getMonth() + 1).padStart(2, "0");
+    let yyyy = daysForward.getFullYear();
+  
+    return yyyy + "-" + mm + "-" + dd;
+  }
+
 const Filters = (props) => { 
 
     const [enabled, setEnabled] = useState(false)
     const [interval, setInterval] = useState('1')
+    const [fromDate, setFromDate] = useState(new Date());
+    const [toDate, setToDate] = useState(new Date());
+    
+    const formatDate = (date) =>        
+    `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
 
     function updateTable() {
         if (interval==1) {
-            props.setDays(0)
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(0))
         }
         if (interval==2) {
-            props.setDays(1)
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(1))
         }
         if (interval==3) {
-            props.setDays(7)
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(7))
         }
         if (interval==4) {
-            props.setDays(30)
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(30))
         }
-        if (interval==5) {
-            // etter å ha valgt en dato frem i tid, eksempel en uke, vil den ikke filtrere riktig tilbake, eksempel i morgen. (får fortsatt)
-            // en uke
-            props.setDays(document.querySelector('input[type="date"]').value)
+        if (interval==5) {     
+            props.setFrom(formatDate(fromDate));
+            props.setTo(formatDate(toDate));
         }
     }
 
@@ -66,9 +85,10 @@ const Filters = (props) => {
                     />
                     
                 </SingleSelectField>
-                
-                <DatePicker label="To" disabled={enabled==false}/>
 
+                <DatePicker label="From" disabled={enabled==false} date={fromDate} setDate={setFromDate} />
+                <DatePicker label="To" disabled={enabled==false} date={toDate} setDate={setToDate} />
+                
                 <Button
                 dataTest="dhis2-uicore-button"
                 name="Secondary button"
@@ -83,5 +103,5 @@ const Filters = (props) => {
         )
     }
 
-
+export default getDaysForwardDate;
 export { Filters }

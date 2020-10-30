@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
 import { Filters } from "../components/Filters.jsx";
+import getDaysForwardDate from "../components/Filters.jsx";
 import { IndexCasesApi } from "../data/Api";
 import styles from "../App.module.css";
 
 const IndexCases = () => {
-  const [days, setDays] = useState(0);
+    const [from, setFrom] = useState(getDaysForwardDate(0));
+    const [to, setTo] = useState(getDaysForwardDate(0));
 
   return (
     <div className={styles.container}>
@@ -14,7 +16,7 @@ const IndexCases = () => {
       <div>
         <div className={styles.right}>
           <div className={styles.topbar}>
-            <Filters setDays={setDays} />
+             <Filters setFrom={setFrom} setTo={setTo} />
             <WelcomeBox />
           </div>
 
@@ -30,7 +32,7 @@ const IndexCases = () => {
               "Due date",
               "Tracker Capture",
             ]}
-            api={<IndexCasesApi days={days} />}
+            api={<IndexCasesApi from={from} to={to} />}
           />
         </div>
       </div>
