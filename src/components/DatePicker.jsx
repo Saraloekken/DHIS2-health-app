@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from "../App.module.css";
 
-
 const DatePicker = (props) => {
     const formatDate = (date) =>        
     `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
@@ -18,9 +17,6 @@ const DatePicker = (props) => {
             />
         </div>
     )
-
 };
 
-export { DatePicker }
-
-
+export { DatePicker };
