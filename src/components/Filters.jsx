@@ -41,12 +41,7 @@ const Filters = (props) => {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(30))
         }
-        if (interval==5) {
-            // etter å ha valgt en dato frem i tid, eksempel en uke, vil den ikke filtrere riktig tilbake, eksempel i morgen. (får fortsatt)
-            // en uke
-            console.log(formatDate(fromDate))
-            console.log(formatDate(toDate))
-            
+        if (interval==5) {     
             props.setFrom(formatDate(fromDate));
             props.setTo(formatDate(toDate));
         }

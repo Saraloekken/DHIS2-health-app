@@ -61,7 +61,6 @@ function filterTable(item, fromDay, toDay) {
   if (fromDay == today && toDay == today) {
     fromDay = "2019-01-01";
   }
-  console.log(fromDay + " " + toDay);
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
