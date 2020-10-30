@@ -1,6 +1,6 @@
 import React from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
-import { ModalContacts } from '../components/ModalContacts.jsx';
+import { ModalContacts } from "../components/ModalContacts.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
 import {
   TableCell,
@@ -14,7 +14,6 @@ import {
   ModalActions,
 } from "@dhis2/ui";
 import getDaysForwardDate from "../components/Filters.jsx";
-
 
 const query = {
   IndexCases: {
@@ -143,11 +142,8 @@ const IndexCasesApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Tag
-            dataTest="dhis2-uicore-tag"
-            neutral
-            >
-              {findStatus(enrollments[0])}
+          <Tag dataTest="dhis2-uicore-tag" neutral>
+            {findStatus(enrollments[0])}
           </Tag>
         </TableCell>
         <TableCell>{findDueDate(enrollments[0])}</TableCell>
@@ -195,13 +191,10 @@ const ContactsApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Tag
-            dataTest="dhis2-uicore-tag"
-            neutral
-            >
-              {findStatus(enrollments[0])}
+          <Tag dataTest="dhis2-uicore-tag" neutral>
+            {findStatus(enrollments[0])}
           </Tag>
-        </TableCell>        
+        </TableCell>
         <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -220,7 +213,6 @@ const ContactsApi = (props) => {
       </TableRow>
     ));
 };
-
 
 /*
   Hvordan mappe relationships:
@@ -263,44 +255,36 @@ const RelationsApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Tag
-            dataTest="dhis2-uicore-tag"
-            neutral
-            >
-              {findStatus(enrollments[0])}
+          <Tag dataTest="dhis2-uicore-tag" neutral>
+            {findStatus(enrollments[0])}
           </Tag>
-        </TableCell>        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        </TableCell>{" "}
+        <TableCell>{findDueDate(enrollments[0])}</TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
-            <ModalContacts toggle = {
-              show => <Button onClick = { show } > View contacts </Button>}
-              content = {
-              hide => ( 
-                <Modal dataTest = "dhis2-uicore-modal"
-                  position = "middle" >
-                    <ModalContent dataTest = "dhis2-uicore-modalcontent">
-                    <DataTable
+          <ModalContacts
+            toggle={(show) => <Button onClick={show}> View contacts </Button>}
+            content={(hide) => (
+              <Modal dataTest="dhis2-uicore-modal" position="middle">
+                <ModalContent dataTest="dhis2-uicore-modalcontent">
+                  <DataTable
                     headlines={[
                       "First name",
                       "Surname",
                       "Age",
                       "Phone",
-                      "Status",  
-                      ]}
-                      //api={<RelationsApi/>}
-                    />
-                    </ModalContent>  
-                    <ModalActions>
-                      <ButtonStrip>
-                        <Button 
-                          onClick = { hide }>
-                          Close
-                        </Button>
-                      </ButtonStrip>
-                    </ModalActions>
-                </Modal >
-              )
-            }
-            />
+                      "Status",
+                    ]}
+                    //api={<RelationsApi/>}
+                  />
+                </ModalContent>
+                <ModalActions>
+                  <ButtonStrip>
+                    <Button onClick={hide}>Close</Button>
+                  </ButtonStrip>
+                </ModalActions>
+              </Modal>
+            )}
+          />
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
@@ -318,6 +302,6 @@ const RelationsApi = (props) => {
         </TableCell>
       </TableRow>
     ));
-  };
+};
 
-export { IndexCasesApi, ContactsApi, RelationsApi, ModalsApi };
+export { IndexCasesApi, ContactsApi, RelationsApi };
