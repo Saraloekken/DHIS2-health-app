@@ -1,6 +1,7 @@
 import React from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { TableCell, TableRow, Button, CircularLoader, Chip } from "@dhis2/ui";
+import getDaysForwardDate from "../components/Filters.jsx";
 
 const query = {
   IndexCases: {
@@ -44,28 +45,28 @@ const query = {
   },
 };
 
-function getDaysForwardDate(days) {
-  const today = new Date();
-  const daysForward = new Date(today);
-  daysForward.setDate(daysForward.getDate() + days);
-  let dd = String(daysForward.getDate()).padStart(2, "0");
-  let mm = String(daysForward.getMonth() + 1).padStart(2, "0");
-  let yyyy = daysForward.getFullYear();
-
-  return yyyy + "-" + mm + "-" + dd;
-}
-
 function findValue(attributes, valueCode) {
   return attributes.find((item) => item.code === valueCode)
     ? attributes.find((item) => item.code === valueCode).value
-    : "not defined";
+    : "None";
 }
 
-function filterTable(item, toDay) {
+function sliceDate(date) {
+  return date.slice(0, 10);
+}
+
+function filterTable(item, fromDay, toDay) {
+  let today = getDaysForwardDate(0);
+
+  if (fromDay == today && toDay == today) {
+    fromDay = "2019-01-01";
+  }
+  console.log(fromDay + " " + toDay);
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
-      event.dueDate.slice(0, 10) <= getDaysForwardDate(toDay)
+      sliceDate(event.dueDate) >= fromDay &&
+      sliceDate(event.dueDate) <= toDay
   );
   if (filteredEvents[0] && item.status != "COMPLETED") return item;
 }
@@ -83,7 +84,7 @@ function findDueDate(item) {
       earliestDueDate = event.dueDate;
     }
   }
-  return earliestDueDate ? earliestDueDate.substring(0, 10) : "not defined";
+  return earliestDueDate ? earliestDueDate.substring(0, 10) : "None";
 }
 
 function findStatus(item) {
@@ -101,20 +102,12 @@ function findStatus(item) {
       checkStatus = event.status;
     }
   }
-  return checkStatus ? checkStatus.substring(0, 10) : "not defined";
+  return checkStatus ? checkStatus.substring(0, 10) : "None";
 }
-
-// evt lage en funksjon som formaterer om datoene til dd/mm/yyyy
-//new Intl.DateTimeFormat("en-GB", {
-//  year: "numeric",
-//  month: "2-digit",
-//  day: "2-digit",
-//}).format(new Date(enrollments[0].events[0].dueDate))
 
 const IndexCasesApi = (props) => {
   const { loading, error, data } = useDataQuery(query);
   const { baseUrl } = useConfig();
-  console.log(props.days);
 
   if (error) {
     return <p>{`ERROR: ${error.message}`}</p>;
@@ -124,7 +117,7 @@ const IndexCasesApi = (props) => {
   }
 
   return data.IndexCases.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0], props.days))
+    .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -132,7 +125,7 @@ const IndexCasesApi = (props) => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "not defined"}
+            : "None"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
@@ -173,7 +166,7 @@ const ContactsApi = (props) => {
   }
 
   return data.Contacts.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0], props.days))
+    .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -181,7 +174,7 @@ const ContactsApi = (props) => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "not defined"}
+            : "None"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
@@ -222,7 +215,7 @@ const RelationsApi = (props) => {
   }
 
   return data.Relations.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0], props.days))
+    .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -230,7 +223,7 @@ const RelationsApi = (props) => {
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
-            : "not defined"}
+            : "None"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>

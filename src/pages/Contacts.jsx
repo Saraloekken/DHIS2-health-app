@@ -3,14 +3,16 @@ import { WelcomeBox } from "../components/WelcomeBox.jsx"; // skulle endres?
 import { DataTable } from "../components/EntityDataTable.jsx";
 import { Filters } from '../components/Filters.jsx';
 import { ContactsApi } from '../data/Api';
+import getDaysForwardDate from "../components/Filters.jsx";
 
 const Contacts  = () => {
-    const [days, setDays] = useState(0);
+  const [from, setFrom] = useState(getDaysForwardDate(0));
+  const [to, setTo] = useState(getDaysForwardDate(0));
         
     return ( 
             <div>
                 <h2>Contacts</h2>
-                <Filters setDays={setDays}/>
+                <Filters setFrom={setFrom} setTo={setTo}/>
                 <DataTable
                      headlines={[
                         "First name",
@@ -23,7 +25,7 @@ const Contacts  = () => {
                         "Due date",
                         "Captured",
                       ]}
-                    api={<ContactsApi days={days}/>}
+                    api={<ContactsApi from={from} to={to}/>}
                 />
             </div>
      )
