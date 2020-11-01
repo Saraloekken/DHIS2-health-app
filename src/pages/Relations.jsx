@@ -16,6 +16,7 @@ const Relations = () => {
     <div className={StyleSheet.container}>
       <h2>Index Cases and Contacts</h2>
       <div>
+
         <div className={styles.topbar}>
           <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
           <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />

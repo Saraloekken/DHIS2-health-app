@@ -146,11 +146,11 @@ const IndexCasesApi = (props) => {
     .filter((item) => filterTable(item.enrollments[0], props.from, props.to));
 
   tableLength = indexCases.length;
-   if (tableLength === 0) {
-      return (
-        <InfoMessage />
-      );
-    }
+  if (tableLength === 0) {
+    return (
+      <InfoMessage />
+    );
+  }
 
   return indexCases.map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
     <TableRow>
@@ -215,18 +215,18 @@ const ContactsApi = (props) => {
 
 
   const contacts = data.Contacts.trackedEntityInstances.filter((item) =>
-      props.tei
-        ? filterTableRelationship(item, props.relObject, props.tei)
-        : filterTable(item.enrollments[0], props.from, props.to)
-    )
-  
+    props.tei
+      ? filterTableRelationship(item, props.relObject, props.tei)
+      : filterTable(item.enrollments[0], props.from, props.to)
+  )
+
   tableLength = contacts.length;
-    if (tableLength === 0) {
-      return (
-        <InfoMessage />
-      );
-    }
-        
+  if (tableLength === 0) {
+    return (
+      <InfoMessage />
+    );
+  }
+
   return contacts.map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
     <TableRow>
       <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -333,9 +333,9 @@ const RelationsApi = (props) => {
 
   const relations = data.Relations.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
-  
+
   tableLength = relations.length;
-    if (tableLength === 0) {
+  if (tableLength === 0) {
     return (
       <InfoMessage />
     );
@@ -399,6 +399,7 @@ const RelationsApi = (props) => {
                           to={props.to}
                           tei={trackedEntityInstance}
                           relObject={relationships}
+                          setTaskCount={() => { }}
                         />
                       }
                     />
