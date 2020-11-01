@@ -1,21 +1,40 @@
 import React, { Component } from "react";
-import { NoticeBox } from "@dhis2/ui";
-import covidIcon from "../img/doctor-woman.svg";
+import { NoticeBox, CircularLoader } from "@dhis2/ui";
 import styles from "../App.module.css";
+import { useDataQuery } from "@dhis2/app-runtime";
 
-class WelcomeBox extends React.Component {
-  render() {
-    return (
-      <NoticeBox
-        className={styles.notice}
-        dataTest="dhis2-uicore-noticebox"
-        title="Welcome, Hanna!"
-      >
-        You have <strong>XX</strong> tasks left to complete today!
-        {/*<img className={styles.covidimg} src={covidIcon} alt="CovidIcon"/ >*/}
-      </NoticeBox>
-    );
+
+const WelcomeBox = (props) => {
+  const query = {
+    Me: {
+      resource: "me",
+    }
   }
+
+  const { loading, error, data } = useDataQuery(query);
+
+  if (error) {
+    return <p>{`ERROR: ${error.message}`}</p>;
+  }
+  if (loading) {
+    return <CircularLoader />;
+  }
+
+  return (
+
+
+
+    <NoticeBox
+      className={styles.notice}
+      dataTest="dhis2-uicore-noticebox"
+      title={`Welcome, ${data.Me.name}!`}
+    >
+      You have <strong>{props.taskCount}</strong> tasks left to complete {props.dayDescription}!
+        {/* //tomorrow //next week //next month //during the periode chosen */}
+
+    </NoticeBox >
+  );
 }
+
 
 export { WelcomeBox };

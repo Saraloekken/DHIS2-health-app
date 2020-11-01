@@ -10,19 +10,19 @@ export function getDaysForwardDate(days) {
     let dd = String(daysForward.getDate()).padStart(2, "0");
     let mm = String(daysForward.getMonth() + 1).padStart(2, "0");
     let yyyy = daysForward.getFullYear();
-  
+
     return yyyy + "-" + mm + "-" + dd;
-  }
+}
 
-const Filters = (props) => { 
+const Filters = (props) => {
 
-    const [enabled, setEnabled] = useState(false)
-    const [interval, setInterval] = useState('1')
+    const [enabled, setEnabled] = useState(false);
+    const [interval, setInterval] = useState('1');
     const [fromDate, setFromDate] = useState(new Date());
     const [toDate, setToDate] = useState(new Date());
-    
-    const formatDate = (date) =>        
-    `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
+
+    const formatDate = (date) =>
+        `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`
 
     function updateTable (select) {
         setInterval(select.selected)
@@ -30,31 +30,37 @@ const Filters = (props) => {
         if (select.selected==0) {
             props.setFrom("2019-01-01")
             props.setTo(getDaysForwardDate(-1))
+            props.setDayDescription('that is overdue');
             setEnabled(false)
         }
         if (select.selected==1) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(0))
+            props.setDayDescription('by today');
             setEnabled(false)
         }
         if (select.selected==2) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(1))
+            props.setDayDescription('by tomorrow');
             setEnabled(false)
         }
         if (select.selected==3) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(7))
+            props.setDayDescription('next week');
             setEnabled(false)
         }
         if (select.selected==4) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(30))
+            props.setDayDescription('next month');
             setEnabled(false)
         }
         if (select.selected==5) {     
             props.setFrom(formatDate(fromDate));
             props.setTo(formatDate(toDate));
+            props.setDayDescription('during the chosen time period');
             setEnabled(true) 
         }
     }
@@ -118,6 +124,7 @@ const Filters = (props) => {
             </div>
         )
     }
+
 
 export default getDaysForwardDate;
 export { Filters }
