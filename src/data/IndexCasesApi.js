@@ -67,8 +67,8 @@ const IndexCasesApi = (props) => {
         <TableCell>
           <Tag
             dataTest="dhis2-uicore-tag"
-            neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-            positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+            positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+            neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
             default={findStatus(enrollments[0]) === "VISITED" ? true : false}
             negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
           >
