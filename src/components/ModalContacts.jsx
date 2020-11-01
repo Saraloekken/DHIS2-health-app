@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { DataTable } from "../components/EntityDataTable.jsx";
-import { RelationsApi } from "../data/Api";
 
 const ModalContacts = ({ toggle, content }) => {
   const [isShown, setIsShown] = useState(false);
