@@ -24,102 +24,107 @@ const Filters = (props) => {
     const formatDate = (date) =>
         `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`
 
-    function updateTable() {
+    function updateTable (select) {
+        setInterval(select.selected)
 
-        if (interval == 0) {
+        if (select.selected==0) {
             props.setFrom("2019-01-01")
             props.setTo(getDaysForwardDate(-1))
             props.setDayDescription('that is overdue');
+            setEnabled(false)
         }
-        if (interval == 1) {
+        if (select.selected==1) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(0))
             props.setDayDescription('by today');
-
+            setEnabled(false)
         }
-        if (interval == 2) {
-            props.setFrom(getDaysForwardDate(0));
-            props.setTo(getDaysForwardDate(1));
+        if (select.selected==2) {
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(1))
             props.setDayDescription('by tomorrow');
+            setEnabled(false)
         }
-        if (interval == 3) {
-            props.setFrom(getDaysForwardDate(0));
-            props.setTo(getDaysForwardDate(7));
+        if (select.selected==3) {
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(7))
             props.setDayDescription('next week');
+            setEnabled(false)
         }
-        if (interval == 4) {
-            props.setFrom(getDaysForwardDate(0));
-            props.setTo(getDaysForwardDate(30));
+        if (select.selected==4) {
+            props.setFrom(getDaysForwardDate(0))
+            props.setTo(getDaysForwardDate(30))
             props.setDayDescription('next month');
+            setEnabled(false)
         }
-        if (interval == 5) {
+        if (select.selected==5) {     
             props.setFrom(formatDate(fromDate));
             props.setTo(formatDate(toDate));
             props.setDayDescription('during the chosen time period');
-
+            setEnabled(true) 
         }
     }
 
-    function intervalChange(select) {
-        setInterval(select.selected)
-
-        if (select.selected == 5) {
-            setEnabled(true)
-        } else {
-            setEnabled(false)
+    function updateCalender() {
+        if (interval==5) {     
+            props.setFrom(formatDate(fromDate));
+            props.setTo(formatDate(toDate));
+            setEnabled(true) 
         }
     }
 
-    return (
+        return (
 
-        <div className={styles.filters}>
+            <div className={styles.filters}>
 
-            <SingleSelectField inputWidth="200px" label="Time interval" selected={interval} onChange={intervalChange}>
-                <SingleSelectOption
-                    label="Overdue"
-                    value="0"
-                />
+                <SingleSelectField inputWidth="200px" label="Time interval" selected={interval} onChange={updateTable}>
+                  <SingleSelectOption
+                        label="Overdue"
+                        value="0"
+                    />
 
-                <SingleSelectOption
-                    label="Today"
-                    value="1"
-                />
-                <SingleSelectOption
-                    label="Tomorrow"
-                    value="2"
-                />
-                <SingleSelectOption
-                    label="Week"
-                    value="3"
-                />
-                <SingleSelectOption
-                    label="Month"
-                    value="4"
-                />
+                    <SingleSelectOption
+                        label="Today"
+                        value="1"
+                    />
+                    <SingleSelectOption
+                        label="Tomorrow"
+                        value="2"
+                    />
+                    <SingleSelectOption
+                        label="Week"
+                        value="3"
+                    />
+                    <SingleSelectOption
+                        label="Month"
+                        value="4"
+                    />
 
-                <SingleSelectOption
-                    label="Custom"
-                    value="5"
-                />
+                    <SingleSelectOption
+                        label="Custom"
+                        value="5"
+                    />
+                    
+                </SingleSelectField>
 
-            </SingleSelectField>
-
-            <DatePicker label="From" disabled={enabled == false} date={fromDate} setDate={setFromDate} />
-            <DatePicker label="To" disabled={enabled == false} date={toDate} setDate={setToDate} />
-
-            <Button
+                <DatePicker label="From" disabled={enabled==false} date={fromDate} setDate={setFromDate} />
+                <DatePicker label="To" disabled={enabled==false} date={toDate} setDate={setToDate} min={formatDate(fromDate)}/>
+                
+                <Button
                 dataTest="dhis2-uicore-button"
                 name="Secondary button"
-                onClick={() => updateTable()}
+                onClick={() => updateCalender()}
                 secondary
                 type="button"
                 value="default"
-            >
-                Search
-                </Button>
-        </div>
-    )
-}
+                disabled={enabled==false}
+                >
+                    Search
+                </Button>  
+            </div>
+        )
+    }
+
 
 export default getDaysForwardDate;
 export { Filters }

@@ -14,6 +14,7 @@ const DatePicker = (props) => {
             disabled={props.disabled}
             value={formatDate(props.date)} 
             onChange={(e) => props.setDate(new Date(e.target.value))}
+            min={props.min}
             />
         </div>
     )
