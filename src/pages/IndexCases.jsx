@@ -3,7 +3,7 @@ import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
 import { Filters } from "../components/Filters.jsx";
 import getDaysForwardDate from "../components/Filters.jsx";
-import { IndexCasesApi } from "../data/Api";
+import { IndexCasesApi } from "../data/IndexCasesApi";
 import styles from "../App.module.css";
 
 const IndexCases = () => {

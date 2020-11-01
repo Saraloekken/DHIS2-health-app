@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { WelcomeBox } from "../components/WelcomeBox.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
 import { Filters } from "../components/Filters.jsx";
-import { RelationsApi } from "../data/Api";
+import { RelationsApi } from "../data/RelationsApi";
 import styles from "../App.module.css";
 import getDaysForwardDate from "../components/Filters.jsx";
 
