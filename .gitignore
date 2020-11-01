@@ -4,4 +4,3 @@ node_modules
 src/locales
 build
 .DS_Store
-**/.DS_Store
