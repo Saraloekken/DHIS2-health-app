@@ -24,50 +24,54 @@ const Filters = (props) => {
     const formatDate = (date) =>        
     `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
 
-    function updateTable() {
-        if (interval==0) {
+    function updateTable (select) {
+        setInterval(select.selected)
+
+        if (select.selected==0) {
             props.setFrom("2019-01-01")
             props.setTo(getDaysForwardDate(-1))
+            setEnabled(false)
         }
-        if (interval==1) {
+        if (select.selected==1) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(0))
+            setEnabled(false)
         }
-        if (interval==2) {
+        if (select.selected==2) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(1))
+            setEnabled(false)
         }
-        if (interval==3) {
+        if (select.selected==3) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(7))
+            setEnabled(false)
         }
-        if (interval==4) {
+        if (select.selected==4) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(30))
+            setEnabled(false)
         }
-
-        if (interval==5) {     
+        if (select.selected==5) {     
             props.setFrom(formatDate(fromDate));
             props.setTo(formatDate(toDate));
+            setEnabled(true) 
         }
     }
 
-        function intervalChange (select){
-            setInterval(select.selected)
-            updateTable()
-            
-            if(select.selected==5){
-                setEnabled(true)    
-            } else {
-                setEnabled(false)
-            }
+    function updateCalender() {
+        if (interval==5) {     
+            props.setFrom(formatDate(fromDate));
+            props.setTo(formatDate(toDate));
+            setEnabled(true) 
         }
+    }
 
         return (
 
             <div className={styles.filters}>
 
-                <SingleSelectField inputWidth="200px" label="Time interval" selected={interval} onChange={intervalChange}>
+                <SingleSelectField inputWidth="200px" label="Time interval" selected={interval} onChange={updateTable}>
                   <SingleSelectOption
                         label="Overdue"
                         value="0"
@@ -103,7 +107,7 @@ const Filters = (props) => {
                 <Button
                 dataTest="dhis2-uicore-button"
                 name="Secondary button"
-                onClick={() => updateTable()}
+                onClick={() => updateCalender()}
                 secondary
                 type="button"
                 value="default"
