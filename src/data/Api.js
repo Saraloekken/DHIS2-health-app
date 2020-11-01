@@ -3,6 +3,7 @@ import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ModalContacts } from "../components/ModalContacts.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
 import {
+  NoticeBox,
   TableCell,
   TableRow,
   Button,
@@ -10,6 +11,7 @@ import {
   CircularLoader,
   Tag,
   Modal,
+  ModalTitle,
   ModalContent,
   ModalActions,
 } from "@dhis2/ui";
@@ -121,7 +123,12 @@ const IndexCasesApi = (props) => {
   const { baseUrl } = useConfig();
 
   if (error) {
-    return <p>{`ERROR: ${error.message}`}</p>;
+    return (
+      <NoticeBox>
+        {" "}
+        There is currently no Index Cases available, please try another time frame
+      </NoticeBox>
+    );
   }
   if (loading) {
     return <CircularLoader />;
@@ -142,7 +149,13 @@ const IndexCasesApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Tag dataTest="dhis2-uicore-tag" neutral>
+          <Tag dataTest="dhis2-uicore-tag" 
+          
+              neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+              positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+              default={findStatus(enrollments[0]) === "VISITED" ? true : false}
+              negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}>
+
             {findStatus(enrollments[0])}
           </Tag>
         </TableCell>
@@ -191,7 +204,13 @@ const ContactsApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Tag dataTest="dhis2-uicore-tag" neutral>
+          <Tag dataTest="dhis2-uicore-tag" 
+
+            neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+            positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+            default={findStatus(enrollments[0]) === "VISITED" ? true : false}
+            negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}>
+            
             {findStatus(enrollments[0])}
           </Tag>
         </TableCell>
@@ -255,7 +274,13 @@ const RelationsApi = (props) => {
         <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
         <TableCell>{findValue(attributes, "phone_local")}</TableCell>
         <TableCell>
-          <Tag dataTest="dhis2-uicore-tag" neutral>
+          <Tag dataTest="dhis2-uicore-tag" 
+            
+            neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+            positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+            default={findStatus(enrollments[0]) === "VISITED" ? true : false}
+            negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}>
+             
             {findStatus(enrollments[0])}
           </Tag>
         </TableCell>{" "}
@@ -264,17 +289,24 @@ const RelationsApi = (props) => {
           <ModalContacts
             toggle={(show) => <Button onClick={show}> View contacts </Button>}
             content={(hide) => (
-              <Modal dataTest="dhis2-uicore-modal" position="middle">
+              <Modal dataTest="dhis2-uicore-modal" large position="middle">
+                <ModalTitle dataTest="dhis2-uicore-modaltitle">
+                  Overview of Contacts (X)
+                </ModalTitle>
                 <ModalContent dataTest="dhis2-uicore-modalcontent">
                   <DataTable
                     headlines={[
                       "First name",
                       "Surname",
+                      "Incident date",
+                      "Last updated",
                       "Age",
                       "Phone",
                       "Status",
+                      "Due date",
+                      "Tracker Capture",
                     ]}
-                    //api={<RelationsApi/>}
+                    api={<ContactsApi/>}
                   />
                 </ModalContent>
                 <ModalActions>
