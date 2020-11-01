@@ -58,6 +58,9 @@ const query = {
       ],
     },
   },
+  Me: {
+    resource: "me",
+  }
 };
 
 function findValue(attributes, valueCode) {
