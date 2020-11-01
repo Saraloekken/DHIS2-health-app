@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ModalContacts } from "../components/ModalContacts.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
+import { ErrorMessage } from "../components/ErrorMessage.jsx";
+import { InfoMessage } from "../components/InfoMessage.jsx";
 import {
   NoticeBox,
   TableCell,
@@ -133,22 +135,22 @@ const IndexCasesApi = (props) => {
   const { baseUrl } = useConfig();
 
   if (error) {
-    return (
-      <NoticeBox>
-        {" "}
-        There is currently no Index Cases available, please try another time
-        frame
-      </NoticeBox>
-    );
+    return <ErrorMessage />;
   }
   if (loading) {
     return <CircularLoader />;
   }
 
+
   const indexCases = data.IndexCases.trackedEntityInstances //endre fra return til const (mellomlagre verdien, istedet for å returnere den direkte)
     .filter((item) => filterTable(item.enrollments[0], props.from, props.to));
 
   tableLength = indexCases.length;
+   if (tableLength === 0) {
+      return (
+        <InfoMessage />
+      );
+    }
 
   return indexCases.map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
     <TableRow>
@@ -203,25 +205,28 @@ const ContactsApi = (props) => {
   });
 
   if (error) {
-    return <p>{`ERROR: ${error.message}`}</p>;
+    return (
+      <ErrorMessage />
+    )
   }
   if (loading) {
     return <CircularLoader />;
   }
 
-  const contacts = data.Contacts.trackedEntityInstances
-    .filter((item) =>
+
+  const contacts = data.Contacts.trackedEntityInstances.filter((item) =>
       props.tei
         ? filterTableRelationship(item, props.relObject, props.tei)
         : filterTable(item.enrollments[0], props.from, props.to)
     )
-
-
-
+  
   tableLength = contacts.length;
-
-
-
+    if (tableLength === 0) {
+      return (
+        <InfoMessage />
+      );
+    }
+        
   return contacts.map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
     <TableRow>
       <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -318,17 +323,23 @@ const RelationsApi = (props) => {
   });
 
   if (error) {
-    return <p>{`ERROR: ${error.message}`}</p>;
+    return (
+      <ErrorMessage />
+    )
   }
   if (loading) {
     return <CircularLoader />;
   }
 
-
-
   const relations = data.Relations.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
+  
   tableLength = relations.length;
+    if (tableLength === 0) {
+    return (
+      <InfoMessage />
+    );
+  }
 
   return relations.map(
     ({
@@ -352,8 +363,8 @@ const RelationsApi = (props) => {
           <TableCell>
             <Tag
               dataTest="dhis2-uicore-tag"
-              neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-              positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+              positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+              neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
               default={findStatus(enrollments[0]) === "VISITED" ? true : false}
               negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
             >
