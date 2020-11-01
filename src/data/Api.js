@@ -54,6 +54,7 @@ const query = {
         "attributes",
         "lastUpdated",
         "enrollments[*]",
+        "relationships[*]",
       ],
     },
   },
@@ -70,11 +71,10 @@ function sliceDate(date) {
 }
 
 function filterTable(item, fromDay, toDay) {
-  let today = getDaysForwardDate(0);
-
-  if (fromDay == today && toDay == today) {
-    fromDay = "2019-01-01";
-  }
+  //let today = getDaysForwardDate(0);
+  //if (fromDay == today && toDay == today) {
+  //  fromDay = "2019-01-01";
+  //}
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
@@ -190,7 +190,11 @@ const ContactsApi = (props) => {
   }
 
   return data.Contacts.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
+    .filter((item) =>
+      props.tei
+        ? filterTableRelationship(item, props.relObject, props.tei)
+        : filterTable(item.enrollments[0], props.from, props.to)
+    )
     .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
@@ -232,6 +236,34 @@ const ContactsApi = (props) => {
       </TableRow>
     ));
 };
+
+// går gjennom alle contact-entities og sjekker om noen av de er relasjonen til tei. Derfor vil kun enrolled entiteter dukke opp...
+function filterTableRelationship(item, relObject, tei) {
+  let relationships = relationshipsToTei(relObject, tei);
+  let itemList = relationships.filter(
+    (relationship) =>
+      relationship == item.trackedEntityInstance && relationship != tei
+  );
+
+  if (itemList[0]) return item;
+}
+
+// går gjennom relasjonsobjekter til valgt tei og returnerer alle dens tei-relasjoner
+function relationshipsToTei(relObject, tei) {
+  let relList = [];
+
+  relObject.map((relationship) => {
+    let fromTei = relationship.from.trackedEntityInstance.trackedEntityInstance;
+    let toTei = relationship.to.trackedEntityInstance.trackedEntityInstance;
+
+    if (fromTei != tei) {
+      relList.push(fromTei);
+    }
+    relList.push(toTei);
+  });
+
+  return relList;
+}
 
 /*
   Hvordan mappe relationships:
@@ -306,7 +338,13 @@ const RelationsApi = (props) => {
                       "Due date",
                       "Tracker Capture",
                     ]}
-                    api={<ContactsApi/>}
+                    api={
+                        <ContactsApi
+                          from={props.from}
+                          to={props.to}
+                          tei={trackedEntityInstance}
+                          relObject={relationships}
+                        />
                   />
                 </ModalContent>
                 <ModalActions>
