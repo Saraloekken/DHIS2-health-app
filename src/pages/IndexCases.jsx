@@ -7,8 +7,10 @@ import { IndexCasesApi } from "../data/Api";
 import styles from "../App.module.css";
 
 const IndexCases = () => {
-    const [from, setFrom] = useState(getDaysForwardDate(0));
-    const [to, setTo] = useState(getDaysForwardDate(0));
+  const [from, setFrom] = useState(getDaysForwardDate(0));
+  const [to, setTo] = useState(getDaysForwardDate(0));
+  const [taskCount, setTaskCount] = useState(0);
+  const [dayDescription, setDayDescription] = useState('today');
 
   return (
     <div className={styles.container}>
@@ -16,8 +18,8 @@ const IndexCases = () => {
       <div>
         <div className={styles.right}>
           <div className={styles.topbar}>
-             <Filters setFrom={setFrom} setTo={setTo} />
-            <WelcomeBox />
+            <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
+            <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
           </div>
 
           <DataTable
@@ -32,7 +34,7 @@ const IndexCases = () => {
               "Due date",
               "Tracker Capture",
             ]}
-            api={<IndexCasesApi from={from} to={to} />}
+            api={<IndexCasesApi from={from} to={to} setTaskCount={setTaskCount} />}
           />
         </div>
       </div>
