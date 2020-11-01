@@ -15,7 +15,6 @@ import {
   ModalContent,
   ModalActions,
 } from "@dhis2/ui";
-import getDaysForwardDate from "../components/Filters.jsx";
 
 const query = {
   IndexCases: {
@@ -71,10 +70,6 @@ function sliceDate(date) {
 }
 
 function filterTable(item, fromDay, toDay) {
-  //let today = getDaysForwardDate(0);
-  //if (fromDay == today && toDay == today) {
-  //  fromDay = "2019-01-01";
-  //}
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&

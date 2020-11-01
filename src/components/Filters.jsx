@@ -24,14 +24,6 @@ const Filters = (props) => {
     const formatDate = (date) =>        
     `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
 
-    function updateCalender() {
-        if (interval==5) {     
-            props.setFrom(formatDate(fromDate));
-            props.setTo(formatDate(toDate));
-        }
-
-    }
-
     function updateTable() {
         if (interval==0) {
             props.setFrom("2019-01-01")
@@ -52,6 +44,11 @@ const Filters = (props) => {
         if (interval==4) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(30))
+        }
+
+        if (interval==5) {     
+            props.setFrom(formatDate(fromDate));
+            props.setTo(formatDate(toDate));
         }
     }
 
@@ -106,7 +103,7 @@ const Filters = (props) => {
                 <Button
                 dataTest="dhis2-uicore-button"
                 name="Secondary button"
-                onClick={() => updateCalender()}
+                onClick={() => updateTable()}
                 secondary
                 type="button"
                 value="default"
