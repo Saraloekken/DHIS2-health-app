@@ -338,6 +338,7 @@ const RelationsApi = (props) => {
                       "Due date",
                       "Tracker Capture",
                     ]}
+                    >
                     api={
                         <ContactsApi
                           from={props.from}
@@ -345,7 +346,8 @@ const RelationsApi = (props) => {
                           tei={trackedEntityInstance}
                           relObject={relationships}
                         />
-                  />
+                    }
+                    </DataTable>
                 </ModalContent>
                 <ModalActions>
                   <ButtonStrip>
