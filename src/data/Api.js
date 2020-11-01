@@ -2,6 +2,8 @@ import React from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ModalContacts } from "../components/ModalContacts.jsx";
 import { DataTable } from "../components/EntityDataTable.jsx";
+import { ErrorMessage } from "../components/ErrorMessage.jsx";
+import { InfoMessage } from "../components/InfoMessage.jsx";
 import {
   NoticeBox,
   TableCell,
@@ -123,21 +125,22 @@ const IndexCasesApi = (props) => {
   const { baseUrl } = useConfig();
 
   if (error) {
-    return (
-      <NoticeBox>
-        {" "}
-        There is currently no Index Cases available, please try another time
-        frame
-      </NoticeBox>
-    );
+    return <ErrorMessage />;
   }
   if (loading) {
     return <CircularLoader />;
   }
 
-  return data.IndexCases.trackedEntityInstances
+  const filteredIndexData = data.IndexCases.trackedEntityInstances
     .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
-    .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
+
+    if (filteredIndexData.length === 0) {
+      return (
+        <InfoMessage />
+      );
+    }
+
+    return filteredIndexData.map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -152,8 +155,8 @@ const IndexCasesApi = (props) => {
         <TableCell>
           <Tag
             dataTest="dhis2-uicore-tag"
-            neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-            positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+            positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+            neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
             default={findStatus(enrollments[0]) === "VISITED" ? true : false}
             negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
           >
@@ -184,19 +187,26 @@ const ContactsApi = (props) => {
   const { baseUrl } = useConfig();
 
   if (error) {
-    return <p>{`ERROR: ${error.message}`}</p>;
+    return (
+      <ErrorMessage />
+    )
   }
   if (loading) {
     return <CircularLoader />;
   }
 
-  return data.Contacts.trackedEntityInstances
+  const filteredContactsData = data.Contacts.trackedEntityInstances
     .filter((item) =>
       props.tei
         ? filterTableRelationship(item, props.relObject, props.tei)
         : filterTable(item.enrollments[0], props.from, props.to)
     )
-    .map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
+    if (filteredContactsData.length === 0) {
+      return (
+        <InfoMessage />
+      );
+    }
+    return filteredContactsData.map(({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (      
       <TableRow>
         <TableCell>{findValue(attributes, "first_name")}</TableCell>
         <TableCell>{findValue(attributes, "surname")}</TableCell>
@@ -211,8 +221,8 @@ const ContactsApi = (props) => {
         <TableCell>
           <Tag
             dataTest="dhis2-uicore-tag"
-            neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-            positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+            positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+            neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
             default={findStatus(enrollments[0]) === "VISITED" ? true : false}
             negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
           >
@@ -286,15 +296,25 @@ const RelationsApi = (props) => {
   const { baseUrl } = useConfig();
 
   if (error) {
-    return <p>{`ERROR: ${error.message}`}</p>;
+    return (
+      <ErrorMessage />
+    )
   }
   if (loading) {
     return <CircularLoader />;
   }
 
-  return data.Relations.trackedEntityInstances
-    .filter((item) => filterTable(item.enrollments[0], props.from, props.to))
-    .map(
+  
+  const filteredData = data.Relations.trackedEntityInstances.filter((item) =>
+    filterTable(item.enrollments[0], props.from, props.to)
+  );
+
+  if (filteredData.length === 0) {
+    return (
+      <InfoMessage />
+    );
+  }
+    return filteredData.map(
       ({
         trackedEntityInstance,
         attributes,
@@ -316,8 +336,8 @@ const RelationsApi = (props) => {
           <TableCell>
             <Tag
               dataTest="dhis2-uicore-tag"
-              neutral={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-              positive={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
+              positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
+              neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
               default={findStatus(enrollments[0]) === "VISITED" ? true : false}
               negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
             >
