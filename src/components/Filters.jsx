@@ -15,7 +15,6 @@ export function getDaysForwardDate(days) {
 }
 
 const Filters = (props) => {
-
     const [enabled, setEnabled] = useState(false);
     const [interval, setInterval] = useState('1');
     const [fromDate, setFromDate] = useState(new Date());
