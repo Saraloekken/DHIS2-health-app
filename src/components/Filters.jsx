@@ -25,10 +25,6 @@ const Filters = (props) => {
     `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
 
     function updateTable() {
-        if (interval==0) {
-            props.setFrom("2019-01-01")
-            props.setTo(getDaysForwardDate(-1))
-        }
         if (interval==1) {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(0))
@@ -66,11 +62,6 @@ const Filters = (props) => {
             <div className={styles.filters}>
 
                 <SingleSelectField inputWidth="200px" label="Time interval" selected={interval} onChange={intervalChange}>
-                    <SingleSelectOption
-                        label="Overdue"
-                        value="0"
-                    />
-
                     <SingleSelectOption
                         label="Today"
                         value="1"
