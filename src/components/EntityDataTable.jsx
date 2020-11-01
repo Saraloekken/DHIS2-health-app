@@ -15,8 +15,12 @@ class DataTable extends React.Component {
     });
   };
 
+
+
   render() {
+
     return (
+
       <Table>
         <TableHead>
           <TableRowHead>{this.createTableCellHead()}</TableRowHead>

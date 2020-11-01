@@ -7,16 +7,18 @@ import styles from "../App.module.css";
 import getDaysForwardDate from "../components/Filters.jsx";
 
 const Relations = () => {
-    const [from, setFrom] = useState(getDaysForwardDate(0));
-    const [to, setTo] = useState(getDaysForwardDate(0));
+  const [from, setFrom] = useState(getDaysForwardDate(0));
+  const [to, setTo] = useState(getDaysForwardDate(0));
+  const [taskCount, setTaskCount] = useState(0);
+  const [dayDescription, setDayDescription] = useState('today');
 
   return (
     <div className={StyleSheet.container}>
       <h2>Index Cases and Contacts</h2>
       <div>
         <div className={styles.topbar}>
-          <Filters setFrom={setFrom} setTo={setTo}/>
-          <WelcomeBox />
+          <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
+          <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
         </div>
         <DataTable
           headlines={[
@@ -31,7 +33,7 @@ const Relations = () => {
             "Contacts",
             "Tracker Capture",
           ]}
-         api={<RelationsApi from={from} to={to}/>}
+          api={<RelationsApi from={from} to={to} setTaskCount={setTaskCount} />}
         />
       </div>
     </div>
