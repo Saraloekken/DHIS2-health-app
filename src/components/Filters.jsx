@@ -24,6 +24,14 @@ const Filters = (props) => {
     const formatDate = (date) =>        
     `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,0)}-${date.getDate().toString().padStart(2, 0)}`
 
+    function updateCalender() {
+        if (interval==5) {     
+            props.setFrom(formatDate(fromDate));
+            props.setTo(formatDate(toDate));
+        }
+
+    }
+
     function updateTable() {
         if (interval==0) {
             props.setFrom("2019-01-01")
@@ -45,14 +53,11 @@ const Filters = (props) => {
             props.setFrom(getDaysForwardDate(0))
             props.setTo(getDaysForwardDate(30))
         }
-        if (interval==5) {     
-            props.setFrom(formatDate(fromDate));
-            props.setTo(formatDate(toDate));
-        }
     }
 
         function intervalChange (select){
             setInterval(select.selected)
+            updateTable()
             
             if(select.selected==5){
                 setEnabled(true)    
@@ -96,15 +101,16 @@ const Filters = (props) => {
                 </SingleSelectField>
 
                 <DatePicker label="From" disabled={enabled==false} date={fromDate} setDate={setFromDate} />
-                <DatePicker label="To" disabled={enabled==false} date={toDate} setDate={setToDate} />
+                <DatePicker label="To" disabled={enabled==false} date={toDate} setDate={setToDate} min={formatDate(fromDate)}/>
                 
                 <Button
                 dataTest="dhis2-uicore-button"
                 name="Secondary button"
-                onClick={() => updateTable()}
+                onClick={() => updateCalender()}
                 secondary
                 type="button"
                 value="default"
+                disabled={enabled==false}
                 >
                     Search
                 </Button>  
