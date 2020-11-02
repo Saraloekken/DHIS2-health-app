@@ -1,4 +1,4 @@
-export function findValue(attributes, valueCode) {
+export function findValueAttributes(attributes, valueCode) {
   return attributes.find((item) => item.code === valueCode)
     ? attributes.find((item) => item.code === valueCode).value
     : "None";
@@ -8,46 +8,21 @@ function sliceDate(date) {
   return date.slice(0, 10);
 }
 
-export function filterTable(item, fromDay, toDay) {
+export function findValueEnrollments(item, fromDay, toDay, value) {
   let filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
       sliceDate(event.dueDate) >= fromDay &&
       sliceDate(event.dueDate) <= toDay
   );
-  if (filteredEvents[0] && item.status != "COMPLETED") return item;
-}
 
-export function findDueDate(item) {
-  let earliestDueDate;
-
-  for (let i = 0, len = item.events.length; i < len; i++) {
-    let event = item.events[i];
-
-    if (
-      event.status != "COMPLETED" &&
-      (event.dueDate < earliestDueDate || typeof earliestDueDate == "undefined")
-    ) {
-      earliestDueDate = event.dueDate;
-    }
+  if (value == "item") {
+    if (filteredEvents[0] && item.status != "COMPLETED") return item;
   }
-  return earliestDueDate ? earliestDueDate.substring(0, 10) : "None";
-}
-
-export function findStatus(item) {
-  let earliestDueDate;
-  let checkStatus;
-
-  for (let i = 0, len = item.events.length; i < len; i++) {
-    let event = item.events[i];
-
-    if (
-      event.status != "COMPLETED" &&
-      (event.dueDate < earliestDueDate || typeof earliestDueDate == "undefined")
-    ) {
-      earliestDueDate = event.dueDate;
-      checkStatus = event.status;
-    }
+  if (value == "dueDate") {
+    return filteredEvents[0] ? sliceDate(filteredEvents[0].dueDate) : "None";
   }
-  return checkStatus ? checkStatus.substring(0, 10) : "None";
+  if (value == "status") {
+    return filteredEvents[0] ? sliceDate(filteredEvents[0].status) : "None";
+  }
 }

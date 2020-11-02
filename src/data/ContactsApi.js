@@ -5,10 +5,8 @@ import { InfoMessage } from "../components/InfoMessage.jsx";
 import { filterTableRelationship } from "../data/RelationsApi";
 import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
 import {
-  findValue,
-  filterTable,
-  findDueDate,
-  findStatus,
+  findValueAttributes,
+  findValueEnrollments,
 } from "../data/ApiFunctions.js";
 
 const query = {
@@ -46,8 +44,8 @@ const ContactsApi = (props) => {
 
   const contacts = data.Contacts.trackedEntityInstances.filter((item) =>
     props.tei
-      ? filterTableRelationship(item, props.relObject, props.tei)
-      : filterTable(item.enrollments[0], props.from, props.to)
+      ? filterTableRelationship(item, props.relationsObject, props.tei)
+      : findValueEnrollments(item.enrollments[0], props.from, props.to, "item")
   );
 
   tableLength = contacts.length;
@@ -58,28 +56,78 @@ const ContactsApi = (props) => {
   return contacts.map(
     ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
       <TableRow>
-        <TableCell>{findValue(attributes, "first_name")}</TableCell>
-        <TableCell>{findValue(attributes, "surname")}</TableCell>
+        <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
+        <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
             : "None"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
-        <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
-        <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+        <TableCell>
+          {findValueAttributes(attributes, "patinfo_ageonset")}
+        </TableCell>
+        <TableCell>{findValueAttributes(attributes, "phone_local")}</TableCell>
         <TableCell>
           <Tag
             dataTest="dhis2-uicore-tag"
-            positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-            neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
-            default={findStatus(enrollments[0]) === "VISITED" ? true : false}
-            negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
+            positive={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "SCHEDULE"
+                ? true
+                : false
+            }
+            neutral={
+              (findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ),
+              props.from,
+              props.to === "ACTIVE" ? true : false)
+            }
+            default={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "VISITED"
+                ? true
+                : false
+            }
+            negative={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "OVERDUE"
+                ? true
+                : false
+            }
           >
-            {findStatus(enrollments[0])}
+            {findValueEnrollments(
+              enrollments[0],
+              props.from,
+              props.to,
+              "status"
+            )}
           </Tag>
         </TableCell>
-        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        <TableCell>
+          {findValueEnrollments(
+            enrollments[0],
+            props.from,
+            props.to,
+            "dueDate"
+          )}
+        </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
