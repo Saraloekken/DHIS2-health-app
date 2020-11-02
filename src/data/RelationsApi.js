@@ -219,7 +219,9 @@ const RelationsApi = (props) => {
             dataTest="dhis2-uicore-button"
             name="Primary button"
             onClick={() =>
-              window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+              window.open(
+                `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`
+              )
             }
             primary
             type="button"

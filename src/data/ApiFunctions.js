@@ -4,10 +4,6 @@ export function findValueAttributes(attributes, valueCode) {
     : "None";
 }
 
-function sliceDate(date) {
-  return date.slice(0, 10);
-}
-
 export function findValueEnrollments(item, fromDay, toDay, value) {
   let filteredEvents = item.events.filter(
     (event) =>
@@ -25,4 +21,8 @@ export function findValueEnrollments(item, fromDay, toDay, value) {
   if (value == "status") {
     return filteredEvents[0] ? sliceDate(filteredEvents[0].status) : "None";
   }
+}
+
+export function sliceDate(date) {
+  return date.slice(0, 10);
 }

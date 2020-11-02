@@ -35,7 +35,7 @@ const Contacts = () => {
             "Due date",
             "Tracker Capture",
           ]}
-          api={<ContactsApi from={from} to={to} setFrom={setFrom} setTo={setTo} setTaskCount={setTaskCount} />}
+          api={<ContactsApi from={from} to={to} setTaskCount={setTaskCount} />}
         />
       </div>
     </div>

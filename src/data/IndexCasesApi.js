@@ -132,7 +132,10 @@ const IndexCasesApi = (props) => {
             name="Primary button"
             target="_blank"
             onClick={() =>
-              window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)}
+              window.open(
+                `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`
+              )
+            }
             primary
             type="button"
             value="default"
