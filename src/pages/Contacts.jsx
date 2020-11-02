@@ -14,12 +14,14 @@ const Contacts = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Overview of Contacts</h2>
-      <div>
-        <div className={styles.topbar}>
+      <div className={styles.topbar}>
+        <div className={styles.left}>
+          <h2>Overview Contacts</h2>
           <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
-          <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
         </div>
+        <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
+      </div>
+      <div>
 
         <DataTable
           headlines={[

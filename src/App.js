@@ -31,7 +31,7 @@ const MyApp = () => {
 
   // Navigation header into own comonent
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.navigation}>
         <Chip
           dataTest="dhis2-uicore-chip"
