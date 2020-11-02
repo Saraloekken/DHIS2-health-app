@@ -8,6 +8,7 @@ import {
   findValueAttributes,
   findValueEnrollments,
 } from "../data/ApiFunctions.js";
+import getDaysForwardDate from "../components/Filters.jsx";
 
 const query = {
   Contacts: {
@@ -28,6 +29,8 @@ const query = {
 const ContactsApi = (props) => {
   const { loading, error, data } = useDataQuery(query);
   const { baseUrl } = useConfig();
+  let from = props.from;
+  let to = props.to;
 
   let tableLength = 0;
 
@@ -42,10 +45,15 @@ const ContactsApi = (props) => {
     return <CircularLoader />;
   }
 
+  if (props.tei) {
+    from = getDaysForwardDate(-60);
+    to = getDaysForwardDate(60);
+  }
+
   const contacts = data.Contacts.trackedEntityInstances.filter((item) =>
     props.tei
       ? filterTableRelationship(item, props.relationsObject, props.tei)
-      : findValueEnrollments(item.enrollments[0], props.from, props.to, "item")
+      : findValueEnrollments(item.enrollments[0], from, to, "item")
   );
 
   tableLength = contacts.length;
@@ -72,67 +80,44 @@ const ContactsApi = (props) => {
           <Tag
             dataTest="dhis2-uicore-tag"
             positive={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "SCHEDULE"
+              findValueEnrollments(enrollments[0], from, to, "status") ===
+              "SCHEDULE"
                 ? true
                 : false
             }
             neutral={
-              (findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ),
-              props.from,
-              props.to === "ACTIVE" ? true : false)
+              (findValueEnrollments(enrollments[0], from, to, "status"),
+              from,
+              to === "ACTIVE" ? true : false)
             }
             default={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "VISITED"
+              findValueEnrollments(enrollments[0], from, to, "status") ===
+              "VISITED"
                 ? true
                 : false
             }
             negative={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "OVERDUE"
+              findValueEnrollments(enrollments[0], from, to, "status") ===
+              "OVERDUE"
                 ? true
                 : false
             }
           >
-            {findValueEnrollments(
-              enrollments[0],
-              props.from,
-              props.to,
-              "status"
-            )}
+            {findValueEnrollments(enrollments[0], from, to, "status")}
           </Tag>
         </TableCell>
         <TableCell>
-          {findValueEnrollments(
-            enrollments[0],
-            props.from,
-            props.to,
-            "dueDate"
-          )}
+          {findValueEnrollments(enrollments[0], from, to, "dueDate")}
         </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={() => window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=DM9n1bUw8W8&ou=EwEP9IhOwuw`)}
+            onClick={() =>
+              window.open(
+                `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=DM9n1bUw8W8&ou=EwEP9IhOwuw`
+              )
+            }
             primary
             type="button"
             value="default"
