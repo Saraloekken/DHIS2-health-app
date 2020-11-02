@@ -14,29 +14,28 @@ const IndexCases = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Overview of Index Cases</h2>
-      <div>
-        <div className={styles.right}>
-          <div className={styles.topbar}>
-            <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
-            <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
-          </div>
-
-          <DataTable
-            headlines={[
-              "First name",
-              "Surname",
-              "Incident date",
-              "Last updated",
-              "Age",
-              "Phone",
-              "Status",
-              "Due date",
-              "Tracker Capture",
-            ]}
-            api={<IndexCasesApi from={from} to={to} setTaskCount={setTaskCount} />}
-          />
+      <div className={styles.topbar}>
+        <div className={styles.left}>
+          <h2>Overview of Index Cases</h2>
+          <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
         </div>
+        <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
+      </div>
+      <div>
+        <DataTable
+          headlines={[
+            "First name",
+            "Surname",
+            "Incident date",
+            "Last updated",
+            "Age",
+            "Phone",
+            "Status",
+            "Due date",
+            "Tracker Capture",
+          ]}
+          api={<IndexCasesApi from={from} to={to} setTaskCount={setTaskCount} />}
+        />
       </div>
     </div>
   );

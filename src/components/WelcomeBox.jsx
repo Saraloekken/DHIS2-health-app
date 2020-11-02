@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { NoticeBox, CircularLoader } from "@dhis2/ui";
+import { NoticeBox, CircularLoader, Card } from "@dhis2/ui";
 import styles from "../App.module.css";
 import { useDataQuery } from "@dhis2/app-runtime";
+import HealthWorker from "../img/healthworker.png"
 
 
 const WelcomeBox = (props) => {
@@ -21,18 +22,15 @@ const WelcomeBox = (props) => {
   }
 
   return (
-
-
-
-    <NoticeBox
-      className={styles.notice}
-      dataTest="dhis2-uicore-noticebox"
-      title={`Welcome, ${data.Me.name}!`}
-    >
-      You have <strong>{props.taskCount}</strong> tasks left to complete {props.dayDescription}!
+    <div className={styles.infobox}>
+      <img src={HealthWorker} className={styles.healthimg} alt="Health worker" />
+      <div className={styles.infomsg}>
+        <h3>Welcome, {data.Me.name}!</h3>
+        <p>You have <strong className={styles.emphasis}>{props.taskCount}</strong> tasks left to complete {props.dayDescription}.</p>
         {/* //tomorrow //next week //next month //during the periode chosen */}
-
-    </NoticeBox >
+        <p>Keep up the good work, and remember to take breaks once in a while.</p>
+      </div>
+    </div >
   );
 }
 

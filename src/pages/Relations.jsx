@@ -13,14 +13,15 @@ const Relations = () => {
   const [dayDescription, setDayDescription] = useState('today');
 
   return (
-    <div className={StyleSheet.container}>
-      <h2>Index Cases and Contacts</h2>
-      <div>
-
-        <div className={styles.topbar}>
+    <div className={styles.container}>
+      <div className={styles.topbar}>
+        <div className={styles.left}>
+          <h2>Index Cases and Contacts</h2>
           <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
-          <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
         </div>
+        <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
+      </div>
+      <div>
         <DataTable
           headlines={[
             "First name",
@@ -40,4 +41,5 @@ const Relations = () => {
     </div>
   );
 };
+
 export { Relations };

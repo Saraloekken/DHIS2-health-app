@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+body {
+  background: #F4F6F8;
+}
+
 .navigation {
   background-color: white;
   box-shadow: 0px 2px 6px -4px rgba(0, 0, 0, 0.75);
@@ -14,17 +18,12 @@
   z-index: 1;
 }
 
-.notice {
-  height: 12vh;
-  width: 100%;
-  position: relative;
-  margin-bottom: 10px;
-}
 
-.covidimg {
-  position: relative;
-  width: 12%;
-  margin-left: 85%;
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .grid {
@@ -41,7 +40,6 @@
 .filters {
   display: flex;
   align-items: flex-end;
-  margin-bottom: 10px;
 }
 
 .datepicker {
@@ -72,4 +70,35 @@
 .topbar {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  margin-bottom: 20px;
+}
+
+.search {
+  padding: 1.19rem !important;
+  border-radius: 3px !important;
+}
+
+.infobox {
+  display: flex;
+  justify-content: center;
+  background: white;
+  padding: 15px 20px 0 20px;
+  box-shadow: 0px 2px 6px -4px rgba(0, 0, 0, 0.75);
+}
+
+.infomsg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px 0 20px 0;
+}
+
+.healthimg {
+  height: 8.2rem;
+  margin-right: 30px;
+}
+
+.emphasis {
+  color: #1565C0;
+  font-size: 1.2rem;
 }
