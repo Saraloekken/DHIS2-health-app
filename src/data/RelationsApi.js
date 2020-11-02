@@ -18,10 +18,8 @@ import {
   ModalActions,
 } from "@dhis2/ui";
 import {
-  findValue,
-  filterTable,
-  findDueDate,
-  findStatus,
+  findValueAttributes,
+  findValueEnrollments,
 } from "../data/ApiFunctions.js";
 
 const query = {
@@ -41,32 +39,31 @@ const query = {
   },
 };
 
-// går gjennom alle contact-entities og sjekker om noen av de er relasjonen til tei. Derfor vil kun enrolled entiteter dukke opp...
-export function filterTableRelationship(item, relObject, tei) {
-  let relationships = relationshipsToTei(relObject, tei);
-  let itemList = relationships.filter(
+// går gjennom alle relasjonene til tei og sjekker om item er en av de.
+export function filterTableRelationship(item, relations, tei) {
+  let contactsToTei = getRelationsToTei(relations, tei).filter(
     (relationship) =>
       relationship == item.trackedEntityInstance && relationship != tei
   );
 
-  if (itemList[0]) return item;
+  if (contactsToTei.length > 0) return item;
 }
 
 // går gjennom relasjonsobjekter til valgt tei og returnerer alle dens tei-relasjoner
-function relationshipsToTei(relObject, tei) {
-  let relList = [];
+function getRelationsToTei(relations, tei) {
+  let relationsTei = [];
 
-  relObject.map((relationship) => {
+  relations.map((relationship) => {
     let fromTei = relationship.from.trackedEntityInstance.trackedEntityInstance;
     let toTei = relationship.to.trackedEntityInstance.trackedEntityInstance;
 
     if (fromTei != tei) {
-      relList.push(fromTei);
+      relationsTei.push(fromTei);
     }
-    relList.push(toTei);
+    relationsTei.push(toTei);
   });
 
-  return relList;
+  return relationsTei;
 }
 
 const RelationsApi = (props) => {
@@ -87,7 +84,7 @@ const RelationsApi = (props) => {
   }
 
   const relations = data.Relations.trackedEntityInstances.filter((item) =>
-    filterTable(item.enrollments[0], props.from, props.to)
+    findValueEnrollments(item.enrollments[0], props.from, props.to, "item")
   );
 
   tableLength = relations.length;
@@ -104,35 +101,85 @@ const RelationsApi = (props) => {
       relationships,
     }) => (
       <TableRow>
-        <TableCell>{findValue(attributes, "first_name")}</TableCell>
-        <TableCell>{findValue(attributes, "surname")}</TableCell>
+        <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
+        <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
         <TableCell>
           {enrollments[0]
             ? enrollments[0].incidentDate.substring(0, 10)
             : "None"}
         </TableCell>
         <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
-        <TableCell>{findValue(attributes, "patinfo_ageonset")}</TableCell>
-        <TableCell>{findValue(attributes, "phone_local")}</TableCell>
+        <TableCell>
+          {findValueAttributes(attributes, "patinfo_ageonset")}
+        </TableCell>
+        <TableCell>{findValueAttributes(attributes, "phone_local")}</TableCell>
         <TableCell>
           <Tag
             dataTest="dhis2-uicore-tag"
-            positive={findStatus(enrollments[0]) === "SCHEDULE" ? true : false}
-            neutral={findStatus(enrollments[0]) === "ACTIVE" ? true : false}
-            default={findStatus(enrollments[0]) === "VISITED" ? true : false}
-            negative={findStatus(enrollments[0]) === "OVERDUE" ? true : false}
+            positive={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "SCHEDULE"
+                ? true
+                : false
+            }
+            neutral={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "ACTIVE"
+                ? true
+                : false
+            }
+            default={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "VISITED"
+                ? true
+                : false
+            }
+            negative={
+              findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "OVERDUE"
+                ? true
+                : false
+            }
           >
-            {findStatus(enrollments[0])}
+            {findValueEnrollments(
+              enrollments[0],
+              props.from,
+              props.to,
+              "status"
+            )}
           </Tag>
         </TableCell>{" "}
-        <TableCell>{findDueDate(enrollments[0])}</TableCell>
+        <TableCell>
+          {findValueEnrollments(
+            enrollments[0],
+            props.from,
+            props.to,
+            "dueDate"
+          )}
+        </TableCell>
         <TableCell dataTest="dhis2-uicore-tablecell" dense>
           <ModalContacts
             toggle={(show) => <Button onClick={show}> View contacts </Button>}
             content={(hide) => (
               <Modal dataTest="dhis2-uicore-modal" large position="middle">
                 <ModalTitle dataTest="dhis2-uicore-modaltitle">
-                  Overview of Contacts (X)
+                  Overview of Contacts
                 </ModalTitle>
                 <ModalContent dataTest="dhis2-uicore-modalcontent">
                   <DataTable
@@ -152,7 +199,7 @@ const RelationsApi = (props) => {
                         from={props.from}
                         to={props.to}
                         tei={trackedEntityInstance}
-                        relObject={relationships}
+                        relationsObject={relationships}
                         setTaskCount={() => {}}
                       />
                     }
