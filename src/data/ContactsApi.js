@@ -84,9 +84,7 @@ const ContactsApi = (props) => {
           <Button
             dataTest="dhis2-uicore-button"
             name="Primary button"
-            onClick={() =>
-              (window.location = `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=DM9n1bUw8W8&ou=EwEP9IhOwuw`)
-            }
+            onClick={() => window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=DM9n1bUw8W8&ou=EwEP9IhOwuw`)}
             primary
             type="button"
             value="default"
