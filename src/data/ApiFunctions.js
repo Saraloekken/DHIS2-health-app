@@ -29,11 +29,11 @@ export function sliceDate(date) {
   return date.slice(0, 10);
 }
 
-export function findOverdue(item, fromDay, toDay, value) {
-  let dueDate = findValueEnrollments(item, fromDay, toDay, value)
+export function findOverdue(item, fromDay, toDay) {
+  let dueDate = findValueEnrollments(item, fromDay, toDay, "dueDate");
 
-  if (dueDate > getDaysForwardDate(0) && "ACTIVE" || "SCHEDULE") {
+  if (dueDate < getDaysForwardDate(0)) {
     return true;
   }
-  else false; 
+  return false;
 }
