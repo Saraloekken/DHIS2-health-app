@@ -6,6 +6,7 @@ import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
 import {
   findValueAttributes,
   findValueEnrollments,
+  findOverdue
 } from "../data/ApiFunctions.js";
 
 const query = {
@@ -52,7 +53,14 @@ const IndexCasesApi = (props) => {
   }
 
   return indexCases.map(
-    ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
+    ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => {
+      const isOverdue = findOverdue(enrollments[0],
+        props.from,
+        props.to,
+        "status");
+
+      return (
+
       <TableRow>
         <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
         <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
@@ -69,23 +77,24 @@ const IndexCasesApi = (props) => {
         <TableCell>
           <Tag
             dataTest="dhis2-uicore-tag"
-            positive={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "SCHEDULE"
-                ? true
-                : false
-            }
-            neutral={
-              findValueEnrollments(
+            className={
+              !isOverdue && findValueEnrollments(
                 enrollments[0],
                 props.from,
                 props.to,
                 "status"
               ) === "ACTIVE"
+                ? true
+                : false
+                && styles.positive
+            }
+            neutral={
+              !isOverdue && findValueEnrollments(
+                enrollments[0],
+                props.from,
+                props.to,
+                "status"
+              ) === "SCHEDULE"
                 ? true
                 : false
             }
@@ -99,18 +108,10 @@ const IndexCasesApi = (props) => {
                 ? true
                 : false
             }
-            negative={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "OVERDUE"
-                ? true
-                : false
-            }
+            negative={isOverdue}
           >
-            {findValueEnrollments(
+            {
+            isOverdue ? "OVERDUE" : findValueEnrollments(
               enrollments[0],
               props.from,
               props.to,
@@ -144,7 +145,8 @@ const IndexCasesApi = (props) => {
           </Button>
         </TableCell>
       </TableRow>
-    )
+      );
+    }
   );
 };
 
