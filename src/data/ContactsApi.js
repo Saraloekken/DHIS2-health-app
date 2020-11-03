@@ -89,15 +89,15 @@ const ContactsApi = (props) => {
               className={
                 !isOverdue &&
                 findValueEnrollments(enrollments[0], from, to, "status") ===
-                  "ACTIVE"
-                  ? true
-                  : false && styles.positive
+                  "ACTIVE" &&
+                styles.positive
               }
               neutral={
                 !isOverdue &&
-                (findValueEnrollments(enrollments[0], from, to, "status"),
-                from,
-                to === "SCHEDULE" ? true : false)
+                findValueEnrollments(enrollments[0], from, to, "status") ===
+                  "SCHEDULE"
+                  ? true
+                  : false
               }
               default={
                 findValueEnrollments(enrollments[0], from, to, "status") ===

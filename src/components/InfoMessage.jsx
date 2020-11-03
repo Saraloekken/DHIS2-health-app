@@ -9,7 +9,7 @@ const InfoMessage = () => {
       dataTest="dhis2-uicore-noticebox"
       title="There is currently no data available"
     >
-      Please try another time frame!
+      Please try again!
     </NoticeBox>
   );
 };

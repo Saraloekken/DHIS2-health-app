@@ -129,9 +129,8 @@ const RelationsApi = (props) => {
                   props.from,
                   props.to,
                   "status"
-                ) === "ACTIVE"
-                  ? true
-                  : false && styles.positive
+                ) === "ACTIVE" &&
+                styles.positive
               }
               neutral={
                 !isOverdue &&
