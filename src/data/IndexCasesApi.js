@@ -3,10 +3,11 @@ import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { InfoMessage } from "../components/InfoMessage.jsx";
 import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
+import styles from "../App.module.css";
 import {
+  findOverdue,
   findValueAttributes,
   findValueEnrollments,
-  findOverdue,
 } from "../data/ApiFunctions.js";
 
 const query = {
@@ -82,9 +83,8 @@ const IndexCasesApi = (props) => {
                   props.from,
                   props.to,
                   "status"
-                ) === "ACTIVE"
-                  ? true
-                  : false && styles.positive
+                ) === "ACTIVE" &&
+                styles.positive
               }
               neutral={
                 !isOverdue &&
