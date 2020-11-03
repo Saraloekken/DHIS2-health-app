@@ -53,7 +53,7 @@ const IndexCasesApi = (props) => {
 
   return indexCases.map(
     ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
-      <TableRow>
+      <TableRow key={trackedEntityInstance}>
         <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
         <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
         <TableCell>

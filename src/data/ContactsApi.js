@@ -55,7 +55,7 @@ const ContactsApi = (props) => {
 
   return contacts.map(
     ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => (
-      <TableRow>
+      <TableRow key={trackedEntityInstance}>
         <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
         <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
         <TableCell>
@@ -88,8 +88,8 @@ const ContactsApi = (props) => {
                 props.to,
                 "status"
               ),
-              props.from,
-              props.to === "ACTIVE" ? true : false)
+                props.from,
+                props.to === "ACTIVE" ? true : false)
             }
             default={
               findValueEnrollments(

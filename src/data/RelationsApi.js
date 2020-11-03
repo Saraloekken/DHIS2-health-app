@@ -100,136 +100,136 @@ const RelationsApi = (props) => {
       enrollments,
       relationships,
     }) => (
-      <TableRow>
-        <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
-        <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
-        <TableCell>
-          {enrollments[0]
-            ? enrollments[0].incidentDate.substring(0, 10)
-            : "None"}
-        </TableCell>
-        <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
-        <TableCell>
-          {findValueAttributes(attributes, "patinfo_ageonset")}
-        </TableCell>
-        <TableCell>{findValueAttributes(attributes, "phone_local")}</TableCell>
-        <TableCell>
-          <Tag
-            dataTest="dhis2-uicore-tag"
-            positive={
-              findValueEnrollments(
+        <TableRow key={trackedEntityInstance}>
+          <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
+          <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
+          <TableCell>
+            {enrollments[0]
+              ? enrollments[0].incidentDate.substring(0, 10)
+              : "None"}
+          </TableCell>
+          <TableCell>{lastUpdated.substring(0, 10)}</TableCell>
+          <TableCell>
+            {findValueAttributes(attributes, "patinfo_ageonset")}
+          </TableCell>
+          <TableCell>{findValueAttributes(attributes, "phone_local")}</TableCell>
+          <TableCell>
+            <Tag
+              dataTest="dhis2-uicore-tag"
+              positive={
+                findValueEnrollments(
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                ) === "SCHEDULE"
+                  ? true
+                  : false
+              }
+              neutral={
+                findValueEnrollments(
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                ) === "ACTIVE"
+                  ? true
+                  : false
+              }
+              default={
+                findValueEnrollments(
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                ) === "VISITED"
+                  ? true
+                  : false
+              }
+              negative={
+                findValueEnrollments(
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                ) === "OVERDUE"
+                  ? true
+                  : false
+              }
+            >
+              {findValueEnrollments(
                 enrollments[0],
                 props.from,
                 props.to,
                 "status"
-              ) === "SCHEDULE"
-                ? true
-                : false
-            }
-            neutral={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "ACTIVE"
-                ? true
-                : false
-            }
-            default={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "VISITED"
-                ? true
-                : false
-            }
-            negative={
-              findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              ) === "OVERDUE"
-                ? true
-                : false
-            }
-          >
+              )}
+            </Tag>
+          </TableCell>{" "}
+          <TableCell>
             {findValueEnrollments(
               enrollments[0],
               props.from,
               props.to,
-              "status"
+              "dueDate"
             )}
-          </Tag>
-        </TableCell>{" "}
-        <TableCell>
-          {findValueEnrollments(
-            enrollments[0],
-            props.from,
-            props.to,
-            "dueDate"
-          )}
-        </TableCell>
-        <TableCell dataTest="dhis2-uicore-tablecell" dense>
-          <ModalContacts
-            toggle={(show) => <Button onClick={show}> View contacts </Button>}
-            content={(hide) => (
-              <Modal dataTest="dhis2-uicore-modal" large position="middle">
-                <ModalTitle dataTest="dhis2-uicore-modaltitle">
-                  Overview of Contacts
+          </TableCell>
+          <TableCell dataTest="dhis2-uicore-tablecell" dense>
+            <ModalContacts
+              toggle={(show) => <Button onClick={show}> View contacts </Button>}
+              content={(hide) => (
+                <Modal dataTest="dhis2-uicore-modal" large position="middle">
+                  <ModalTitle dataTest="dhis2-uicore-modaltitle">
+                    Overview of Contacts
                 </ModalTitle>
-                <ModalContent dataTest="dhis2-uicore-modalcontent">
-                  <DataTable
-                    headlines={[
-                      "First name",
-                      "Surname",
-                      "Incident date",
-                      "Last updated",
-                      "Age",
-                      "Phone",
-                      "Status",
-                      "Due date",
-                      "Tracker Capture",
-                    ]}
-                    api={
-                      <ContactsApi
-                        from={props.from}
-                        to={props.to}
-                        tei={trackedEntityInstance}
-                        relationsObject={relationships}
-                        setTaskCount={() => {}}
-                      />
-                    }
-                  />
-                </ModalContent>
-                <ModalActions>
-                  <ButtonStrip>
-                    <Button onClick={hide}>Close</Button>
-                  </ButtonStrip>
-                </ModalActions>
-              </Modal>
-            )}
-          />
-        </TableCell>
-        <TableCell dataTest="dhis2-uicore-tablecell" dense>
-          <Button
-            dataTest="dhis2-uicore-button"
-            name="Primary button"
-            onClick={() =>
-              window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
-            }
-            primary
-            type="button"
-            value="default"
-          >
-            Track Entity
+                  <ModalContent dataTest="dhis2-uicore-modalcontent">
+                    <DataTable
+                      headlines={[
+                        "First name",
+                        "Surname",
+                        "Incident date",
+                        "Last updated",
+                        "Age",
+                        "Phone",
+                        "Status",
+                        "Due date",
+                        "Tracker Capture",
+                      ]}
+                      api={
+                        <ContactsApi
+                          from={props.from}
+                          to={props.to}
+                          tei={trackedEntityInstance}
+                          relationsObject={relationships}
+                          setTaskCount={() => { }}
+                        />
+                      }
+                    />
+                  </ModalContent>
+                  <ModalActions>
+                    <ButtonStrip>
+                      <Button onClick={hide}>Close</Button>
+                    </ButtonStrip>
+                  </ModalActions>
+                </Modal>
+              )}
+            />
+          </TableCell>
+          <TableCell dataTest="dhis2-uicore-tablecell" dense>
+            <Button
+              dataTest="dhis2-uicore-button"
+              name="Primary button"
+              onClick={() =>
+                window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+              }
+              primary
+              type="button"
+              value="default"
+            >
+              Track Entity
           </Button>
-        </TableCell>
-      </TableRow>
-    )
+          </TableCell>
+        </TableRow>
+      )
   );
 };
 

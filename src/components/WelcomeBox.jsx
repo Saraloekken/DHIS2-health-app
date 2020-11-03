@@ -4,13 +4,14 @@ import styles from "../App.module.css";
 import { useDataQuery } from "@dhis2/app-runtime";
 import HealthWorker from "../img/healthworker.png"
 
+const query = {
+  Me: {
+    resource: "me",
+  }
+}
 
 const WelcomeBox = (props) => {
-  const query = {
-    Me: {
-      resource: "me",
-    }
-  }
+
 
   const { loading, error, data } = useDataQuery(query);
 
