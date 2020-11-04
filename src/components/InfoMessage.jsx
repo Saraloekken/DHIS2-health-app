@@ -6,9 +6,8 @@ const InfoMessage = () => {
   return (
     <NoticeBox
       className={styles.info}
-      title="There is currently no data available"
-    >
-      Please try again!
+      title="No data available"
+    > The list is currently empty.
     </NoticeBox>
   );
 };
