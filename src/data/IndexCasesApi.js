@@ -58,7 +58,7 @@ const IndexCasesApi = (props) => {
       const isOverdue = findOverdue(enrollments[0], props.from, props.to);
 
       return (
-        <TableRow>
+        <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
           <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
           <TableCell>
@@ -88,12 +88,12 @@ const IndexCasesApi = (props) => {
               }
               neutral={
                 !isOverdue &&
-                findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                ) === "SCHEDULE"
+                  findValueEnrollments(
+                    enrollments[0],
+                    props.from,
+                    props.to,
+                    "status"
+                  ) === "SCHEDULE"
                   ? true
                   : false
               }
@@ -112,11 +112,11 @@ const IndexCasesApi = (props) => {
               {isOverdue
                 ? "OVERDUE"
                 : findValueEnrollments(
-                    enrollments[0],
-                    props.from,
-                    props.to,
-                    "status"
-                  )}
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                )}
             </Tag>
           </TableCell>
           <TableCell>

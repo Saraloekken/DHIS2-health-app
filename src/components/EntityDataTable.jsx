@@ -11,7 +11,7 @@ class DataTable extends React.Component {
   createTableCellHead = () => {
     const array = this.props.headlines;
     return array.map((headline) => {
-      return <TableCellHead>{headline}</TableCellHead>;
+      return <TableCellHead key={headline}>{headline}</TableCellHead>;
     });
   };
 

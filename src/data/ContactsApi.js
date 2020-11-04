@@ -68,7 +68,7 @@ const ContactsApi = (props) => {
       const isOverdue = findOverdue(enrollments[0], props.from, props.to);
 
       return (
-        <TableRow>
+        <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
           <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
           <TableCell>
@@ -89,19 +89,19 @@ const ContactsApi = (props) => {
               className={
                 !isOverdue &&
                 findValueEnrollments(enrollments[0], from, to, "status") ===
-                  "ACTIVE" &&
+                "ACTIVE" &&
                 styles.positive
               }
               neutral={
                 !isOverdue &&
-                findValueEnrollments(enrollments[0], from, to, "status") ===
+                  findValueEnrollments(enrollments[0], from, to, "status") ===
                   "SCHEDULE"
                   ? true
                   : false
               }
               default={
                 findValueEnrollments(enrollments[0], from, to, "status") ===
-                "VISITED"
+                  "VISITED"
                   ? true
                   : false
               }

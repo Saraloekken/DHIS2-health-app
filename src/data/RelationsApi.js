@@ -105,7 +105,7 @@ const RelationsApi = (props) => {
     }) => {
       const isOverdue = findOverdue(enrollments[0], props.from, props.to);
       return (
-        <TableRow>
+        <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
           <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
           <TableCell>
@@ -135,12 +135,12 @@ const RelationsApi = (props) => {
               }
               neutral={
                 !isOverdue &&
-                findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                ) === "SCHEDULE"
+                  findValueEnrollments(
+                    enrollments[0],
+                    props.from,
+                    props.to,
+                    "status"
+                  ) === "SCHEDULE"
                   ? true
                   : false
               }
@@ -159,11 +159,11 @@ const RelationsApi = (props) => {
               {isOverdue
                 ? "OVERDUE"
                 : findValueEnrollments(
-                    enrollments[0],
-                    props.from,
-                    props.to,
-                    "status"
-                  )}
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                )}
             </Tag>
           </TableCell>{" "}
           <TableCell>
@@ -207,7 +207,7 @@ const RelationsApi = (props) => {
                           to={props.to}
                           tei={trackedEntityInstance}
                           relationsObject={relationships}
-                          setTaskCount={() => {}}
+                          setTaskCount={() => { }}
                         />
                       }
                     />
