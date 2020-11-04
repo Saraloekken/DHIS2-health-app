@@ -7,7 +7,7 @@ export function findValueAttributes(attributes, valueCode) {
 }
 
 export function findValueEnrollments(item, fromDay, toDay, value) {
-  let filteredEvents = item.events.filter(
+  const filteredEvents = item.events.filter(
     (event) =>
       event.status != "COMPLETED" &&
       sliceDate(event.dueDate) >= fromDay &&
@@ -30,7 +30,7 @@ export function sliceDate(date) {
 }
 
 export function findOverdue(item, fromDay, toDay) {
-  let dueDate = findValueEnrollments(item, fromDay, toDay, "dueDate");
+  const dueDate = findValueEnrollments(item, fromDay, toDay, "dueDate");
 
   if (dueDate < getDaysForwardDate(0)) {
     return true;

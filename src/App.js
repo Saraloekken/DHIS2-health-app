@@ -15,7 +15,7 @@ function usePersistedState(key, defaultValue) {
   return [state, setState];
 }
 
-function chechActive(active) {
+function checkActive(active) {
   if (active == "indexcases") {
     return <IndexCases />;
   }
@@ -31,7 +31,7 @@ const MyApp = () => {
   //To statevariabler som oppdateres sammen, kunne vært slått sammen til èn som oppdatererer begge?
   //Refresher innholdet to ganger fordi den tror staten endrer seg to ganger, mens den bare endrer seg en?
   const [active, setActive] = usePersistedState(0, "indexcases");
-  const [page, setPage] = useState(chechActive(active));
+  const [page, setPage] = useState(checkActive(active));
 
   function indexcases() {
     setPage(<IndexCases />);
@@ -48,7 +48,7 @@ const MyApp = () => {
     setActive("relations");
   }
 
-  // Navigation header into own comonent
+  // Navigation header into own component
   return (
     <div>
       <div className={styles.navigation}>

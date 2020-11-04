@@ -78,7 +78,7 @@ const Filters = (props) => {
     <div className={styles.filters}>
       <SingleSelectField
         inputWidth="200px"
-        label="Time interval"
+        label="Time frame"
         selected={interval}
         onChange={updateTable}
       >

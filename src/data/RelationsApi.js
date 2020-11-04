@@ -43,9 +43,9 @@ const query = {
 
 // går gjennom alle relasjonene til tei og sjekker om item er en av de.
 export function filterTableRelationship(item, relations, tei) {
-  let contactsToTei = getRelationsToTei(relations, tei).filter(
+  const contactsToTei = getRelationsToTei(relations, tei).filter(
     (relationship) =>
-      relationship == item.trackedEntityInstance && relationship != tei
+      relationship === item.trackedEntityInstance && relationship !== tei
   );
 
   if (contactsToTei.length > 0) return item;
@@ -53,13 +53,14 @@ export function filterTableRelationship(item, relations, tei) {
 
 // går gjennom relasjonsobjekter til valgt tei og returnerer alle dens tei-relasjoner
 function getRelationsToTei(relations, tei) {
-  let relationsTei = [];
+  const relationsTei = [];
 
   relations.map((relationship) => {
-    let fromTei = relationship.from.trackedEntityInstance.trackedEntityInstance;
-    let toTei = relationship.to.trackedEntityInstance.trackedEntityInstance;
+    const fromTei =
+      relationship.from.trackedEntityInstance.trackedEntityInstance;
+    const toTei = relationship.to.trackedEntityInstance.trackedEntityInstance;
 
-    if (fromTei != tei) {
+    if (fromTei !== tei) {
       relationsTei.push(fromTei);
     }
     relationsTei.push(toTei);
@@ -179,7 +180,13 @@ const RelationsApi = (props) => {
               content={(hide) => (
                 <Modal dataTest="dhis2-uicore-modal" large position="middle">
                   <ModalTitle dataTest="dhis2-uicore-modaltitle">
-                    Overview of Contacts
+                    {`Overview of ${findValueAttributes(
+                      attributes,
+                      "first_name"
+                    )} ${findValueAttributes(
+                      attributes,
+                      "surname"
+                    )}'s contacts (${relationships.length})`}
                   </ModalTitle>
                   <ModalContent dataTest="dhis2-uicore-modalcontent">
                     <DataTable
