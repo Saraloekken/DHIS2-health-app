@@ -83,7 +83,7 @@ const RelationsApi = (props) => {
     return <ErrorMessage />;
   }
   if (loading) {
-    return <CircularLoader />;
+    return <TableRow><TableCell><CircularLoader /></TableCell></TableRow>;
   }
 
   const relations = data.Relations.trackedEntityInstances.filter((item) =>
@@ -92,7 +92,7 @@ const RelationsApi = (props) => {
 
   tableLength = relations.length;
   if (tableLength === 0) {
-    return <InfoMessage />;
+    return <TableRow><TableCell><InfoMessage /></TableCell></TableRow>;
   }
 
   return relations.map(
