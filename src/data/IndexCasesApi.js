@@ -37,10 +37,22 @@ const IndexCasesApi = (props) => {
   const { baseUrl } = useConfig();
 
   if (error) {
-    return <ErrorMessage />;
+    return (
+      <TableRow>
+        <TableCell>
+          <ErrorMessage />
+        </TableCell>
+      </TableRow>
+    );
   }
   if (loading) {
-    return <TableRow ><TableCell><CircularLoader /></TableCell></TableRow>;
+    return (
+      <TableRow>
+        <TableCell>
+          <CircularLoader />
+        </TableCell>
+      </TableRow>
+    );
   }
 
   const indexCases = data.IndexCases.trackedEntityInstances //endre fra return til const (mellomlagre verdien, istedet for å returnere den direkte)
@@ -50,7 +62,13 @@ const IndexCasesApi = (props) => {
 
   tableLength = indexCases.length;
   if (tableLength === 0) {
-    return <TableRow><TableCell><InfoMessage /></TableCell></TableRow>;
+    return (
+      <TableRow>
+        <TableCell>
+          <InfoMessage />
+        </TableCell>
+      </TableRow>
+    );
   }
 
   return indexCases.map(
