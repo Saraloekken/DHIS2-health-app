@@ -5,6 +5,7 @@ import { DataTable } from "../components/EntityDataTable.jsx";
 import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { InfoMessage } from "../components/InfoMessage.jsx";
 import { ContactsApi } from "../data/ContactsApi.js";
+import styles from "../App.module.css";
 import {
   TableCell,
   TableRow,
@@ -18,6 +19,7 @@ import {
   ModalActions,
 } from "@dhis2/ui";
 import {
+  findOverdue,
   findValueAttributes,
   findValueEnrollments,
 } from "../data/ApiFunctions.js";
@@ -99,7 +101,9 @@ const RelationsApi = (props) => {
       lastUpdated,
       enrollments,
       relationships,
-    }) => (
+    }) => {
+      const isOverdue = findOverdue(enrollments[0], props.from, props.to);
+      return (
         <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
           <TableCell>{findValueAttributes(attributes, "surname")}</TableCell>
@@ -112,27 +116,30 @@ const RelationsApi = (props) => {
           <TableCell>
             {findValueAttributes(attributes, "patinfo_ageonset")}
           </TableCell>
-          <TableCell>{findValueAttributes(attributes, "phone_local")}</TableCell>
+          <TableCell>
+            {findValueAttributes(attributes, "phone_local")}
+          </TableCell>
           <TableCell>
             <Tag
               dataTest="dhis2-uicore-tag"
-              positive={
+              className={
+                !isOverdue &&
                 findValueEnrollments(
                   enrollments[0],
                   props.from,
                   props.to,
                   "status"
-                ) === "SCHEDULE"
-                  ? true
-                  : false
+                ) === "ACTIVE" &&
+                styles.positive
               }
               neutral={
-                findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                ) === "ACTIVE"
+                !isOverdue &&
+                  findValueEnrollments(
+                    enrollments[0],
+                    props.from,
+                    props.to,
+                    "status"
+                  ) === "SCHEDULE"
                   ? true
                   : false
               }
@@ -146,23 +153,16 @@ const RelationsApi = (props) => {
                   ? true
                   : false
               }
-              negative={
-                findValueEnrollments(
+              negative={isOverdue}
+            >
+              {isOverdue
+                ? "OVERDUE"
+                : findValueEnrollments(
                   enrollments[0],
                   props.from,
                   props.to,
                   "status"
-                ) === "OVERDUE"
-                  ? true
-                  : false
-              }
-            >
-              {findValueEnrollments(
-                enrollments[0],
-                props.from,
-                props.to,
-                "status"
-              )}
+                )}
             </Tag>
           </TableCell>{" "}
           <TableCell>
@@ -180,7 +180,7 @@ const RelationsApi = (props) => {
                 <Modal dataTest="dhis2-uicore-modal" large position="middle">
                   <ModalTitle dataTest="dhis2-uicore-modaltitle">
                     Overview of Contacts
-                </ModalTitle>
+                  </ModalTitle>
                   <ModalContent dataTest="dhis2-uicore-modalcontent">
                     <DataTable
                       headlines={[
@@ -219,17 +219,20 @@ const RelationsApi = (props) => {
               dataTest="dhis2-uicore-button"
               name="Primary button"
               onClick={() =>
-                window.open(`${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`)
+                window.open(
+                  `${baseUrl}/dhis-web-tracker-capture/index.html#/dashboard?tei=${trackedEntityInstance}&program=uYjxkTbwRNf&ou=EwEP9IhOwuw`
+                )
               }
               primary
               type="button"
               value="default"
             >
               Track Entity
-          </Button>
+            </Button>
           </TableCell>
         </TableRow>
-      )
+      );
+    }
   );
 };
 

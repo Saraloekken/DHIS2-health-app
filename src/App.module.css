@@ -4,7 +4,7 @@
 }
 
 body {
-  background: #F4F6F8;
+  background: #f4f6f8;
 }
 
 .navigation {
@@ -17,7 +17,6 @@ body {
   width: 100%;
   z-index: 1;
 }
-
 
 .left {
   display: flex;
@@ -99,6 +98,12 @@ body {
 }
 
 .emphasis {
-  color: #1565C0;
+  color: #1565c0;
   font-size: 1.2rem;
+}
+
+.positive {
+  background-color: #e0f2f1 !important;
+  fill: #004d40 !important;
+  color: #00332b !important;
 }
