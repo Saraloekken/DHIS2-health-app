@@ -23,13 +23,13 @@ const WelcomeBox = (props) => {
   }
 
   return (
-    <div className={styles.infobox}>
+    <div className={styles.welcomebox}>
       <img src={HealthWorker} className={styles.healthimg} alt="Health worker" />
-      <div className={styles.infomsg}>
+      <div className={styles.welcomemsg}>
         <h3>Welcome, {data.Me.name}!</h3>
         <p>You have <strong className={styles.emphasis}>{props.taskCount}</strong> tasks left to complete {props.dayDescription}.</p>
         {/* //tomorrow //next week //next month //during the periode chosen */}
-        <p>Keep up the good work, and remember to take breaks once in a while! We are rooting for you!</p>
+        <p>Keep up the good work, and remember to take breaks once in a while. We are rooting for you!</p>
       </div>
     </div >
   );

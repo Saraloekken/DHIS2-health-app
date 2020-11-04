@@ -6,7 +6,6 @@ const InfoMessage = () => {
   return (
     <NoticeBox
       className={styles.info}
-      dataTest="dhis2-uicore-noticebox"
       title="There is currently no data available"
     >
       Please try again!

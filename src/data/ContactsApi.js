@@ -41,8 +41,15 @@ const ContactsApi = (props) => {
   });
 
   if (error) {
-    return <ErrorMessage />;
+    return (
+      <TableRow>
+        <TableCell>
+          <ErrorMessage />
+        </TableCell>
+      </TableRow>
+    );
   }
+  
   if (loading) {
     return <TableRow><TableCell><CircularLoader /></TableCell></TableRow>;
   }

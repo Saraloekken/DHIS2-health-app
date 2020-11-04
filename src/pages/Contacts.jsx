@@ -15,15 +15,15 @@ const Contacts = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topbar}>
-        <div className={styles.left}>
-          <h2>Overview Contacts</h2>
-          <Filters
-            setFrom={setFrom}
-            setTo={setTo}
-            setDayDescription={setDayDescription}
-          />
-        </div>
-        <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
+        <h2 className={styles.headline}>Overview of Contacts</h2>
+        <Filters
+          setFrom={setFrom}
+          setTo={setTo}
+          setDayDescription={setDayDescription}
+        />
+        <WelcomeBox
+          taskCount={taskCount}
+          dayDescription={dayDescription} />
       </div>
       <div>
         <DataTable
