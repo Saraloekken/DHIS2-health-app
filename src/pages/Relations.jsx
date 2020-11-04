@@ -10,14 +10,18 @@ const Relations = () => {
   const [from, setFrom] = useState(getDaysForwardDate(0));
   const [to, setTo] = useState(getDaysForwardDate(0));
   const [taskCount, setTaskCount] = useState(0);
-  const [dayDescription, setDayDescription] = useState('today');
+  const [dayDescription, setDayDescription] = useState("today");
 
   return (
     <div className={styles.container}>
       <div className={styles.topbar}>
         <div className={styles.left}>
           <h2>Index Cases and Contacts</h2>
-          <Filters setFrom={setFrom} setTo={setTo} setDayDescription={setDayDescription} />
+          <Filters
+            setFrom={setFrom}
+            setTo={setTo}
+            setDayDescription={setDayDescription}
+          />
         </div>
         <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
       </div>
