@@ -6,7 +6,6 @@ const ErrorMessage = () => {
   return (
     <NoticeBox
       className={styles.error}
-      dataTest="dhis2-uicore-noticebox"
       error
       title="Oops! Something just happened"
     >

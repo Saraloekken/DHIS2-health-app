@@ -41,10 +41,23 @@ const ContactsApi = (props) => {
   });
 
   if (error) {
-    return <ErrorMessage />;
+    return (
+      <TableRow>
+        <TableCell>
+          <ErrorMessage />
+        </TableCell>
+      </TableRow>
+    );
   }
+  
   if (loading) {
-    return <CircularLoader />;
+    return (
+      <TableRow>
+        <TableCell>
+          <CircularLoader />
+        </TableCell>
+      </TableRow>
+    );
   }
 
   if (props.tei) {

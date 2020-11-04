@@ -15,15 +15,15 @@ const Relations = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topbar}>
-        <div className={styles.left}>
-          <h2>Index Cases and Contacts</h2>
-          <Filters
-            setFrom={setFrom}
-            setTo={setTo}
-            setDayDescription={setDayDescription}
-          />
-        </div>
-        <WelcomeBox taskCount={taskCount} dayDescription={dayDescription} />
+        <h2 className={styles.headline}>Contacts and Index Cases</h2>
+        <Filters
+          setFrom={setFrom}
+          setTo={setTo}
+          setDayDescription={setDayDescription}
+        />
+        <WelcomeBox
+          taskCount={taskCount}
+          dayDescription={dayDescription} />
       </div>
       <div>
         <DataTable
