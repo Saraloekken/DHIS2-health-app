@@ -41,7 +41,7 @@ const Filters = (props) => {
       setEnabled(false);
     }
     if (select.selected == 2) {
-      props.setFrom(getDaysForwardDate(0));
+      props.setFrom(getDaysForwardDate(1)); //endret fra 0 til 1 her så vi får casene fra imorgen istedenfor idag
       props.setTo(getDaysForwardDate(1));
       props.setDayDescription("by tomorrow");
       setEnabled(false);
