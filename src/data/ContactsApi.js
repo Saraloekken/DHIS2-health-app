@@ -51,13 +51,7 @@ const ContactsApi = (props) => {
   }
   
   if (loading) {
-    return (
-      <TableRow>
-        <TableCell>
-          <CircularLoader />
-        </TableCell>
-      </TableRow>
-    );
+    return <TableRow><TableCell><CircularLoader /></TableCell></TableRow>;
   }
 
   if (props.tei) {
