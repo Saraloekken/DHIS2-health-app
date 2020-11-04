@@ -49,9 +49,15 @@ const ContactsApi = (props) => {
       </TableRow>
     );
   }
-  
+
   if (loading) {
-    return <TableRow><TableCell><CircularLoader /></TableCell></TableRow>;
+    return (
+      <TableRow>
+        <TableCell>
+          <CircularLoader />
+        </TableCell>
+    </TableRow>
+    );
   }
 
   if (props.tei) {
@@ -67,7 +73,13 @@ const ContactsApi = (props) => {
 
   tableLength = contacts.length;
   if (tableLength === 0) {
-    return <InfoMessage />;
+    return (
+      <TableRow>
+        <TableCell>
+          <InfoMessage />
+        </TableCell>
+    </TableRow>
+    );
   }
 
   return contacts.map(

@@ -80,10 +80,23 @@ const RelationsApi = (props) => {
   });
 
   if (error) {
-    return <ErrorMessage />;
+    return (
+      <TableRow>
+        <TableCell>
+          <ErrorMessage />
+        </TableCell>
+      </TableRow>
+    );
   }
+
   if (loading) {
-    return <TableRow><TableCell><CircularLoader /></TableCell></TableRow>;
+    return (
+      <TableRow>
+        <TableCell>
+          <CircularLoader />
+        </TableCell>
+      </TableRow>
+    );
   }
 
   const relations = data.Relations.trackedEntityInstances.filter((item) =>
@@ -92,7 +105,13 @@ const RelationsApi = (props) => {
 
   tableLength = relations.length;
   if (tableLength === 0) {
-    return <TableRow><TableCell><InfoMessage /></TableCell></TableRow>;
+    return (
+      <TableRow>
+        <TableCell>
+          <InfoMessage />
+        </TableCell>
+      </TableRow>
+    );
   }
 
   return relations.map(
