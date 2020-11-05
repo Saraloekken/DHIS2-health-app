@@ -29,7 +29,7 @@ const WelcomeBox = (props) => {
         <h3>Welcome, {data.Me.name}!</h3>
         <p>You have <strong className={styles.emphasis}>{props.taskCount}</strong> tasks left to complete {props.dayDescription}.</p>
         {/* //tomorrow //next week //next month //during the periode chosen */}
-        <p>Keep up the good work, and remember to take breaks once in a while. We are rooting for you!</p>
+        <p>Keep up the good work, and remember to take breaks once in a while!</p>
       </div>
     </div >
   );
