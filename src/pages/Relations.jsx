@@ -15,7 +15,7 @@ const Relations = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topbar}>
-        <h2 className={styles.headline}>Index Cases and Cases</h2>
+        <h2 className={styles.headline}>Index Cases and Contacts</h2>
         <Filters
           setFrom={setFrom}
           setTo={setTo}

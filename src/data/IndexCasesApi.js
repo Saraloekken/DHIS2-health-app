@@ -159,7 +159,7 @@ const IndexCasesApi = (props) => {
               type="button"
               value="default"
             >
-              Track Entity
+              Track entity
             </Button>
           </TableCell>
         </TableRow>
