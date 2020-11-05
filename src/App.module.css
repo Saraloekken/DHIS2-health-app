@@ -20,6 +20,10 @@ body {
 
 .container {
   margin: 5rem 2rem 2rem;
+  background: white;
+  padding: 20px;
+  box-shadow: 0px 2px 6px -4px rgba(0, 0, 0, 0.75);
+  border-radius: 3px;
 }
 
 .filters {
@@ -56,8 +60,8 @@ body {
   display: grid;
   grid-template:
     ". . workload"
-    ". . workload"
     "headline . workload"
+    ". . workload"
     ". . workload"
     ". . workload"
     "filter . workload";
@@ -90,6 +94,7 @@ body {
   padding: 15px 15px 0 20px;
   box-shadow: 0px 2px 6px -4px rgba(0, 0, 0, 0.75);
   border-radius: 3px;
+  background-color: #f5fbff;
 }
 
 .welcomemsg {
