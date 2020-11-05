@@ -41,7 +41,7 @@ const Filters = (props) => {
       setEnabled(false);
     }
     if (select.selected == 2) {
-      props.setFrom(getDaysForwardDate(0));
+      props.setFrom(getDaysForwardDate(1));
       props.setTo(getDaysForwardDate(1));
       props.setDayDescription("by tomorrow");
       setEnabled(false);

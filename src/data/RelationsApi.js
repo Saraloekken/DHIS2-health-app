@@ -197,16 +197,19 @@ const RelationsApi = (props) => {
             <ModalContacts
               toggle={(show) => <Button onClick={show}> View contacts </Button>}
               content={(hide) => (
-                <Modal dataTest="dhis2-uicore-modal" large position="middle">
-                  <ModalTitle dataTest="dhis2-uicore-modaltitle">
-                    {`Overview of ${findValueAttributes(
-                      attributes,
-                      "first_name"
-                    )} ${findValueAttributes(
-                      attributes,
-                      "surname"
-                    )}'s contacts (${relationships.length})`}
-                  </ModalTitle>
+                <Modal className={styles.modaltable} large dataTest="dhis2-uicore-modal" position="middle">
+                  <div className={styles.modalheader}>
+                    <ModalTitle dataTest="dhis2-uicore-modaltitle">
+                      {`Overview of ${findValueAttributes(
+                        attributes,
+                        "first_name"
+                      )} ${findValueAttributes(
+                        attributes,
+                        "surname"
+                      )}'s contacts`} 
+                    </ModalTitle>
+                    <div className={styles.notification}>{`${relationships.length}`}</div>
+                  </div>
                   <ModalContent dataTest="dhis2-uicore-modalcontent">
                     <DataTable
                       headlines={[
