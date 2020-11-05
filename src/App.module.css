@@ -57,10 +57,10 @@ body {
   grid-template:
     ". . workload"
     ". . workload"
-    "headline .    workload"
-    ". .  workload"
-    ". .  workload"
-    "filter .  workload";
+    "headline . workload"
+    ". . workload"
+    ". . workload"
+    "filter . workload";
   grid-template-columns: 1fr 1fr 500px;
   margin-bottom: 15px;
 
@@ -85,10 +85,11 @@ body {
 
 .welcomebox {
   display: flex;
-  justify-content: center;
+  align-items: flex-end;
   background: white;
   padding: 15px 15px 0 20px;
   box-shadow: 0px 2px 6px -4px rgba(0, 0, 0, 0.75);
+  border-radius: 3px;
 }
 
 .welcomemsg {
@@ -116,6 +117,26 @@ body {
   background-color: #e0f2f1 !important;
   fill: #004d40 !important;
   color: #00332b !important;
+}
+
+.notification {
+  width: 1.7rem;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  border-radius: 50%;
+  text-align: center;
+  background: #c5e3fc;
+  font-size: 1.1rem;
+  margin: 0 -10px;
+}
+
+.modalheader {
+  display: flex;
+  align-items: baseline;
+}
+
+.modaltable {
+  width: 65vw !important;
 }
 
 @media only screen and (max-width: 1270px) {
