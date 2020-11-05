@@ -144,7 +144,7 @@ body {
   width: 65vw !important;
 }
 
-@media only screen and (max-width: 1270px) {
+@media only screen and (max-width: 1290px) {
   .topbar {
     display: grid;
     grid-template:
