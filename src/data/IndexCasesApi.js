@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { InfoMessage } from "../components/InfoMessage.jsx";
@@ -55,10 +55,9 @@ const IndexCasesApi = (props) => {
     );
   }
 
-  const indexCases = data.IndexCases.trackedEntityInstances //endre fra return til const (mellomlagre verdien, istedet for å returnere den direkte)
-    .filter((item) =>
-      findValueEnrollments(item.enrollments[0], props.from, props.to, "item")
-    );
+  const indexCases = data.IndexCases.trackedEntityInstances.filter((item) =>
+    findValueEnrollments(item.enrollments[0], props.from, props.to, "item")
+  );
 
   tableLength = indexCases.length;
   if (tableLength === 0) {
@@ -106,12 +105,12 @@ const IndexCasesApi = (props) => {
               }
               neutral={
                 !isOverdue &&
-                  findValueEnrollments(
-                    enrollments[0],
-                    props.from,
-                    props.to,
-                    "status"
-                  ) === "SCHEDULE"
+                findValueEnrollments(
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                ) === "SCHEDULE"
                   ? true
                   : false
               }
@@ -130,11 +129,11 @@ const IndexCasesApi = (props) => {
               {isOverdue
                 ? "OVERDUE"
                 : findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                )}
+                    enrollments[0],
+                    props.from,
+                    props.to,
+                    "status"
+                  )}
             </Tag>
           </TableCell>
           <TableCell>
