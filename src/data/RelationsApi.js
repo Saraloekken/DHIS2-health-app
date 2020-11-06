@@ -6,7 +6,6 @@ import { ModalApi } from "../data/ModalApi.js";
 import { StatusColourApi } from "../data/StatusColourApi.js";
 import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
 import {
-  findOverdue,
   findValueAttributes,
   findValueEnrollments,
 } from "../data/ApiFunctions.js";
@@ -109,7 +108,6 @@ const RelationsApi = (props) => {
       enrollments,
       relationships,
     }) => {
-      const isOverdue = findOverdue(enrollments[0], props.from, props.to);
       return (
         <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
@@ -131,7 +129,6 @@ const RelationsApi = (props) => {
               enrollments={enrollments[0]}
               from={props.from}
               to={props.to}
-              isOverdue={isOverdue}
             />
           </TableCell>{" "}
           <TableCell>

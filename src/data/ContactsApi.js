@@ -6,7 +6,6 @@ import { filterTableRelationship } from "../data/RelationsApi";
 import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
 import { StatusColourApi } from "../data/StatusColourApi.js";
 import {
-  findOverdue,
   findValueAttributes,
   findValueEnrollments,
 } from "../data/ApiFunctions.js";
@@ -84,8 +83,6 @@ const ContactsApi = (props) => {
 
   return contacts.map(
     ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => {
-      const isOverdue = findOverdue(enrollments[0], props.from, props.to);
-
       return (
         <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
@@ -103,12 +100,7 @@ const ContactsApi = (props) => {
             {findValueAttributes(attributes, "phone_local")}
           </TableCell>
           <TableCell>
-            <StatusColourApi
-              enrollments={enrollments[0]}
-              from={from}
-              to={to}
-              isOverdue={isOverdue}
-            />
+            <StatusColourApi enrollments={enrollments[0]} from={from} to={to} />
           </TableCell>
           <TableCell>
             {findValueEnrollments(enrollments[0], from, to, "dueDate")}

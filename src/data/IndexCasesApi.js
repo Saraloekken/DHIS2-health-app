@@ -5,7 +5,6 @@ import { InfoMessage } from "../components/InfoMessage.jsx";
 import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
 import { StatusColourApi } from "../data/StatusColourApi.js";
 import {
-  findOverdue,
   findValueAttributes,
   findValueEnrollments,
 } from "../data/ApiFunctions.js";
@@ -72,8 +71,6 @@ const IndexCasesApi = (props) => {
 
   return indexCases.map(
     ({ trackedEntityInstance, attributes, lastUpdated, enrollments }) => {
-      const isOverdue = findOverdue(enrollments[0], props.from, props.to);
-
       return (
         <TableRow key={trackedEntityInstance}>
           <TableCell>{findValueAttributes(attributes, "first_name")}</TableCell>
@@ -95,7 +92,6 @@ const IndexCasesApi = (props) => {
               enrollments={enrollments[0]}
               from={props.from}
               to={props.to}
-              isOverdue={isOverdue}
             />
           </TableCell>
           <TableCell>
