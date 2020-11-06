@@ -28,7 +28,7 @@ const query = {
   },
 };
 
-// går gjennom alle relasjonene til tei og sjekker om item er en av de.
+// Go through tei-relations and return contact-item if they are a part of contacts
 export function filterTableRelationship(item, relations, tei) {
   const contactsToTei = getRelationsToTei(relations, tei).filter(
     (relationship) =>
@@ -38,7 +38,7 @@ export function filterTableRelationship(item, relations, tei) {
   if (contactsToTei.length > 0) return item;
 }
 
-// går gjennom relasjonsobjekter til valgt tei og returnerer alle dens tei-relasjoner
+// Go through relations-objects to tei and returns all tei-relations
 function getRelationsToTei(relations, tei) {
   const relationsTei = [];
 
