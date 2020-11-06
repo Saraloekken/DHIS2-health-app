@@ -18,14 +18,9 @@ const ModalApi = (props) => {
     <ModalContacts
       toggle={(show) => <Button onClick={show}> View contacts </Button>}
       content={(hide) => (
-        <Modal
-          className={styles.modaltable}
-          large
-          dataTest="dhis2-uicore-modal"
-          position="middle"
-        >
+        <Modal className={styles.modaltable} large position="middle">
           <div className={styles.modalheader}>
-            <ModalTitle dataTest="dhis2-uicore-modaltitle">
+            <ModalTitle>
               {`Overview of ${findValueAttributes(
                 props.attributes,
                 "first_name"
@@ -38,7 +33,7 @@ const ModalApi = (props) => {
               className={styles.notification}
             >{`${props.relationships.length}`}</div>
           </div>
-          <ModalContent dataTest="dhis2-uicore-modalcontent">
+          <ModalContent>
             <DataTable
               headlines={[
                 "First name",
