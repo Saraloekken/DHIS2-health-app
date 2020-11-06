@@ -28,11 +28,11 @@ User-friendly interface
 Easy and simple!   
 
 ## Missing functionality/possible improvements: 
-Previous follow-ups/completed 
-Search-function
-Alert/notice box when a tracker capture has been confirmed
-A status filter that filters on: "All", "Completed", "Active" and "Scheduled" 
-Save filter for session 
+Previous follow-ups/completed  
+Search-function  
+Alert/notice box when a tracker capture has been confirmed  
+A status filter that filters on: "All", "Completed", "Active" and "Scheduled"  
+Save filter for session  
 
 ## API-reference: 
 Getting a list of index cases and contacts:  
@@ -45,7 +45,9 @@ Getting a list of required and optional attributes:
 This application is divided into three different pages.  
 
 Index Cases shows a view of contacts that have tested positive for Covid-19, and is to be handles specifically by health workers with a medical background.  
+
 Contacts consists of people who have been close to a positive case, and will mainly be handled by contact tracers.  
+
 Relations shows a combination of these two. If you click on an index case, a modal with the people they have been in contact with will show up.  
 
 When a health worker or a contact tracers follows up on a case, they can click the blue tracker caption button. This will take them directly to the tracker capture app, where they can edit the case info, set a new date for follow-up, or mark the case as recovered. 
