@@ -14,6 +14,7 @@ Data is filtered in the `Filters` component, by clicking a new field in the menu
 
 When you click "view contacts" in `RelationsApi`, index case data will be sent to `ModalApi`, where a table is placed in a modal. Data for this table is created in `ContactsApi`.
 
+CSS<br />
 React.js - https://reactjs.org/  
 DHIS2 - https://www.dhis2.org/
 
