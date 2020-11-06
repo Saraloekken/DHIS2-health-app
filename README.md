@@ -1,11 +1,11 @@
 ## Working list 
 
 ## Description: 
-This project is created in regards to the Covid-19 pandemic, and is an app made for health-workers and contact tracers to help keep track of the positive registered cases as well as the contacts of these cases. This version currently handles the data for Nesodden municipality. 
+This project is created in regards to the Covid-19 pandemic, and is an app made for health workers and contact tracers to help keep track of the positive registered cases as well as the contacts of these cases. This version currently handles the data for Nesodden municipality. 
 
 ## Motivation: 
 Our motivation for this project is to learn more about application design and development within platform ecosystems.
-We want to to improve ourselves on the use of Git, Javascript, React and the use of APIs. 
+We want to to improve ourselves on the use of Git, Javascript, React, CSS and the use of APIs. 
 
 ## Technologies: 
 React.js - https://reactjs.org/  
@@ -44,16 +44,16 @@ Getting a list of required and optional attributes:
 ## How to use: 
 This application is divided into three different pages.  
 
-Index Cases shows a view of contacts that have tested positive for Covid-19, and is to be handles specifically by health workers with a medical background.  
+Index Cases shows a view of contacts that have tested positive for Covid-19, and will be handled specifically by health workers with a medical background.  
 
 Contacts consists of people who have been close to a positive case, and will mainly be handled by contact tracers.  
 
 Relations shows a combination of these two. If you click on an index case, a modal with the people they have been in contact with will show up.  
 
-When a health worker or a contact tracers follows up on a case, they can click the blue tracker caption button. This will take them directly to the tracker capture app, where they can edit the case info, set a new date for follow-up, or mark the case as recovered. 
+When a health worker or a contact tracers follows up on a case, they can click the blue "tracker caption" button. This will take them directly to the tracker capture app, where they can edit the case info, set a new date for follow-up or mark the case as recovered. 
 
 ## Credits: 
-Wahed 
+Wahed Mangal (teaching assistant)
 
 This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
 
