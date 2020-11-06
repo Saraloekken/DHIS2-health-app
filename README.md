@@ -42,7 +42,7 @@ Getting a list of required and optional attributes:
 /api/trackedEntityAttributes/
 
 ## How to use: 
-This application is divided into three different pages.  
+This application is divided into three different pages. All of the pages consist of tables that are sorted by due date in an ascending order.
 
 Index Cases shows a view of contacts that have tested positive for Covid-19, and will be handled specifically by health workers with a medical background.  
 
