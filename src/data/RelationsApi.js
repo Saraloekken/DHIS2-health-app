@@ -1,23 +1,10 @@
 import React, { useEffect } from "react";
 import { useDataQuery, useConfig } from "@dhis2/app-runtime";
-import { ModalContacts } from "../components/ModalContacts.jsx";
-import { DataTable } from "../components/EntityDataTable.jsx";
 import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { InfoMessage } from "../components/InfoMessage.jsx";
-import { ContactsApi } from "../data/ContactsApi.js";
+import { ModalApi } from "../data/ModalApi.js";
 import styles from "../App.module.css";
-import {
-  TableCell,
-  TableRow,
-  Button,
-  ButtonStrip,
-  CircularLoader,
-  Tag,
-  Modal,
-  ModalTitle,
-  ModalContent,
-  ModalActions,
-} from "@dhis2/ui";
+import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
 import {
   findOverdue,
   findValueAttributes,
@@ -154,12 +141,12 @@ const RelationsApi = (props) => {
               }
               neutral={
                 !isOverdue &&
-                  findValueEnrollments(
-                    enrollments[0],
-                    props.from,
-                    props.to,
-                    "status"
-                  ) === "SCHEDULE"
+                findValueEnrollments(
+                  enrollments[0],
+                  props.from,
+                  props.to,
+                  "status"
+                ) === "SCHEDULE"
                   ? true
                   : false
               }
@@ -178,11 +165,11 @@ const RelationsApi = (props) => {
               {isOverdue
                 ? "OVERDUE"
                 : findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                )}
+                    enrollments[0],
+                    props.from,
+                    props.to,
+                    "status"
+                  )}
             </Tag>
           </TableCell>{" "}
           <TableCell>
@@ -194,53 +181,14 @@ const RelationsApi = (props) => {
             )}
           </TableCell>
           <TableCell dataTest="dhis2-uicore-tablecell" dense>
-            <ModalContacts
-              toggle={(show) => <Button onClick={show}> View contacts </Button>}
-              content={(hide) => (
-                <Modal className={styles.modaltable} large dataTest="dhis2-uicore-modal" position="middle">
-                  <div className={styles.modalheader}>
-                    <ModalTitle dataTest="dhis2-uicore-modaltitle">
-                      {`Overview of ${findValueAttributes(
-                        attributes,
-                        "first_name"
-                      )} ${findValueAttributes(
-                        attributes,
-                        "surname"
-                      )}'s contacts`} 
-                    </ModalTitle>
-                    <div className={styles.notification}>{`${relationships.length}`}</div>
-                  </div>
-                  <ModalContent dataTest="dhis2-uicore-modalcontent">
-                    <DataTable
-                      headlines={[
-                        "First name",
-                        "Surname",
-                        "Incident date",
-                        "Last updated",
-                        "Age",
-                        "Phone",
-                        "Status",
-                        "Due date",
-                        "Tracker Capture",
-                      ]}
-                      api={
-                        <ContactsApi
-                          from={props.from}
-                          to={props.to}
-                          tei={trackedEntityInstance}
-                          relationsObject={relationships}
-                          setTaskCount={() => { }}
-                        />
-                      }
-                    />
-                  </ModalContent>
-                  <ModalActions>
-                    <ButtonStrip>
-                      <Button onClick={hide}>Close</Button>
-                    </ButtonStrip>
-                  </ModalActions>
-                </Modal>
-              )}
+            <ModalApi
+              from={props.from}
+              attributes={attributes}
+              relationships={relationships}
+              to={props.to}
+              tei={trackedEntityInstance}
+              relationsObject={relationships}
+              setTaskCount={() => {}}
             />
           </TableCell>
           <TableCell dataTest="dhis2-uicore-tablecell" dense>
