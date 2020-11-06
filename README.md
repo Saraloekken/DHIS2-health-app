@@ -53,6 +53,7 @@ Relations shows a combination of these two. If you click on an index case, a mod
 When a health worker or a contact tracers follows up on a case, they can click the blue "tracker caption" button. This will take them directly to the tracker capture app, where they can edit the case info, set a new date for follow-up or mark the case as recovered. 
 
 Usage of the different statuses in the table:
+
 SCHEDULE - events with due date in the future, and no event date
 OVERDUE - events with due date in the past, and no event date
 ACTIVE - events with an event date, that is not COMPLETE (independent of due date)
