@@ -16,7 +16,6 @@ const DatePicker = (props) => {
       }
     >
       {" "}
-      {/*Ternary-operator, er dette sant? hvis ja, gi meg denne, hvis nei, gi meg denne. */}
       <label className={styles.datelabel}>{props.label}</label>
       <input
         type="date"
