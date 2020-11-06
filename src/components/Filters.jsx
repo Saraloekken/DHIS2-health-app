@@ -31,7 +31,7 @@ const Filters = (props) => {
     if (select.selected == 0) {
       props.setFrom("2019-01-01");
       props.setTo(getDaysForwardDate(-1));
-      props.setDayDescription("that is overdue");
+      props.setDayDescription("that are overdue");
       setEnabled(false);
     }
     if (select.selected == 1) {
@@ -78,7 +78,7 @@ const Filters = (props) => {
     <div className={styles.filters}>
       <SingleSelectField
         inputWidth="200px"
-        label="Time frame"
+        label="Sort by due date"
         selected={interval}
         onChange={updateTable}
       >
