@@ -1,4 +1,4 @@
-## Title: Working list 
+## Working list 
 
 ## Description: 
 This project is created in regards to the Covid-19 pandemic, and is an app made for health-workers and contact tracers to help keep track of the positive registered cases as well as the contacts of these cases. This version currently handles the data for Nesodden municipality. 
