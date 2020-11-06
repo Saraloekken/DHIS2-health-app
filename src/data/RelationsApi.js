@@ -3,8 +3,8 @@ import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { InfoMessage } from "../components/InfoMessage.jsx";
 import { ModalApi } from "../data/ModalApi.js";
-import styles from "../App.module.css";
-import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
+import { StatusColourApi } from "../data/StatusColourApi.js";
+import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
 import {
   findOverdue,
   findValueAttributes,
@@ -127,49 +127,12 @@ const RelationsApi = (props) => {
             {findValueAttributes(attributes, "phone_local")}
           </TableCell>
           <TableCell>
-            <Tag
-              className={
-                !isOverdue &&
-                findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                ) === "ACTIVE" &&
-                styles.positive
-              }
-              neutral={
-                !isOverdue &&
-                findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                ) === "SCHEDULE"
-                  ? true
-                  : false
-              }
-              default={
-                findValueEnrollments(
-                  enrollments[0],
-                  props.from,
-                  props.to,
-                  "status"
-                ) === "VISITED"
-                  ? true
-                  : false
-              }
-              negative={isOverdue}
-            >
-              {isOverdue
-                ? "OVERDUE"
-                : findValueEnrollments(
-                    enrollments[0],
-                    props.from,
-                    props.to,
-                    "status"
-                  )}
-            </Tag>
+            <StatusColourApi
+              enrollments={enrollments[0]}
+              from={props.from}
+              to={props.to}
+              isOverdue={isOverdue}
+            />
           </TableCell>{" "}
           <TableCell>
             {findValueEnrollments(
