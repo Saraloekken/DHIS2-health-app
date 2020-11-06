@@ -95,6 +95,7 @@ const IndexCasesApi = (props) => {
               enrollments={enrollments[0]}
               from={props.from}
               to={props.to}
+              isOverdue={isOverdue}
             />
           </TableCell>
           <TableCell>

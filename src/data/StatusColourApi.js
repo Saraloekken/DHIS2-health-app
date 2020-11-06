@@ -4,11 +4,11 @@ import { Tag } from "@dhis2/ui";
 import { findOverdue, findValueEnrollments } from "../data/ApiFunctions.js";
 
 const StatusColourApi = (props) => {
-  const isOverdue = findOverdue(props.enrollments, props.from, props.to);
+  //const isOverdue = findOverdue(props.enrollments, props.from, props.to);
   return (
     <Tag
       className={
-        !isOverdue &&
+        !props.isOverdue &&
         findValueEnrollments(
           props.enrollments,
           props.from,
@@ -18,7 +18,7 @@ const StatusColourApi = (props) => {
         styles.positive
       }
       neutral={
-        !isOverdue &&
+        !props.isOverdue &&
         findValueEnrollments(
           props.enrollments,
           props.from,
@@ -38,9 +38,9 @@ const StatusColourApi = (props) => {
           ? true
           : false
       }
-      negative={isOverdue}
+      negative={props.isOverdue}
     >
-      {isOverdue
+      {props.isOverdue
         ? "OVERDUE"
         : findValueEnrollments(
             props.enrollments,
