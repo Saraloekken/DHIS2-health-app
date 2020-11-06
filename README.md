@@ -33,6 +33,7 @@ Search-function
 Alert/notice box when a tracker capture has been confirmed  
 A status filter that filters on: "All", "Completed", "Active" and "Scheduled"  
 Save filter for session  
+Sort ascending/descending by different table columns
 
 ## API-reference: 
 Getting a list of index cases and contacts:  
