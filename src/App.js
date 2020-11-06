@@ -28,7 +28,6 @@ function checkActive(active) {
 }
 
 const MyApp = () => {
-
   const [active, setActive] = usePersistedState(0, "indexcases");
   const [page, setPage] = useState(checkActive(active));
 
@@ -50,27 +49,15 @@ const MyApp = () => {
   return (
     <div>
       <div className={styles.navigation}>
-        <Chip
-          dataTest="dhis2-uicore-chip"
-          onClick={indexcases}
-          selected={active == "indexcases"}
-        >
+        <Chip onClick={indexcases} selected={active == "indexcases"}>
           Index Cases
         </Chip>
 
-        <Chip
-          dataTest="dhis2-uicore-chip"
-          onClick={contacts}
-          selected={active == "contacts"}
-        >
+        <Chip onClick={contacts} selected={active == "contacts"}>
           Contacts
         </Chip>
 
-        <Chip
-          dataTest="dhis2-uicore-chip"
-          onClick={relations}
-          selected={active == "relations"}
-        >
+        <Chip onClick={relations} selected={active == "relations"}>
           Index Cases and Contacts
         </Chip>
       </div>

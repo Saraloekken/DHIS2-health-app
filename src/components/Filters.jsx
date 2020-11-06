@@ -108,7 +108,6 @@ const Filters = (props) => {
 
       <Button
         className={styles.search}
-        dataTest="dhis2-uicore-button"
         name="Secondary button"
         onClick={() => updateCalender()}
         secondary
