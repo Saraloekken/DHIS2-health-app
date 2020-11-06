@@ -128,7 +128,6 @@ const RelationsApi = (props) => {
           </TableCell>
           <TableCell>
             <Tag
-              dataTest="dhis2-uicore-tag"
               className={
                 !isOverdue &&
                 findValueEnrollments(
@@ -180,7 +179,7 @@ const RelationsApi = (props) => {
               "dueDate"
             )}
           </TableCell>
-          <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <TableCell dense>
             <ModalApi
               from={props.from}
               attributes={attributes}
@@ -191,9 +190,8 @@ const RelationsApi = (props) => {
               setTaskCount={() => {}}
             />
           </TableCell>
-          <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <TableCell dense>
             <Button
-              dataTest="dhis2-uicore-button"
               name="Primary button"
               onClick={() =>
                 window.open(

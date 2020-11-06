@@ -92,7 +92,6 @@ const IndexCasesApi = (props) => {
           </TableCell>
           <TableCell>
             <Tag
-              dataTest="dhis2-uicore-tag"
               className={
                 !isOverdue &&
                 findValueEnrollments(
@@ -144,9 +143,8 @@ const IndexCasesApi = (props) => {
               "dueDate"
             )}
           </TableCell>
-          <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <TableCell dense>
             <Button
-              dataTest="dhis2-uicore-button"
               name="Primary button"
               target="_blank"
               onClick={() =>

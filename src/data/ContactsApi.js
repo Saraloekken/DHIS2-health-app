@@ -56,7 +56,7 @@ const ContactsApi = (props) => {
         <TableCell>
           <CircularLoader />
         </TableCell>
-    </TableRow>
+      </TableRow>
     );
   }
 
@@ -78,7 +78,7 @@ const ContactsApi = (props) => {
         <TableCell>
           <InfoMessage />
         </TableCell>
-    </TableRow>
+      </TableRow>
     );
   }
 
@@ -104,23 +104,22 @@ const ContactsApi = (props) => {
           </TableCell>
           <TableCell>
             <Tag
-              dataTest="dhis2-uicore-tag"
               className={
                 !isOverdue &&
                 findValueEnrollments(enrollments[0], from, to, "status") ===
-                "ACTIVE" &&
+                  "ACTIVE" &&
                 styles.positive
               }
               neutral={
                 !isOverdue &&
-                  findValueEnrollments(enrollments[0], from, to, "status") ===
+                findValueEnrollments(enrollments[0], from, to, "status") ===
                   "SCHEDULE"
                   ? true
                   : false
               }
               default={
                 findValueEnrollments(enrollments[0], from, to, "status") ===
-                  "VISITED"
+                "VISITED"
                   ? true
                   : false
               }
@@ -134,9 +133,8 @@ const ContactsApi = (props) => {
           <TableCell>
             {findValueEnrollments(enrollments[0], from, to, "dueDate")}
           </TableCell>
-          <TableCell dataTest="dhis2-uicore-tablecell" dense>
+          <TableCell dense>
             <Button
-              dataTest="dhis2-uicore-button"
               name="Primary button"
               onClick={() =>
                 window.open(
