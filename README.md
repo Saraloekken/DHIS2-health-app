@@ -8,11 +8,11 @@ Our motivation for this project is to learn more about application design and de
 We want to to improve ourselves on the use of Git, Javascript, React, CSS and the use of APIs. 
 
 ## Technologies: 
-We retrieve trackedEntityInstances in the datafiles indexCasesApi, contactsApi and relationsApi. For each of the files, data is used in components where data is added to a list. This list is created in the Relations, Index Cases and Contacts page, using the DataTable component.
+We retrieve trackedEntityInstances in the datafiles `IndexCasesApi`, `ContactsApi` and `RelationsApi`. For each of the files, data is used in components where data is added to a list. This list is created in the the pages `Index Cases`, `Contacts`, and `Index Cases and Contacts` using the `DataTable` component.
 
-Data is filtered in the Filters component, by clicking a new field in the menu, the "from" and "two" state variables are updated in the Contacts, Index cases and relations pages. By clicking custom and selecting dates in the calendars, the DatePicker component is being used.
+Data is filtered in the `Filters` component, by clicking a new field in the menu, the "from" and "two" state variables are updated in the `Contacts`, `Index Cases` and `Relations` (Index Cases and Contacts) pages. By clicking custom and selecting dates in the calendars, the DatePicker component is being used.
 
-When you click "view contacts" in relationsApi, index case data will be sent to ModalApi, where a table is placed in a modal. Data for this table is created in ContactsApi.
+When you click "view contacts" in `RelationsApi`, index case data will be sent to `ModalApi`, where a table is placed in a modal. Data for this table is created in `ContactsApi`.
 
 React.js - https://reactjs.org/  
 DHIS2 - https://www.dhis2.org/
