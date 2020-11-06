@@ -1,4 +1,4 @@
-#Working list 
+## Working list 
 
 ## Description: 
 This project is created in regards to the Covid-19 pandemic, and is an app made for health-workers and contact tracers to help keep track of the positive registered cases as well as the contacts of these cases. This version currently handles the data for Nesodden municipality. 
@@ -12,20 +12,20 @@ React.js - https://reactjs.org/
 DHIS2 - https://www.dhis2.org/
 
 ## Main functionalities:  
-Overview of index cases 
-Overview of contacts
-Overview of both
-Directed to data entry form 
-Generate overview of workload
-“Sub-view” with contacts linked to same case
+Overview of index cases  
+Overview of contacts  
+Overview of both  
+Directed to data entry form   
+Generate overview of workload  
+“Sub-view” with contacts linked to same case  
 
 ## Extras: 
-Keep track of the cases and contacts they need to follow up on
-Lists of persons they should contact at any given time
-Sort different cases and contacts by time frames
-Simplify the work process of the workers 
-User-friendly interface 
-Easy and simple! 
+Keep track of the cases and contacts they need to follow up on  
+Lists of persons they should contact at any given time  
+Sort different cases and contacts by time frames  
+Simplify the work process of the workers  
+User-friendly interface  
+Easy and simple!   
 
 ## Missing functionality/possible improvements: 
 Previous follow-ups/completed 
@@ -35,14 +35,15 @@ A status filter that filters on: "All", "Completed", "Active" and "Scheduled"
 Save filter for session 
 
 ## API-reference: 
-Getting a list of index cases and contacts:
+Getting a list of index cases and contacts:  
 /api/trackedEntityInstances
 
-Getting a list of required and optional attributes:
+Getting a list of required and optional attributes:  
 /api/trackedEntityAttributes/
 
 ## How to use: 
 This application is divided into three different pages.  
+
 Index Cases shows a view of contacts that have tested positive for Covid-19, and is to be handles specifically by health workers with a medical background.  
 Contacts consists of people who have been close to a positive case, and will mainly be handled by contact tracers.  
 Relations shows a combination of these two. If you click on an index case, a modal with the people they have been in contact with will show up.  
