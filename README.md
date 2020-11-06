@@ -1,4 +1,4 @@
-## Working list 
+# Working list 
 
 ## Description: 
 This project is created in regards to the Covid-19 pandemic, and is an app made for health workers and contact tracers to help keep track of the positive registered cases as well as the contacts of these cases. This version currently handles the data for Nesodden municipality. 
@@ -16,6 +16,10 @@ When you click "view contacts" in `RelationsApi`, index case data will be sent t
 
 React.js - https://reactjs.org/  
 DHIS2 - https://www.dhis2.org/
+
+## Layout
+![Image of "Index Cases and Contacts" page](https://i.imgur.com/lI7dkXQ.png)
+
 
 ## Main functionalities:  
 Overview of index cases  
