@@ -3,8 +3,8 @@ import { useDataQuery, useConfig } from "@dhis2/app-runtime";
 import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { InfoMessage } from "../components/InfoMessage.jsx";
 import { filterTableRelationship } from "../data/RelationsApi";
-import { TableCell, TableRow, Button, CircularLoader, Tag } from "@dhis2/ui";
-import styles from "../App.module.css";
+import { TableCell, TableRow, Button, CircularLoader } from "@dhis2/ui";
+import { StatusColourApi } from "../data/StatusColourApi.js";
 import {
   findOverdue,
   findValueAttributes,
@@ -103,32 +103,11 @@ const ContactsApi = (props) => {
             {findValueAttributes(attributes, "phone_local")}
           </TableCell>
           <TableCell>
-            <Tag
-              className={
-                !isOverdue &&
-                findValueEnrollments(enrollments[0], from, to, "status") ===
-                  "ACTIVE" &&
-                styles.positive
-              }
-              neutral={
-                !isOverdue &&
-                findValueEnrollments(enrollments[0], from, to, "status") ===
-                  "SCHEDULE"
-                  ? true
-                  : false
-              }
-              default={
-                findValueEnrollments(enrollments[0], from, to, "status") ===
-                "VISITED"
-                  ? true
-                  : false
-              }
-              negative={isOverdue}
-            >
-              {isOverdue
-                ? "OVERDUE"
-                : findValueEnrollments(enrollments[0], from, to, "status")}
-            </Tag>
+            <StatusColourApi
+              enrollments={enrollments[0]}
+              from={props.from}
+              to={props.to}
+            />
           </TableCell>
           <TableCell>
             {findValueEnrollments(enrollments[0], from, to, "dueDate")}
